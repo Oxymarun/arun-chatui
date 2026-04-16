@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arun Sharma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0d1117;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Starfield */
+        #stars-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Layout */
+        .chat-wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 48px 20px 120px;
+        }
+
+        /* Avatar + name header */
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease 0.2s forwards;
+        }
+
+        .avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: #c0392b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            border: 2px solid rgba(192,57,43,0.4);
+            box-shadow: 0 0 16px rgba(192,57,43,0.3);
+        }
+
+        .header-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.04em;
+        }
+        .header-sub {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 2px;
+        }
+
+        /* Messages */
+        .msg {
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .msg.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bubble {
+            display: inline-block;
+            max-width: 100%;
+            padding: 12px 16px;
+            border-radius: 4px 18px 18px 18px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #e8eaf0;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+        }
+
+        .bubble strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .bubble.highlight {
+            background: rgba(192,57,43,0.12);
+            border-color: rgba(192,57,43,0.25);
+        }
+
+        /* Topic buttons */
+        .topics {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            margin-top: 16px;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .topics.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .topic-btn {
+            padding: 10px 20px;
+            background: #c0392b;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.02em;
+        }
+        .topic-btn:hover {
+            background: #e74c3c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(231,76,60,0.35);
+        }
+        .topic-btn.active {
+            background: #e74c3c;
+            box-shadow: 0 0 0 2px rgba(231,76,60,0.4);
+        }
+
+        /* Reply block that expands after button click */
+        .reply-block {
+            display: none;
+            margin-top: 10px;
+        }
+        .reply-block.open {
+            display: block;
+        }
+
+        /* Tag chips inside bubbles */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .chip {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(231,76,60,0.35);
+            color: #e74c3c;
+            background: rgba(192,57,43,0.08);
+        }
+
+        /* Timeline mini inside bubble */
+        .mini-timeline { margin-top: 8px; }
+        .mini-tl-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .mini-tl-item:last-child { border-bottom: none; }
+        .mini-tl-year {
+            font-size: 11px;
+            color: #e74c3c;
+            font-weight: 700;
+            min-width: 36px;
+            padding-top: 2px;
+        }
+        .mini-tl-text { font-size: 13px; color: #c8ccd4; line-height: 1.5; }
+        .mini-tl-text span { color: #fff; font-weight: 600; }
+
+        /* Typing indicator */
+        .typing {
+            gap: 4px;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px 18px 18px 18px;
+            display: inline-flex;
+            margin-bottom: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .typing.show { opacity: 1; }
+        .typing span {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            animation: bounce 1.2s infinite;
+        }
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(192,57,43,0.3); border-radius: 2px; }
+    </style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+
+<div class="chat-wrap">
+
+    <!-- Header -->
+    <div class="chat-header">
+        <div class="avatar">🧑‍💼</div>
+        <div>
+            <div class="header-name">Arun Sharma</div>
+            <div class="header-sub">Chief of Staff · Strategy & Growth</div>
+        </div>
+    </div>
+
+    <!-- Message 1 -->
+    <div class="msg" id="m1">
+        <div class="bubble">
+            Hey! I'm Arun. 👋
+        </div>
+    </div>
+
+    <!-- Message 2 -->
+    <div class="msg" id="m2">
+        <div class="bubble">
+            I'm a strategy operator — I take messy 0-to-1 bets and turn them into structured, scalable businesses.
+        </div>
+    </div>
+
+    <!-- Message 3 -->
+    <div class="msg" id="m3">
+        <div class="bubble highlight">
+            Last few years: scaled micro-drama at <strong>PocketFM</strong> to <strong>$1.5M MRR</strong>, built a cross-sell P&L from zero at <strong>InsuranceDekho</strong>, and closed a <strong>$20M Series A</strong> at MPL with Sequoia.
+        </div>
+    </div>
+
+    <!-- Message 4 -->
+    <div class="msg" id="m4">
+        <div class="bubble">
+            What do you want to know about me?
+        </div>
+    </div>
+
+    <!-- Topic buttons -->
+    <div class="topics" id="topics">
+        <button class="topic-btn" onclick="openTopic('work', event)">💼 Work</button>
+        <button class="topic-btn" onclick="openTopic('skills', event)">⚡ Skills</button>
+        <button class="topic-btn" onclick="openTopic('education', event)">🎓 Education</button>
+        <button class="topic-btn" onclick="openTopic('about', event)">🙋 About me</button>
+        <button class="topic-btn" onclick="openTopic('contact', event)">📬 Let's connect</button>
+    </div>
+
+    <!-- Work reply -->
+    <div class="reply-block" id="reply-work">
+        <div class="msg" style="margin-top:16px">
+            <div class="bubble">
+                Sure! Here's my journey so far:
+            </div>
+        </div>
+        <div class="msg">
+            <div class="bubble highlight">
+                <div class="mini-timeline">
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">2025–26</div>
+                        <div class="mini-tl-text"><span>PocketFM</span> — Early Strategy & Growth. Scaled micro-drama to $1.5M MRR & 500K DAU in 4 months.</div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">2025–26</div>
+                        <div class="mini-tl-text"><span>Physical-AI Startup</span> — Chief of Staff. Series A fundraise, built team 0→20.</div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">2023–25</div>
+                        <div class="mini-tl-text"><span>InsuranceDekho</span> — Sr. Assoc Director / CoS. Built cross-sell P&L: ₹100+ Cr AGWP from scratch.</div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">2021–23</div>
+                        <div class="mini-tl-text"><span>MPL / Mayhem Studios</span> — Chief of Staff. Closed $20M Series A with Sequoia. 1.7M+ DAU.</div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">2020</div>
+                        <div class="mini-tl-text"><span>BCG</span> — Strategy Consulting. Influenced 3000+ execs at 2 NASSCOM conferences.</div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">2017–19</div>
+                        <div class="mini-tl-text"><span>Novartis</span> — Data & Strategy Analyst. Built physician segmentation for $1B+ drug portfolio.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills reply -->
+    <div class="reply-block" id="reply-skills">
+        <div class="msg" style="margin-top:16px">
+            <div class="bubble">
+                I operate at the intersection of strategy, growth, and execution. Here's what I bring:
+            </div>
+        </div>
+        <div class="msg">
+            <div class="bubble highlight">
+                <div class="chips">
+                    <span class="chip">0-to-1 Scaling</span>
+                    <span class="chip">GTM Strategy</span>
+                    <span class="chip">Fundraising</span>
+                    <span class="chip">P&L Ownership</span>
+                    <span class="chip">Chief of Staff</span>
+                    <span class="chip">OKR Design</span>
+                    <span class="chip">Cross-functional Leadership</span>
+                    <span class="chip">Content Marketing</span>
+                    <span class="chip">Data Analytics</span>
+                    <span class="chip">SQL / Power BI</span>
+                    <span class="chip">Program Management</span>
+                    <span class="chip">Team Building</span>
+                </div>
+            </div>
+        </div>
+        <div class="msg">
+            <div class="bubble">
+                7+ years across consumer tech, gaming, insurance, and consulting. I thrive where chaos meets opportunity.
+            </div>
+        </div>
+    </div>
+
+    <!-- Education reply -->
+    <div class="reply-block" id="reply-education">
+        <div class="msg" style="margin-top:16px">
+            <div class="bubble highlight">
+                <div class="mini-timeline">
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">2019–21</div>
+                        <div class="mini-tl-text"><span>IIM Calcutta</span> — MBA. Institute Rank 20/480. CAT 99.72%ile. National Runners Up in Accenture B-School Challenge.</div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">2013–17</div>
+                        <div class="mini-tl-text"><span>NITK Surathkal</span> — B.Tech. Silver Medalist, 2nd/100 (9.2/10). "Best Outgoing Student". MITACS International Scholar.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About reply -->
+    <div class="reply-block" id="reply-about">
+        <div class="msg" style="margin-top:16px">
+            <div class="bubble">
+                Outside of work, I'm an <strong>Everest Base Camp trekker</strong> (5364m, + three 5000m+ peaks) and state-level basketball player. 🏔️
+            </div>
+        </div>
+        <div class="msg">
+            <div class="bubble">
+                I'm deep into the Indian VC ecosystem, build side projects with Claude, and read a lot of non-fiction. Growth-X Fellow. 📚
+            </div>
+        </div>
+        <div class="msg">
+            <div class="bubble highlight">
+                Currently: looking for <strong>Chief of Staff</strong>, <strong>Strategy</strong>, and <strong>0-to-1</strong> roles at ambitious startups. Available now. 🟢
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact reply -->
+    <div class="reply-block" id="reply-contact">
+        <div class="msg" style="margin-top:16px">
+            <div class="bubble">
+                Would love to connect! Here's where to find me:
+            </div>
+        </div>
+        <div class="msg">
+            <div class="bubble highlight">
+                <div class="mini-timeline">
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">📧</div>
+                        <div class="mini-tl-text"><a href="mailto:aruns2021@email.iimcal.ac.in" style="color:#e74c3c;text-decoration:none">aruns2021@email.iimcal.ac.in</a></div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">📱</div>
+                        <div class="mini-tl-text"><a href="tel:+919663338493" style="color:#e74c3c;text-decoration:none">+91-9663338493</a></div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">💼</div>
+                        <div class="mini-tl-text"><a href="https://www.linkedin.com/in/arunsharma281995/" target="_blank" style="color:#e74c3c;text-decoration:none">LinkedIn → Arun Sharma</a></div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">📄</div>
+                        <div class="mini-tl-text"><a href="https://oxymarun.github.io/arun-cv/" target="_blank" style="color:#e74c3c;text-decoration:none">Full CV website →</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Starfield
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = Math.max(document.body.scrollHeight, window.innerHeight);
+    }
+
+    function initStars() {
+        stars = [];
+        const count = Math.floor((canvas.width * canvas.height) / 4000);
+        for (let i = 0; i < count; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.4 + 0.2,
+                baseAlpha: Math.random() * 0.5 + 0.2,
+                phase: Math.random() * Math.PI * 2,
+                phaseSpeed: Math.random() * 0.02 + 0.005
+            });
+        }
+    }
+
+    function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+            s.phase += s.phaseSpeed;
+            const alpha = s.baseAlpha + 0.2 * Math.sin(s.phase);
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${Math.min(0.85, Math.max(0.1, alpha))})`;
+            ctx.fill();
+        });
+        requestAnimationFrame(drawStars);
+    }
+
+    resizeCanvas();
+    initStars();
+    drawStars();
+    window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+
+    // Sequential message reveal
+    const messages = ['m1', 'm2', 'm3', 'm4'];
+    const delays = [300, 900, 1600, 2400];
+
+    messages.forEach((id, i) => {
+        setTimeout(() => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('show');
+        }, delays[i]);
+    });
+
+    setTimeout(() => {
+        const topics = document.getElementById('topics');
+        if (topics) topics.classList.add('show');
+    }, 3000);
+
+    // Topic expand
+    function openTopic(topic, event) {
+        const btn = event.currentTarget;
+        const replyId = 'reply-' + topic;
+        const reply = document.getElementById(replyId);
+
+        // Toggle
+        if (reply.classList.contains('open')) {
+            reply.classList.remove('open');
+            btn.classList.remove('active');
+            reply.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+            return;
+        }
+
+        reply.classList.add('open');
+        btn.classList.add('active');
+
+        // Stagger messages in
+        const msgs = reply.querySelectorAll('.msg');
+        msgs.forEach((m, i) => {
+            setTimeout(() => m.classList.add('show'), i * 150);
+        });
+
+        // Scroll to reply
+        setTimeout(() => {
+            reply.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+
+        // Resize canvas only — no star reinit
+        setTimeout(() => { resizeCanvas(); }, 400);
+    }
+</script>
+
+</body>
+</html>
