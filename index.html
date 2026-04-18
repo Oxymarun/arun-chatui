@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +10,78 @@
     <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --accent-rgb: 192, 57, 43;
+            --accent: #c0392b;
+            --accent-hover: #e74c3c;
+
+            /* Dark theme (default) */
+            --bg: #0d1117;
+            --bubble-bg: rgba(255,255,255,0.06);
+            --bubble-border: rgba(255,255,255,0.08);
+            --bubble-highlight-bg: rgba(192,57,43,0.15);
+            --bubble-highlight-border: rgba(192,57,43,0.2);
+            --text-primary: #e8eaf0;
+            --text-secondary: #c8ccd4;
+            --text-muted: rgba(255,255,255,0.4);
+            --header-bg: rgba(13,17,23,0.8);
+            --reaction-bg: rgba(13,17,23,0.9);
+            --reaction-border: rgba(255,255,255,0.1);
+            --typing-dot: rgba(255,255,255,0.4);
+            --typing-bg: rgba(255,255,255,0.06);
+            --typing-border: rgba(255,255,255,0.08);
+            --scrollbar-thumb: rgba(192,57,43,0.3);
+            --tl-border: rgba(255,255,255,0.05);
+
+            --chip-border: rgba(231,76,60,0.35);
+            --chip-bg: rgba(192,57,43,0.08);
+            --sub-btn-color: #e74c3c;
+            --sub-btn-border: rgba(231,76,60,0.4);
+            --sub-btn-hover-bg: rgba(231,76,60,0.12);
+            --header-btn-bg: rgba(255,255,255,0.08);
+            --header-btn-border: rgba(255,255,255,0.12);
+            --header-btn-color: rgba(255,255,255,0.7);
+            --header-btn-hover-bg: rgba(255,255,255,0.14);
+            --star-color: 255,255,255;
+        }
+
+        [data-theme="light"] {
+            --bg: #f0f2f5;
+            --bubble-bg: rgba(255,255,255,0.92);
+            --bubble-border: rgba(0,0,0,0.07);
+            --bubble-highlight-bg: rgba(192,57,43,0.08);
+            --bubble-highlight-border: rgba(192,57,43,0.18);
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a5060;
+            --text-muted: rgba(0,0,0,0.4);
+            --header-bg: rgba(240,242,245,0.92);
+            --reaction-bg: rgba(255,255,255,0.96);
+            --reaction-border: rgba(0,0,0,0.1);
+            --typing-dot: rgba(0,0,0,0.35);
+            --typing-bg: rgba(255,255,255,0.88);
+            --typing-border: rgba(0,0,0,0.07);
+            --scrollbar-thumb: rgba(192,57,43,0.3);
+            --tl-border: rgba(0,0,0,0.06);
+            --chip-border: rgba(192,57,43,0.3);
+            --chip-bg: rgba(192,57,43,0.06);
+            --sub-btn-color: #c0392b;
+            --sub-btn-border: rgba(192,57,43,0.35);
+            --sub-btn-hover-bg: rgba(192,57,43,0.08);
+            --header-btn-bg: rgba(0,0,0,0.06);
+            --header-btn-border: rgba(0,0,0,0.1);
+            --header-btn-color: rgba(0,0,0,0.55);
+            --header-btn-hover-bg: rgba(0,0,0,0.1);
+            --star-color: 100,110,130;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #0d1117;
+            background: var(--bg);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+            transition: background 0.3s ease;
         }
 
         /* Starfield */
@@ -38,7 +103,7 @@
         .nebula-1 {
             width: 35vw; height: 35vw;
             left: 15%; top: 8%;
-            background: radial-gradient(circle, rgba(192,57,43,0.05) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(var(--accent-rgb),0.05) 0%, transparent 70%);
         }
         .nebula-2 {
             width: 40vw; height: 40vw;
@@ -63,7 +128,7 @@
             margin-bottom: 28px;
             opacity: 0;
             animation: fadeIn 0.6s ease 0.2s forwards;
-            background: rgba(13,17,23,0.8);
+            background: var(--header-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 12px;
@@ -83,21 +148,21 @@
             color: #fff;
             letter-spacing: 0.05em;
             flex-shrink: 0;
-            border: 2px solid rgba(192,57,43,0.4);
-            box-shadow: 0 0 20px rgba(192,57,43,0.6);
+            border: 2px solid rgba(var(--accent-rgb),0.4);
+            box-shadow: 0 0 20px rgba(var(--accent-rgb),0.6);
         }
 
         .header-name {
             font-size: 13px;
             font-weight: 600;
-            color: #fff;
+            color: var(--text-primary);
             letter-spacing: 0.04em;
             margin: 0;
             line-height: normal;
         }
         .header-sub {
             font-size: 11px;
-            color: rgba(255,255,255,0.4);
+            color: var(--text-muted);
             margin-top: 2px;
             display: flex;
             align-items: center;
@@ -116,6 +181,52 @@
         @keyframes pulse-dot {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        /* Header action buttons (call + theme toggle) */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .header-action-btn {
+            height: 36px;
+            padding: 0 12px;
+            border-radius: 10px;
+            background: var(--header-btn-bg);
+            border: 1px solid var(--header-btn-border);
+            color: var(--header-btn-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s, transform 0.15s;
+            text-decoration: none;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .header-action-btn .btn-icon { font-size: 15px; }
+        .header-action-btn:hover {
+            background: var(--header-btn-hover-bg);
+            transform: scale(1.05);
+        }
+        .header-action-btn:active {
+            transform: scale(0.95);
+        }
+        .header-action-btn.call-btn {
+            background: rgba(34,197,94,0.12);
+            border-color: rgba(34,197,94,0.25);
+            color: #22c55e;
+        }
+        .header-action-btn.call-btn:hover {
+            background: rgba(34,197,94,0.2);
         }
 
         /* Messages */
@@ -137,28 +248,28 @@
             border-radius: 4px 18px 18px 18px;
             font-size: 15px;
             line-height: 1.6;
-            color: #e8eaf0;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-primary);
+            background: var(--bubble-bg);
+            border: 1px solid var(--bubble-border);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             position: relative;
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
         }
 
         @supports not (backdrop-filter: blur(1px)) {
-            .bubble { background: rgba(255,255,255,0.07); }
-            .typing { background: rgba(255,255,255,0.07); }
+            .bubble { background: var(--bubble-bg); }
         }
 
         .bubble strong {
-            color: #e74c3c;
+            color: var(--accent-hover);
             font-weight: 600;
         }
 
         .bubble.highlight {
-            background: rgba(192,57,43,0.15);
-            border-color: rgba(192,57,43,0.2);
+            background: var(--bubble-highlight-bg);
+            border-color: var(--bubble-highlight-border);
         }
 
         /* Topic buttons */
@@ -195,14 +306,45 @@
         .topic-btn:hover {
             background: #e74c3c;
             transform: translateY(-1px);
-            box-shadow: 0 0 12px rgba(192,57,43,0.3), 0 4px 16px rgba(231,76,60,0.35);
+            box-shadow: 0 0 12px rgba(var(--accent-rgb),0.3), 0 4px 16px rgba(231,76,60,0.35);
         }
         .topic-btn:active {
             transform: scale(0.97);
         }
         .topic-btn.active {
             background: #e74c3c;
-            box-shadow: 0 0 0 2px rgba(231,76,60,0.4), 0 0 16px rgba(192,57,43,0.3);
+            box-shadow: 0 0 0 2px rgba(231,76,60,0.4), 0 0 16px rgba(var(--accent-rgb),0.3);
+        }
+
+        /* Sub-option buttons inside chat bubble */
+        .sub-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .sub-btn {
+            padding: 7px 14px;
+            background: transparent;
+            color: var(--sub-btn-color);
+            border: 1px solid var(--sub-btn-border);
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.02em;
+        }
+        .sub-btn:hover {
+            background: var(--sub-btn-hover-bg);
+            border-color: rgba(231,76,60,0.7);
+            transform: translateY(-1px);
+        }
+        .sub-btn.active {
+            background: #c0392b;
+            border-color: #c0392b;
+            color: #fff;
         }
 
         /* Reply block that expands after button click */
@@ -211,6 +353,14 @@
             margin-top: 10px;
         }
         .reply-block.open {
+            display: block;
+        }
+
+        /* Sub-reply blocks inside a reply block */
+        .sub-reply {
+            display: none;
+        }
+        .sub-reply.open {
             display: block;
         }
 
@@ -226,9 +376,9 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: 500;
-            border: 1px solid rgba(231,76,60,0.35);
-            color: #e74c3c;
-            background: rgba(192,57,43,0.08);
+            border: 1px solid var(--chip-border);
+            color: var(--accent-hover);
+            background: var(--chip-bg);
         }
 
         /* Timeline mini inside bubble */
@@ -237,8 +387,10 @@
             display: flex;
             gap: 12px;
             align-items: flex-start;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 8px 4px;
+            border-bottom: 1px solid var(--tl-border);
+            border-radius: 6px;
+            transition: opacity 0.2s ease, background 0.2s ease, padding 0.2s ease;
         }
         .mini-tl-item:last-child { border-bottom: none; }
         .mini-tl-year {
@@ -248,16 +400,16 @@
             min-width: 36px;
             padding-top: 2px;
         }
-        .mini-tl-text { font-size: 13px; color: #c8ccd4; line-height: 1.5; }
-        .mini-tl-text span { color: #fff; font-weight: 600; }
+        .mini-tl-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+        .mini-tl-text span { color: var(--text-primary); font-weight: 600; }
 
         /* Typing indicator */
         .typing {
             gap: 4px;
             align-items: center;
             padding: 12px 16px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: var(--typing-bg);
+            border: 1px solid var(--typing-border);
             border-radius: 4px 18px 18px 18px;
             display: inline-flex;
             margin-bottom: 10px;
@@ -268,7 +420,7 @@
 
         .typing-label {
             font-size: 11px;
-            color: rgba(255,255,255,0.4);
+            color: var(--text-muted);
             margin-right: 6px;
             font-style: italic;
         }
@@ -276,7 +428,7 @@
         .typing span:not(.typing-label) {
             width: 6px; height: 6px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.4);
+            background: var(--typing-dot);
             animation: bounce 1.2s infinite;
         }
         .typing span:not(.typing-label):nth-of-type(2) { animation-delay: 0.2s; }
@@ -294,7 +446,7 @@
         /* Read receipt */
         .receipt {
             font-size: 10px;
-            color: rgba(255,255,255,0.25);
+            color: var(--text-muted);
             text-align: right;
             margin-top: 4px;
             opacity: 0;
@@ -307,10 +459,10 @@
             position: absolute;
             bottom: -40px;
             left: 0;
-            background: rgba(13,17,23,0.9);
+            background: var(--reaction-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--reaction-border);
             border-radius: 20px;
             padding: 4px 8px;
             gap: 4px;
@@ -326,7 +478,7 @@
             font-size: 14px;
             padding: 4px 6px;
             border-radius: 12px;
-            color: #c8ccd4;
+            color: var(--text-secondary);
             min-width: 44px;
             min-height: 44px;
             display: flex;
@@ -334,31 +486,131 @@
             justify-content: center;
             transition: background 0.15s;
         }
-        .reaction-btn:hover { background: rgba(255,255,255,0.08); }
-        .reaction-count { font-size: 11px; margin-left: 3px; color: #c8ccd4; }
-
-        /* Timestamp tooltip */
-        .timestamp {
-            position: absolute;
-            bottom: -20px;
-            right: 0;
-            font-size: 10px;
-            color: rgba(255,255,255,0.3);
-            white-space: nowrap;
-            pointer-events: none;
-        }
+        .reaction-btn:hover { background: var(--bubble-bg); }
+        .reaction-count { font-size: 11px; margin-left: 3px; color: var(--text-secondary); }
 
         /* Mobile */
         @media (max-width: 480px) {
             .topic-btn { font-size: 12px; padding: 8px 16px; }
             .bubble { font-size: 13px; }
             .chat-wrap { padding: 32px 16px 100px; }
+            .sub-btn { font-size: 11px; padding: 6px 12px; }
+            .header-action-btn { height: 32px; padding: 0 10px; font-size: 11px; }
+            .header-action-btn .btn-icon { font-size: 13px; }
+            .header-action-btn .btn-label { display: none; }
         }
+
+        /* ===== Feature 1: Persona chips ===== */
+        .persona-bar {
+            display: flex;
+            gap: 8px;
+            margin: 14px 0 4px;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .persona-bar.show { opacity: 1; transform: translateY(0); }
+        .persona-chip {
+            padding: 7px 14px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+            font-family: 'Inter', sans-serif;
+        }
+        .persona-chip:hover {
+            border-color: rgba(var(--accent-rgb),0.5);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+        .persona-chip.active {
+            background: rgba(var(--accent-rgb),0.12);
+            border-color: rgba(var(--accent-rgb),0.5);
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        /* ===== Feature 2: KPI toggle ===== */
+        .metrics-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            margin-bottom: 10px;
+            background: transparent;
+            border: 1px solid rgba(var(--accent-rgb),0.3);
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #e74c3c;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .metrics-toggle:hover {
+            background: rgba(var(--accent-rgb),0.08);
+            border-color: rgba(var(--accent-rgb),0.5);
+        }
+        .metric {
+            transition: background 0.25s, color 0.25s, padding 0.25s, border-radius 0.25s;
+            white-space: nowrap;
+        }
+        .metrics-visible .metric {
+            background: rgba(var(--accent-rgb),0.18);
+            color: #e74c3c;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* ===== Feature 3: Timeline scrubber ===== */
+        .tl-scrubber {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--tl-border);
+        }
+        .tl-scrubber-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .tl-yr-current {
+            font-size: 13px;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+        .tl-scrubber input[type="range"] {
+            width: 100%;
+            accent-color: #c0392b;
+            cursor: pointer;
+            display: block;
+        }
+        .tl-yr-ends {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .mini-tl-item.tl-active {
+            opacity: 1;
+            background: rgba(var(--accent-rgb),0.08);
+            padding: 8px 8px;
+        }
+        .mini-tl-item.tl-dim { opacity: 0.25; }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(192,57,43,0.3); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 2px; }
     </style>
 </head>
 <body>
@@ -375,6 +627,10 @@
         <div>
             <h1 class="header-name">Arun Sharma</h1>
             <div class="header-sub"><span class="online-dot"></span>Available now · Strategy & Growth</div>
+        </div>
+        <div class="header-actions">
+            <a href="tel:+919663338493" class="header-action-btn call-btn" title="Call Arun" aria-label="Call Arun"><span class="btn-icon">📞</span><span class="btn-label">Call</span></a>
+            <button class="header-action-btn" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle theme" onclick="toggleTheme()"><span class="btn-icon">🌙</span><span class="btn-label">Dark mode</span></button>
         </div>
     </div>
 
@@ -406,91 +662,227 @@
         </div>
     </div>
 
+    <!-- Persona chips -->
+    <div class="persona-bar" id="persona-bar">
+        <button class="persona-chip" data-persona="recruiter" onclick="selectPersona('recruiter')">👔 Recruiter</button>
+        <button class="persona-chip" data-persona="founder" onclick="selectPersona('founder')">🚀 Founder</button>
+        <button class="persona-chip" data-persona="peer" onclick="selectPersona('peer')">👋 Curious peer</button>
+    </div>
+
     <!-- Topic buttons -->
     <div class="topics" id="topics">
         <button class="topic-btn" data-topic="work" onclick="openTopic('work', event)">💼 Work</button>
         <button class="topic-btn" data-topic="skills" onclick="openTopic('skills', event)">⚡ Skills</button>
         <button class="topic-btn" data-topic="education" onclick="openTopic('education', event)">🎓 Education</button>
         <button class="topic-btn" data-topic="about" onclick="openTopic('about', event)">🙋 About me</button>
-        <button class="topic-btn" data-topic="thoughts" onclick="openTopic('thoughts', event)">💭 Thoughts</button>
         <button class="topic-btn" data-topic="built" onclick="openTopic('built', event)">🔨 Things I've Built</button>
         <button class="topic-btn" data-topic="contact" onclick="openTopic('contact', event)">📬 Let's connect</button>
     </div>
 
-    <!-- Work reply -->
+    <!-- ===== WORK reply (2-level) ===== -->
     <div class="reply-block" id="reply-work">
-        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
-        <div class="msg" style="margin-top:16px">
-            <div class="bubble" data-id="msg-work-1" data-time="just now">
-                Sure! Here's my journey so far:
+        <div class="typing" id="typing-work" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+
+        <!-- L1 prompt + sub-buttons -->
+        <div class="msg" id="submenu-work" style="margin-top:16px">
+            <div class="bubble" data-id="msg-work-menu" data-time="just now">
+                7 years, 5 companies — what aspect do you want to explore?
+                <div class="sub-buttons">
+                    <button class="sub-btn" onclick="openSubTopic('work','timeline',event)">📅 Timeline</button>
+                    <button class="sub-btn" onclick="openSubTopic('work','wins',event)">🏆 Key wins</button>
+                    <button class="sub-btn" onclick="openSubTopic('work','industries',event)">🏭 Industries</button>
+                </div>
             </div>
         </div>
-        <div class="msg">
-            <div class="bubble highlight" data-id="msg-work-2" data-time="just now">
-                <div class="mini-timeline">
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">2025–26</div>
-                        <div class="mini-tl-text"><span>PocketFM</span> — Early Strategy & Growth. Scaled micro-drama to $2M MRR & 500K DAU in 5 months.</div>
+
+        <!-- L2: Timeline -->
+        <div class="sub-reply" id="sub-work-timeline">
+            <div class="typing" id="typing-sub-work-timeline"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-work-timeline" data-time="just now">
+                    <button class="metrics-toggle" id="metrics-toggle-btn" onclick="toggleMetrics()">✦ Show impact metrics</button>
+                    <div class="mini-timeline" id="tl-metrics-container">
+                        <div class="mini-tl-item" data-start="2025" data-end="2026">
+                            <div class="mini-tl-year">2025–26</div>
+                            <div class="mini-tl-text"><span>PocketFM</span> — Early Strategy & Growth. Scaled micro-drama to <span class="metric">$2M MRR</span> &amp; <span class="metric">500K DAU</span> in 5 months.</div>
+                        </div>
+                        <div class="mini-tl-item" data-start="2025" data-end="2026">
+                            <div class="mini-tl-year">2025–26</div>
+                            <div class="mini-tl-text"><span>Physical-AI Startup</span> — Chief of Staff. Series A fundraise, built team <span class="metric">0→20</span>.</div>
+                        </div>
+                        <div class="mini-tl-item" data-start="2023" data-end="2025">
+                            <div class="mini-tl-year">2023–25</div>
+                            <div class="mini-tl-text"><span>InsuranceDekho</span> — Sr. Assoc Director / CoS. Built cross-sell P&amp;L: <span class="metric">₹100+ Cr AGWP</span> from scratch.</div>
+                        </div>
+                        <div class="mini-tl-item" data-start="2021" data-end="2023">
+                            <div class="mini-tl-year">2021–23</div>
+                            <div class="mini-tl-text"><span>MPL / Mayhem Studios</span> — Chief of Staff. Closed <span class="metric">$20M Series A</span> with Sequoia. <span class="metric">1.7M+ DAU</span>.</div>
+                        </div>
+                        <div class="mini-tl-item" data-start="2020" data-end="2020">
+                            <div class="mini-tl-year">2020</div>
+                            <div class="mini-tl-text"><span>BCG</span> — Strategy Consulting. Influenced <span class="metric">3000+ execs</span> at 2 NASSCOM conferences.</div>
+                        </div>
+                        <div class="mini-tl-item" data-start="2017" data-end="2019">
+                            <div class="mini-tl-year">2017–19</div>
+                            <div class="mini-tl-text"><span>Novartis</span> — Data & Strategy Analyst. Built physician segmentation for <span class="metric">$1B+</span> drug portfolio.</div>
+                        </div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">2025–26</div>
-                        <div class="mini-tl-text"><span>Physical-AI Startup</span> — Chief of Staff. Series A fundraise, built team 0→20.</div>
+                    <div class="tl-scrubber">
+                        <div class="tl-scrubber-header">
+                            <span>Time-travel: <span class="tl-yr-current" id="tl-yr">—</span></span>
+                            <span>slide to explore</span>
+                        </div>
+                        <input type="range" min="2017" max="2026" value="2026" id="tl-slider" oninput="scrubTimeline(+this.value)">
+                        <div class="tl-yr-ends"><span>2017</span><span>2026</span></div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">2023–25</div>
-                        <div class="mini-tl-text"><span>InsuranceDekho</span> — Sr. Assoc Director / CoS. Built cross-sell P&L: ₹100+ Cr AGWP from scratch.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- L2: Key wins -->
+        <div class="sub-reply" id="sub-work-wins">
+            <div class="typing" id="typing-sub-work-wins"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-work-wins-1" data-time="just now">
+                    Numbers I'm proud of:
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-work-wins-2" data-time="just now">
+                    <div class="mini-timeline">
+                        <div class="mini-tl-item">
+                            <div class="mini-tl-year">📈</div>
+                            <div class="mini-tl-text"><span>$2M MRR in 5 months</span> — Scaled PocketFM's micro-drama vertical from 0 to 500K DAU.</div>
+                        </div>
+                        <div class="mini-tl-item">
+                            <div class="mini-tl-year">💰</div>
+                            <div class="mini-tl-text"><span>₹100+ Cr AGWP from scratch</span> — Built InsuranceDekho's cross-sell P&L end-to-end.</div>
+                        </div>
+                        <div class="mini-tl-item">
+                            <div class="mini-tl-year">🤝</div>
+                            <div class="mini-tl-text"><span>$20M Series A with Sequoia</span> — Closed fundraise at MPL / Mayhem Studios. 1.7M+ DAU.</div>
+                        </div>
+                        <div class="mini-tl-item">
+                            <div class="mini-tl-year">🚀</div>
+                            <div class="mini-tl-text"><span>0→20 team in months</span> — Built org from scratch at a Physical-AI startup while running Series A fundraise.</div>
+                        </div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">2021–23</div>
-                        <div class="mini-tl-text"><span>MPL / Mayhem Studios</span> — Chief of Staff. Closed $20M Series A with Sequoia. 1.7M+ DAU.</div>
-                    </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">2020</div>
-                        <div class="mini-tl-text"><span>BCG</span> — Strategy Consulting. Influenced 3000+ execs at 2 NASSCOM conferences.</div>
-                    </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">2017–19</div>
-                        <div class="mini-tl-text"><span>Novartis</span> — Data & Strategy Analyst. Built physician segmentation for $1B+ drug portfolio.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- L2: Industries -->
+        <div class="sub-reply" id="sub-work-industries">
+            <div class="typing" id="typing-sub-work-industries"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-work-ind-1" data-time="just now">
+                    I've operated across four very different worlds:
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-work-ind-2" data-time="just now">
+                    <div class="mini-timeline">
+                        <div class="mini-tl-item">
+                            <div class="mini-tl-year">📱</div>
+                            <div class="mini-tl-text"><span>Consumer Tech & Gaming</span> — PocketFM (micro-drama), MPL / Mayhem Studios (mobile gaming). Growth + GTM + CoS.</div>
+                        </div>
+                        <div class="mini-tl-item">
+                            <div class="mini-tl-year">🛡️</div>
+                            <div class="mini-tl-text"><span>Insurance</span> — InsuranceDekho. Built revenue verticals from zero inside a fast-scaling insurtech.</div>
+                        </div>
+                        <div class="mini-tl-item">
+                            <div class="mini-tl-year">🏢</div>
+                            <div class="mini-tl-text"><span>Consulting</span> — BCG (strategy), Novartis (pharma data & analytics). Enterprise rigor before startup chaos.</div>
+                        </div>
+                        <div class="mini-tl-item">
+                            <div class="mini-tl-year">🤖</div>
+                            <div class="mini-tl-text"><span>Deep Tech / AI</span> — Physical-AI startup. CoS through 0-to-1 build, fundraise, and team scaling.</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Skills reply -->
+    <!-- ===== SKILLS reply (2-level) ===== -->
     <div class="reply-block" id="reply-skills">
-        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
-        <div class="msg" style="margin-top:16px">
-            <div class="bubble" data-id="msg-skills-1" data-time="just now">
-                I operate at the intersection of strategy, growth, and execution. Here's what I bring:
-            </div>
-        </div>
-        <div class="msg">
-            <div class="bubble highlight" data-id="msg-skills-2" data-time="just now">
-                <div class="chips">
-                    <span class="chip">0-to-1 Scaling</span>
-                    <span class="chip">GTM Strategy</span>
-                    <span class="chip">Fundraising</span>
-                    <span class="chip">P&L Ownership</span>
-                    <span class="chip">Chief of Staff</span>
-                    <span class="chip">OKR Design</span>
-                    <span class="chip">Cross-functional Leadership</span>
-                    <span class="chip">Content Marketing</span>
-                    <span class="chip">Data Analytics</span>
-                    <span class="chip">SQL / Power BI</span>
-                    <span class="chip">Program Management</span>
-                    <span class="chip">Team Building</span>
+        <div class="typing" id="typing-skills" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+
+        <!-- L1 prompt + sub-buttons -->
+        <div class="msg" id="submenu-skills" style="margin-top:16px">
+            <div class="bubble" data-id="msg-skills-menu" data-time="just now">
+                I operate at the intersection of strategy, growth, and execution. Which area?
+                <div class="sub-buttons">
+                    <button class="sub-btn" onclick="openSubTopic('skills','strategy',event)">🎯 Strategy & Growth</button>
+                    <button class="sub-btn" onclick="openSubTopic('skills','ops',event)">⚙️ Operations</button>
+                    <button class="sub-btn" onclick="openSubTopic('skills','data',event)">📊 Data & Tools</button>
                 </div>
             </div>
         </div>
-        <div class="msg">
-            <div class="bubble" data-id="msg-skills-3" data-time="just now">
-                7+ years across consumer tech, gaming, insurance, and consulting. I thrive where chaos meets opportunity.
+
+        <!-- L2: Strategy & Growth -->
+        <div class="sub-reply" id="sub-skills-strategy">
+            <div class="typing" id="typing-sub-skills-strategy"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-skills-strat" data-time="just now">
+                    <div class="chips">
+                        <span class="chip">0-to-1 Scaling</span>
+                        <span class="chip">GTM Strategy</span>
+                        <span class="chip">P&L Ownership</span>
+                        <span class="chip">OKR Design</span>
+                        <span class="chip">Fundraising</span>
+                        <span class="chip">Content Marketing</span>
+                    </div>
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-skills-strat-2" data-time="just now">
+                    Comfortable owning the full loop — from thesis to execution to metrics. Not just slides.
+                </div>
+            </div>
+        </div>
+
+        <!-- L2: Operations -->
+        <div class="sub-reply" id="sub-skills-ops">
+            <div class="typing" id="typing-sub-skills-ops"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-skills-ops" data-time="just now">
+                    <div class="chips">
+                        <span class="chip">Chief of Staff</span>
+                        <span class="chip">Cross-functional Leadership</span>
+                        <span class="chip">Program Management</span>
+                        <span class="chip">Team Building</span>
+                    </div>
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-skills-ops-2" data-time="just now">
+                    I've been the person who makes the founder's vision move — running sprints, unblocking teams, and making sure nothing falls through the cracks.
+                </div>
+            </div>
+        </div>
+
+        <!-- L2: Data & Tools -->
+        <div class="sub-reply" id="sub-skills-data">
+            <div class="typing" id="typing-sub-skills-data"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-skills-data" data-time="just now">
+                    <div class="chips">
+                        <span class="chip">Data Analytics</span>
+                        <span class="chip">SQL / Power BI</span>
+                        <span class="chip">AI-native workflows</span>
+                    </div>
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-skills-data-2" data-time="just now">
+                    Started in pharma analytics, stayed data-led. Now I build side projects with Claude and ship faster than most engineers expect.
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Education reply -->
+    <!-- Education reply (flat) -->
     <div class="reply-block" id="reply-education">
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
@@ -509,37 +901,75 @@
         </div>
     </div>
 
-    <!-- About reply -->
+    <!-- ===== ABOUT reply (2-level) ===== -->
     <div class="reply-block" id="reply-about">
-        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
-        <div class="msg" style="margin-top:16px">
-            <div class="bubble" data-id="msg-about-1" data-time="just now">
-                Outside of work, I'm an <strong>Everest Base Camp trekker</strong> (5364m, + three 5000m+ peaks) and state-level basketball player. 🏔️
+        <div class="typing" id="typing-about" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+
+        <!-- L1 prompt + sub-buttons -->
+        <div class="msg" id="submenu-about" style="margin-top:16px">
+            <div class="bubble" data-id="msg-about-menu" data-time="just now">
+                There's a lot to unpack. What are you curious about?
+                <div class="sub-buttons">
+                    <button class="sub-btn" onclick="openSubTopic('about','background',event)">🏔️ Background</button>
+                    <button class="sub-btn" onclick="openSubTopic('about','adventures',event)">🧗 Adventures</button>
+                    <button class="sub-btn" onclick="openSubTopic('about','sports',event)">🏀 Sports</button>
+                    <button class="sub-btn" onclick="openSubTopic('about','now',event)">🟢 Right now</button>
+                </div>
             </div>
         </div>
-        <div class="msg">
-            <div class="bubble" data-id="msg-about-2" data-time="just now">
-                I'm deep into the Indian VC ecosystem, build side projects with Claude, and read a lot of non-fiction. Growth-X Fellow. 📚
+
+        <!-- L2: Background -->
+        <div class="sub-reply" id="sub-about-background">
+            <div class="typing" id="typing-sub-about-background"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-bg-1" data-time="just now">
+                    Grew up across Himachal Pradesh — village kid, moved schools 5 times. Missed IIT counselling because of Grandpa's health. Landed at NITK, finished 2nd/100. Somehow ended up at IIM-C and BCG. 🏔️→🏢
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-bg-2" data-time="just now">
+                    9 countries: Canada, Thailand, Turkey, Nepal, Egypt, Indonesia, Sri Lanka, Malaysia, Philippines. Always off-beat. ✈️
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-bg-3" data-time="just now">
+                    Deep into the Indian VC ecosystem, build side projects with Claude, read a lot of non-fiction. Growth-X Fellow. 📚
+                </div>
             </div>
         </div>
-        <div class="msg">
-            <div class="bubble highlight" data-id="msg-about-3" data-time="just now">
-                Currently: looking for <strong>Chief of Staff</strong>, <strong>Strategy</strong>, and <strong>0-to-1</strong> roles at ambitious startups. Available now. 🟢
+
+        <!-- L2: Adventures -->
+        <div class="sub-reply" id="sub-about-adventures">
+            <div class="typing" id="typing-sub-about-adventures"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-about-adv" data-time="just now">
+                    Outside work: <strong>Everest Base Camp trekker</strong> — 18-day Gokyo-Ri + EBC loop, plus two 6000m peaks (Chola Pass &amp; Kaala-Pathar). 🏔️
+                </div>
+            </div>
+        </div>
+
+        <!-- L2: Sports -->
+        <div class="sub-reply" id="sub-about-sports">
+            <div class="typing" id="typing-sub-about-sports"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-about-sports" data-time="just now">
+                    State-level basketball player since age 13. <strong>National Inter-NIT Runners Up twice</strong> (24 teams). Captain at IIM Calcutta — Gold at Inter-IIM Sangharsh. 🏀
+                </div>
+            </div>
+        </div>
+
+        <!-- L2: Right now -->
+        <div class="sub-reply" id="sub-about-now">
+            <div class="typing" id="typing-sub-about-now"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-about-now" data-time="just now">
+                    Currently: looking for <strong>Chief of Staff</strong>, <strong>Strategy</strong>, and <strong>0-to-1</strong> roles at ambitious startups. Available now. 🟢
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Thoughts reply -->
-    <div class="reply-block" id="reply-thoughts">
-        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
-        <div class="msg" style="margin-top:16px">
-            <div class="bubble" data-id="msg-thoughts-1" data-time="just now">
-                More coming soon...
-            </div>
-        </div>
-    </div>
-
-    <!-- Things I've Built reply -->
+    <!-- Things I've Built reply (flat) -->
     <div class="reply-block" id="reply-built">
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
@@ -567,7 +997,7 @@
         </div>
     </div>
 
-    <!-- Contact reply -->
+    <!-- Contact reply (flat) -->
     <div class="reply-block" id="reply-contact">
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
@@ -607,6 +1037,7 @@
     const ctx = canvas.getContext('2d');
     let stars = [];
     let animPaused = false;
+    let starIsDark = true;
 
     document.addEventListener('visibilitychange', () => {
         animPaused = document.hidden;
@@ -620,15 +1051,20 @@
     function initStars() {
         if (!ctx) return;
         stars = [];
-        const count = Math.floor((canvas.width * canvas.height) / 4000);
+        const count = Math.floor((canvas.width * canvas.height) / 3500);
         for (let i = 0; i < count; i++) {
+            const isBright = Math.random() < 0.08; // 8% are bright flash stars
             stars.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                r: Math.random() * 1.4 + 0.2,
-                baseAlpha: Math.random() * 0.5 + 0.2,
+                r: isBright ? Math.random() * 1.8 + 1.0 : Math.random() * 1.2 + 0.2,
+                baseAlpha: isBright ? 0.7 : Math.random() * 0.4 + 0.1,
+                twinkleAmp: isBright ? 0.55 : Math.random() * 0.3 + 0.1,
                 phase: Math.random() * Math.PI * 2,
-                phaseSpeed: Math.random() * 0.02 + 0.005
+                phaseSpeed: isBright
+                    ? Math.random() * 0.06 + 0.03   // flash stars pulse faster
+                    : Math.random() * 0.025 + 0.005,
+                isBright
             });
         }
     }
@@ -636,13 +1072,27 @@
     function drawStars() {
         if (!ctx || animPaused) { requestAnimationFrame(drawStars); return; }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const isDark = starIsDark;
         stars.forEach(s => {
             s.phase += s.phaseSpeed;
-            const alpha = s.baseAlpha + 0.2 * Math.sin(s.phase);
+            const alpha = s.baseAlpha + s.twinkleAmp * Math.sin(s.phase);
+            const clamped = Math.min(0.95, Math.max(0.02, alpha));
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255,255,255,${Math.min(0.85, Math.max(0.1, alpha))})`;
+            if (isDark) {
+                // bright stars get a warm tint
+                const warm = s.isBright ? `rgba(255,240,200,${clamped})` : `rgba(255,255,255,${clamped})`;
+                ctx.fillStyle = warm;
+                // glow for bright stars
+                if (s.isBright && clamped > 0.5) {
+                    ctx.shadowBlur = 6;
+                    ctx.shadowColor = `rgba(255,240,200,${clamped * 0.6})`;
+                }
+            } else {
+                ctx.fillStyle = `rgba(100,110,140,${clamped * 0.35})`;
+            }
             ctx.fill();
+            ctx.shadowBlur = 0;
         });
         requestAnimationFrame(drawStars);
     }
@@ -651,6 +1101,43 @@
     initStars();
     drawStars();
     window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+
+    // Theme toggle
+    function setThemeBtn(theme) {
+        const btn = document.getElementById('theme-toggle');
+        const icon = btn.querySelector('.btn-icon');
+        const label = btn.querySelector('.btn-label');
+        if (theme === 'light') {
+            icon.textContent = '🌙';
+            label.textContent = 'Dark mode';
+        } else {
+            icon.textContent = '☀️';
+            label.textContent = 'Light mode';
+        }
+    }
+
+    function toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.dataset.theme === 'dark';
+        html.dataset.theme = isDark ? 'light' : 'dark';
+        starIsDark = html.dataset.theme === 'dark';
+        setThemeBtn(html.dataset.theme);
+        try { localStorage.setItem('chatui_theme', html.dataset.theme); } catch(e) {}
+    }
+
+    // Restore saved theme
+    try {
+        const saved = localStorage.getItem('chatui_theme');
+        if (saved) {
+            document.documentElement.dataset.theme = saved;
+            starIsDark = saved === 'dark';
+            setThemeBtn(saved);
+        } else {
+            setThemeBtn(document.documentElement.dataset.theme);
+        }
+    } catch(e) {
+        setThemeBtn(document.documentElement.dataset.theme);
+    }
 
     // Sequential message reveal
     const messages = ['m1', 'm2', 'm3', 'm4'];
@@ -664,23 +1151,35 @@
     });
 
     setTimeout(() => {
+        const personaBar = document.getElementById('persona-bar');
+        if (personaBar) personaBar.classList.add('show');
+    }, 2750);
+
+    setTimeout(() => {
         const topics = document.getElementById('topics');
         if (topics) topics.classList.add('show');
     }, 3000);
 
-    // Topic expand
+    // Topics that use 2-level tree navigation
+    const L2_TOPICS = ['work', 'skills', 'about'];
+
     function openTopic(topic, event) {
         const btn = event.currentTarget;
-        const replyId = 'reply-' + topic;
-        const reply = document.getElementById(replyId);
+        const reply = document.getElementById('reply-' + topic);
 
         // Toggle off if already open
         if (reply.classList.contains('open')) {
             reply.classList.remove('open');
             btn.classList.remove('active');
             reply.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
-            const t = reply.querySelector('.typing');
-            if (t) { t.classList.remove('show'); }
+            reply.querySelectorAll('.sub-reply').forEach(s => {
+                s.classList.remove('open');
+                s.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+            });
+            reply.querySelectorAll('.typing').forEach(t => t.classList.remove('show'));
+            reply.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+            const receipt = reply.querySelector('.receipt');
+            if (receipt) receipt.remove();
             return;
         }
 
@@ -692,8 +1191,14 @@
             if (r && r.classList.contains('open')) {
                 r.classList.remove('open');
                 r.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
-                const dot = r.querySelector('.typing');
-                if (dot) dot.classList.remove('show');
+                r.querySelectorAll('.sub-reply').forEach(s => {
+                    s.classList.remove('open');
+                    s.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+                });
+                r.querySelectorAll('.typing').forEach(t => t.classList.remove('show'));
+                r.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+                const rec = r.querySelector('.receipt');
+                if (rec) rec.remove();
             }
         });
         document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
@@ -701,17 +1206,75 @@
         reply.classList.add('open');
         btn.classList.add('active');
 
-        // Typing indicator → then stagger messages
-        const typing = reply.querySelector('.typing');
+        if (L2_TOPICS.includes(topic)) {
+            const typing = document.getElementById('typing-' + topic);
+            if (typing) {
+                typing.classList.add('show');
+                setTimeout(() => {
+                    typing.classList.remove('show');
+                    const submenu = document.getElementById('submenu-' + topic);
+                    if (submenu) submenu.classList.add('show');
+                }, 400);
+            }
+        } else {
+            const typing = reply.querySelector('.typing');
+            if (typing) {
+                typing.classList.add('show');
+                setTimeout(() => {
+                    typing.classList.remove('show');
+                    const msgs = reply.querySelectorAll('.msg');
+                    msgs.forEach((m, i) => {
+                        setTimeout(() => m.classList.add('show'), i * 150);
+                    });
+                    const lastDelay = (msgs.length - 1) * 150 + 300;
+                    setTimeout(() => {
+                        if (!reply.querySelector('.receipt')) {
+                            const receipt = document.createElement('div');
+                            receipt.className = 'receipt';
+                            receipt.textContent = '✓✓ Seen';
+                            reply.appendChild(receipt);
+                        }
+                    }, lastDelay);
+                }, 700);
+            }
+        }
+
+        setTimeout(() => {
+            reply.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+
+        setTimeout(() => { resizeCanvas(); }, 1200);
+    }
+
+    function openSubTopic(topic, sub, event) {
+        const btn = event.currentTarget;
+        const reply = document.getElementById('reply-' + topic);
+
+        reply.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        reply.querySelectorAll('.sub-reply').forEach(s => {
+            s.classList.remove('open');
+            s.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+            s.querySelectorAll('.typing').forEach(t => t.classList.remove('show'));
+        });
+
+        const oldReceipt = reply.querySelector('.receipt');
+        if (oldReceipt) oldReceipt.remove();
+
+        const subReply = document.getElementById('sub-' + topic + '-' + sub);
+        if (!subReply) return;
+        subReply.classList.add('open');
+
+        const typing = document.getElementById('typing-sub-' + topic + '-' + sub);
         if (typing) {
             typing.classList.add('show');
             setTimeout(() => {
                 typing.classList.remove('show');
-                const msgs = reply.querySelectorAll('.msg');
+                const msgs = subReply.querySelectorAll('.msg');
                 msgs.forEach((m, i) => {
                     setTimeout(() => m.classList.add('show'), i * 150);
                 });
-                // Inject ✓✓ Seen receipt after last message
                 const lastDelay = (msgs.length - 1) * 150 + 300;
                 setTimeout(() => {
                     if (!reply.querySelector('.receipt')) {
@@ -723,18 +1286,16 @@
                 }, lastDelay);
             }, 700);
         } else {
-            const msgs = reply.querySelectorAll('.msg');
+            const msgs = subReply.querySelectorAll('.msg');
             msgs.forEach((m, i) => {
                 setTimeout(() => m.classList.add('show'), i * 150);
             });
         }
 
-        // Scroll to reply
         setTimeout(() => {
-            reply.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+            subReply.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 200);
 
-        // Resize canvas only — no star reinit
         setTimeout(() => { resizeCanvas(); }, 1200);
     }
 
@@ -758,10 +1319,15 @@
             bubble.appendChild(bar);
 
             const id = bubble.dataset.id;
+
             if (reactions[id]) {
                 Object.entries(reactions[id]).forEach(([emoji, count]) => {
-                    const btn = bar.querySelector(`[data-emoji="${emoji}"] .reaction-count`);
-                    if (btn && count > 0) btn.textContent = count;
+                    if (emoji === '_reacted') return;
+                    const btn = bar.querySelector(`[data-emoji="${emoji}"]`);
+                    if (btn && count > 0) {
+                        btn.querySelector('.reaction-count').textContent = count;
+                        if (reactions[id]?._reacted === emoji) btn.classList.add('reacted');
+                    }
                 });
             }
 
@@ -770,34 +1336,95 @@
                     e.stopPropagation();
                     const emoji = btn.dataset.emoji;
                     if (!reactions[id]) reactions[id] = {};
-                    reactions[id][emoji] = (reactions[id][emoji] || 0) + 1;
-                    btn.querySelector('.reaction-count').textContent = reactions[id][emoji];
-                    btn.classList.add('reacted');
+                    const prev = reactions[id]._reacted;
+
+                    if (prev === emoji) {
+                        reactions[id][emoji] = Math.max(0, (reactions[id][emoji] || 1) - 1);
+                        btn.querySelector('.reaction-count').textContent = reactions[id][emoji] > 0 ? reactions[id][emoji] : '';
+                        btn.classList.remove('reacted');
+                        reactions[id]._reacted = null;
+                    } else {
+                        if (prev) {
+                            reactions[id][prev] = Math.max(0, (reactions[id][prev] || 1) - 1);
+                            const oldBtn = bar.querySelector(`[data-emoji="${prev}"]`);
+                            if (oldBtn) {
+                                oldBtn.querySelector('.reaction-count').textContent = reactions[id][prev] > 0 ? reactions[id][prev] : '';
+                                oldBtn.classList.remove('reacted');
+                            }
+                        }
+                        reactions[id][emoji] = (reactions[id][emoji] || 0) + 1;
+                        btn.querySelector('.reaction-count').textContent = reactions[id][emoji];
+                        btn.classList.add('reacted');
+                        reactions[id]._reacted = emoji;
+                    }
                     saveReactions();
                 });
             });
         });
     }
 
-    // Timestamp tooltips
-    function initTimestamps() {
-        document.querySelectorAll('.bubble[data-time]').forEach(bubble => {
-            bubble.addEventListener('mouseenter', () => {
-                if (bubble.querySelector('.timestamp')) return;
-                const tip = document.createElement('span');
-                tip.className = 'timestamp';
-                tip.textContent = bubble.dataset.time;
-                bubble.appendChild(tip);
-            });
-            bubble.addEventListener('mouseleave', () => {
-                const tip = bubble.querySelector('.timestamp');
-                if (tip) tip.remove();
-            });
-        });
+    initReactions();
+
+    // ===== Feature 1: Persona chips =====
+    const PERSONAS = {
+        recruiter: { primary: 'work'  },
+        founder:   { primary: 'built' },
+        peer:      { primary: 'about' }
+    };
+
+    let activePersona = null;
+
+    function selectPersona(name) {
+        if (!PERSONAS[name]) return;
+        if (activePersona === name) return;
+        activePersona = name;
+
+        document.querySelectorAll('.persona-chip').forEach(c => c.classList.remove('active'));
+        const chip = document.querySelector('[data-persona="' + name + '"]');
+        if (chip) chip.classList.add('active');
+
+        const url = new URL(window.location);
+        url.searchParams.set('persona', name);
+        history.replaceState(null, '', url);
+
+        const btn = document.querySelector('[data-topic="' + PERSONAS[name].primary + '"]');
+        if (btn) openTopic(PERSONAS[name].primary, { currentTarget: btn });
     }
 
-    initReactions();
-    initTimestamps();
+    // Auto-select persona from URL on load
+    window.addEventListener('load', () => {
+        const p = new URLSearchParams(window.location.search).get('persona');
+        if (p && PERSONAS[p]) setTimeout(() => selectPersona(p), 3200);
+    });
+
+    // ===== Feature 2: KPI toggle =====
+    let metricsOn = false;
+
+    function toggleMetrics() {
+        metricsOn = !metricsOn;
+        const container = document.getElementById('tl-metrics-container');
+        if (container) container.classList.toggle('metrics-visible', metricsOn);
+        const btn = document.getElementById('metrics-toggle-btn');
+        if (btn) btn.textContent = metricsOn ? '✦ Hide impact metrics' : '✦ Show impact metrics';
+    }
+
+    // ===== Feature 3: Timeline scrubber =====
+    function scrubTimeline(year) {
+        const display = document.getElementById('tl-yr');
+        if (display) display.textContent = year;
+
+        document.querySelectorAll('.mini-tl-item[data-start]').forEach(item => {
+            const active = year >= +item.dataset.start && year <= +item.dataset.end;
+            item.classList.toggle('tl-active', active);
+            item.classList.toggle('tl-dim', !active);
+        });
+
+        const deg = (year - 2017) * 12;
+        document.querySelectorAll('.nebula').forEach(n => {
+            n.style.transition = 'filter 0.3s ease';
+            n.style.filter = 'hue-rotate(' + deg + 'deg)';
+        });
+    }
 </script>
 
 </body>
