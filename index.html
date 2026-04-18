@@ -28,6 +28,24 @@
             pointer-events: none;
         }
 
+        /* Nebula blobs */
+        .nebula {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .nebula-1 {
+            width: 35vw; height: 35vw;
+            left: 15%; top: 8%;
+            background: radial-gradient(circle, rgba(192,57,43,0.05) 0%, transparent 70%);
+        }
+        .nebula-2 {
+            width: 40vw; height: 40vw;
+            left: 75%; top: 65%;
+            background: radial-gradient(circle, rgba(60,40,120,0.05) 0%, transparent 70%);
+        }
+
         /* Layout */
         .chat-wrap {
             position: relative;
@@ -45,6 +63,11 @@
             margin-bottom: 28px;
             opacity: 0;
             animation: fadeIn 0.6s ease 0.2s forwards;
+            background: rgba(13,17,23,0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 12px;
         }
 
         .avatar {
@@ -61,7 +84,7 @@
             letter-spacing: 0.05em;
             flex-shrink: 0;
             border: 2px solid rgba(192,57,43,0.4);
-            box-shadow: 0 0 20px rgba(192,57,43,0.4);
+            box-shadow: 0 0 20px rgba(192,57,43,0.6);
         }
 
         .header-name {
@@ -117,7 +140,15 @@
             color: #e8eaf0;
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        @supports not (backdrop-filter: blur(1px)) {
+            .bubble { background: rgba(255,255,255,0.07); }
+            .typing { background: rgba(255,255,255,0.07); }
         }
 
         .bubble strong {
@@ -126,8 +157,8 @@
         }
 
         .bubble.highlight {
-            background: rgba(192,57,43,0.12);
-            border-color: rgba(192,57,43,0.25);
+            background: rgba(192,57,43,0.15);
+            border-color: rgba(192,57,43,0.2);
         }
 
         /* Topic buttons */
@@ -158,15 +189,20 @@
             transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
             font-family: 'Inter', sans-serif;
             letter-spacing: 0.02em;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
         .topic-btn:hover {
             background: #e74c3c;
             transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(231,76,60,0.35);
+            box-shadow: 0 0 12px rgba(192,57,43,0.3), 0 4px 16px rgba(231,76,60,0.35);
+        }
+        .topic-btn:active {
+            transform: scale(0.97);
         }
         .topic-btn.active {
             background: #e74c3c;
-            box-shadow: 0 0 0 2px rgba(231,76,60,0.4);
+            box-shadow: 0 0 0 2px rgba(231,76,60,0.4), 0 0 16px rgba(192,57,43,0.3);
         }
 
         /* Reply block that expands after button click */
@@ -229,14 +265,22 @@
             transition: opacity 0.3s;
         }
         .typing.show { opacity: 1; }
-        .typing span {
+
+        .typing-label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            margin-right: 6px;
+            font-style: italic;
+        }
+
+        .typing span:not(.typing-label) {
             width: 6px; height: 6px;
             border-radius: 50%;
             background: rgba(255,255,255,0.4);
             animation: bounce 1.2s infinite;
         }
-        .typing span:nth-child(2) { animation-delay: 0.2s; }
-        .typing span:nth-child(3) { animation-delay: 0.4s; }
+        .typing span:not(.typing-label):nth-of-type(2) { animation-delay: 0.2s; }
+        .typing span:not(.typing-label):nth-of-type(3) { animation-delay: 0.4s; }
 
         @keyframes bounce {
             0%, 60%, 100% { transform: translateY(0); }
@@ -245,6 +289,63 @@
 
         @keyframes fadeIn {
             to { opacity: 1; }
+        }
+
+        /* Read receipt */
+        .receipt {
+            font-size: 10px;
+            color: rgba(255,255,255,0.25);
+            text-align: right;
+            margin-top: 4px;
+            opacity: 0;
+            animation: fadeIn 0.3s ease 0.3s forwards;
+        }
+
+        /* Reaction bar */
+        .reaction-bar {
+            display: none;
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            background: rgba(13,17,23,0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 4px 8px;
+            gap: 4px;
+            z-index: 10;
+            white-space: nowrap;
+        }
+        .bubble:hover .reaction-bar { display: flex; }
+
+        .reaction-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 4px 6px;
+            border-radius: 12px;
+            color: #c8ccd4;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+        }
+        .reaction-btn:hover { background: rgba(255,255,255,0.08); }
+        .reaction-count { font-size: 11px; margin-left: 3px; color: #c8ccd4; }
+
+        /* Timestamp tooltip */
+        .timestamp {
+            position: absolute;
+            bottom: -20px;
+            right: 0;
+            font-size: 10px;
+            color: rgba(255,255,255,0.3);
+            white-space: nowrap;
+            pointer-events: none;
         }
 
         /* Mobile */
@@ -263,6 +364,8 @@
 <body>
 
 <canvas id="stars-canvas"></canvas>
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
 
 <div class="chat-wrap">
 
@@ -277,51 +380,53 @@
 
     <!-- Message 1 -->
     <div class="msg" id="m1">
-        <div class="bubble">
+        <div class="bubble" data-id="msg-intro-1" data-time="just now">
             Hey! I'm Arun. 👋
         </div>
     </div>
 
     <!-- Message 2 -->
     <div class="msg" id="m2">
-        <div class="bubble">
+        <div class="bubble" data-id="msg-intro-2" data-time="just now">
             I'm a strategy operator — I take messy 0-to-1 bets and turn them into structured, scalable businesses.
         </div>
     </div>
 
     <!-- Message 3 -->
     <div class="msg" id="m3">
-        <div class="bubble highlight">
+        <div class="bubble highlight" data-id="msg-intro-3" data-time="just now">
             Last few years: scaled micro-drama at <strong>PocketFM</strong> to <strong>$2M MRR</strong>, built a cross-sell P&L from zero at <strong>InsuranceDekho</strong>, and closed a <strong>$20M Series A</strong> at MPL with Sequoia.
         </div>
     </div>
 
     <!-- Message 4 -->
     <div class="msg" id="m4">
-        <div class="bubble">
+        <div class="bubble" data-id="msg-intro-4" data-time="just now">
             What do you want to know about me?
         </div>
     </div>
 
     <!-- Topic buttons -->
     <div class="topics" id="topics">
-        <button class="topic-btn" onclick="openTopic('work', event)">💼 Work</button>
-        <button class="topic-btn" onclick="openTopic('skills', event)">⚡ Skills</button>
-        <button class="topic-btn" onclick="openTopic('education', event)">🎓 Education</button>
-        <button class="topic-btn" onclick="openTopic('about', event)">🙋 About me</button>
-        <button class="topic-btn" onclick="openTopic('contact', event)">📬 Let's connect</button>
+        <button class="topic-btn" data-topic="work" onclick="openTopic('work', event)">💼 Work</button>
+        <button class="topic-btn" data-topic="skills" onclick="openTopic('skills', event)">⚡ Skills</button>
+        <button class="topic-btn" data-topic="education" onclick="openTopic('education', event)">🎓 Education</button>
+        <button class="topic-btn" data-topic="about" onclick="openTopic('about', event)">🙋 About me</button>
+        <button class="topic-btn" data-topic="thoughts" onclick="openTopic('thoughts', event)">💭 Thoughts</button>
+        <button class="topic-btn" data-topic="built" onclick="openTopic('built', event)">🔨 Things I've Built</button>
+        <button class="topic-btn" data-topic="contact" onclick="openTopic('contact', event)">📬 Let's connect</button>
     </div>
 
     <!-- Work reply -->
     <div class="reply-block" id="reply-work">
-        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
+        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
-            <div class="bubble">
+            <div class="bubble" data-id="msg-work-1" data-time="just now">
                 Sure! Here's my journey so far:
             </div>
         </div>
         <div class="msg">
-            <div class="bubble highlight">
+            <div class="bubble highlight" data-id="msg-work-2" data-time="just now">
                 <div class="mini-timeline">
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">2025–26</div>
@@ -354,14 +459,14 @@
 
     <!-- Skills reply -->
     <div class="reply-block" id="reply-skills">
-        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
+        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
-            <div class="bubble">
+            <div class="bubble" data-id="msg-skills-1" data-time="just now">
                 I operate at the intersection of strategy, growth, and execution. Here's what I bring:
             </div>
         </div>
         <div class="msg">
-            <div class="bubble highlight">
+            <div class="bubble highlight" data-id="msg-skills-2" data-time="just now">
                 <div class="chips">
                     <span class="chip">0-to-1 Scaling</span>
                     <span class="chip">GTM Strategy</span>
@@ -379,7 +484,7 @@
             </div>
         </div>
         <div class="msg">
-            <div class="bubble">
+            <div class="bubble" data-id="msg-skills-3" data-time="just now">
                 7+ years across consumer tech, gaming, insurance, and consulting. I thrive where chaos meets opportunity.
             </div>
         </div>
@@ -387,9 +492,9 @@
 
     <!-- Education reply -->
     <div class="reply-block" id="reply-education">
-        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
+        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
-            <div class="bubble highlight">
+            <div class="bubble highlight" data-id="msg-edu-1" data-time="just now">
                 <div class="mini-timeline">
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">2019–21</div>
@@ -406,34 +511,72 @@
 
     <!-- About reply -->
     <div class="reply-block" id="reply-about">
-        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
+        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
-            <div class="bubble">
+            <div class="bubble" data-id="msg-about-1" data-time="just now">
                 Outside of work, I'm an <strong>Everest Base Camp trekker</strong> (5364m, + three 5000m+ peaks) and state-level basketball player. 🏔️
             </div>
         </div>
         <div class="msg">
-            <div class="bubble">
+            <div class="bubble" data-id="msg-about-2" data-time="just now">
                 I'm deep into the Indian VC ecosystem, build side projects with Claude, and read a lot of non-fiction. Growth-X Fellow. 📚
             </div>
         </div>
         <div class="msg">
-            <div class="bubble highlight">
+            <div class="bubble highlight" data-id="msg-about-3" data-time="just now">
                 Currently: looking for <strong>Chief of Staff</strong>, <strong>Strategy</strong>, and <strong>0-to-1</strong> roles at ambitious startups. Available now. 🟢
+            </div>
+        </div>
+    </div>
+
+    <!-- Thoughts reply -->
+    <div class="reply-block" id="reply-thoughts">
+        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+        <div class="msg" style="margin-top:16px">
+            <div class="bubble" data-id="msg-thoughts-1" data-time="just now">
+                More coming soon...
+            </div>
+        </div>
+    </div>
+
+    <!-- Things I've Built reply -->
+    <div class="reply-block" id="reply-built">
+        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+        <div class="msg" style="margin-top:16px">
+            <div class="bubble" data-id="msg-built-1" data-time="just now">
+                Side projects I've shipped — mostly tools I wished existed:
+            </div>
+        </div>
+        <div class="msg">
+            <div class="bubble highlight" data-id="msg-built-2" data-time="just now">
+                <div class="mini-timeline">
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">🖥️</div>
+                        <div class="mini-tl-text"><span>Dopamine</span> — macOS widget for ADHDers. Pomodoro + tasks + energy-aware streaks. No accounts, no cloud. Built with Electron + vanilla JS. <a href="https://github.com/Oxymarun/dopamine" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">GitHub →</a></div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">💬</div>
+                        <div class="mini-tl-text"><span>This portfolio</span> — Chat-style personal site. Single HTML file, no framework. Glassmorphism + emoji reactions + starfield. <a href="https://github.com/Oxymarun/arun-chatui" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">GitHub →</a></div>
+                    </div>
+                    <div class="mini-tl-item">
+                        <div class="mini-tl-year">📄</div>
+                        <div class="mini-tl-text"><span>CV Website</span> — Full work history as a live website. <a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">Live →</a></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Contact reply -->
     <div class="reply-block" id="reply-contact">
-        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
+        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
-            <div class="bubble">
+            <div class="bubble" data-id="msg-contact-1" data-time="just now">
                 Would love to connect! Here's where to find me:
             </div>
         </div>
         <div class="msg">
-            <div class="bubble highlight">
+            <div class="bubble highlight" data-id="msg-contact-2" data-time="just now">
                 <div class="mini-timeline">
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">📧</div>
@@ -445,11 +588,11 @@
                     </div>
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">💼</div>
-                        <div class="mini-tl-text"><a href="https://www.linkedin.com/in/arunsharma281995/" target="_blank" style="color:#e74c3c;text-decoration:none">LinkedIn → Arun Sharma</a></div>
+                        <div class="mini-tl-text"><a href="https://www.linkedin.com/in/arunsharma281995/" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">LinkedIn → Arun Sharma</a></div>
                     </div>
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">📄</div>
-                        <div class="mini-tl-text"><a href="https://oxymarun.github.io/arun-cv/" target="_blank" style="color:#e74c3c;text-decoration:none">Full CV website →</a></div>
+                        <div class="mini-tl-text"><a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">Full CV website →</a></div>
                     </div>
                 </div>
             </div>
@@ -463,6 +606,11 @@
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
+    let animPaused = false;
+
+    document.addEventListener('visibilitychange', () => {
+        animPaused = document.hidden;
+    });
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -470,6 +618,7 @@
     }
 
     function initStars() {
+        if (!ctx) return;
         stars = [];
         const count = Math.floor((canvas.width * canvas.height) / 4000);
         for (let i = 0; i < count; i++) {
@@ -485,6 +634,7 @@
     }
 
     function drawStars() {
+        if (!ctx || animPaused) { requestAnimationFrame(drawStars); return; }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         stars.forEach(s => {
             s.phase += s.phaseSpeed;
@@ -519,8 +669,6 @@
     }, 3000);
 
     // Topic expand
-    const topics = ['work', 'skills', 'education', 'about', 'contact'];
-
     function openTopic(topic, event) {
         const btn = event.currentTarget;
         const replyId = 'reply-' + topic;
@@ -537,7 +685,8 @@
         }
 
         // Accordion: close all others
-        topics.forEach(t => {
+        document.querySelectorAll('.topic-btn').forEach(b => {
+            const t = b.dataset.topic;
             if (t === topic) return;
             const r = document.getElementById('reply-' + t);
             if (r && r.classList.contains('open')) {
@@ -562,6 +711,16 @@
                 msgs.forEach((m, i) => {
                     setTimeout(() => m.classList.add('show'), i * 150);
                 });
+                // Inject ✓✓ Seen receipt after last message
+                const lastDelay = (msgs.length - 1) * 150 + 300;
+                setTimeout(() => {
+                    if (!reply.querySelector('.receipt')) {
+                        const receipt = document.createElement('div');
+                        receipt.className = 'receipt';
+                        receipt.textContent = '✓✓ Seen';
+                        reply.appendChild(receipt);
+                    }
+                }, lastDelay);
             }, 700);
         } else {
             const msgs = reply.querySelectorAll('.msg');
@@ -572,12 +731,73 @@
 
         // Scroll to reply
         setTimeout(() => {
-            reply.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            reply.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
 
         // Resize canvas only — no star reinit
         setTimeout(() => { resizeCanvas(); }, 1200);
     }
+
+    // Reactions
+    let reactions = {};
+    try {
+        reactions = JSON.parse(localStorage.getItem('chatui_reactions') || '{}');
+    } catch(e) { reactions = {}; }
+
+    function saveReactions() {
+        try { localStorage.setItem('chatui_reactions', JSON.stringify(reactions)); } catch(e) {}
+    }
+
+    function initReactions() {
+        document.querySelectorAll('.bubble[data-id]').forEach(bubble => {
+            const bar = document.createElement('div');
+            bar.className = 'reaction-bar';
+            bar.innerHTML = ['👍','❤️','😂','🔥','💯'].map(e =>
+                `<button class="reaction-btn" data-emoji="${e}">${e}<span class="reaction-count"></span></button>`
+            ).join('');
+            bubble.appendChild(bar);
+
+            const id = bubble.dataset.id;
+            if (reactions[id]) {
+                Object.entries(reactions[id]).forEach(([emoji, count]) => {
+                    const btn = bar.querySelector(`[data-emoji="${emoji}"] .reaction-count`);
+                    if (btn && count > 0) btn.textContent = count;
+                });
+            }
+
+            bar.querySelectorAll('.reaction-btn').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const emoji = btn.dataset.emoji;
+                    if (!reactions[id]) reactions[id] = {};
+                    reactions[id][emoji] = (reactions[id][emoji] || 0) + 1;
+                    btn.querySelector('.reaction-count').textContent = reactions[id][emoji];
+                    btn.classList.add('reacted');
+                    saveReactions();
+                });
+            });
+        });
+    }
+
+    // Timestamp tooltips
+    function initTimestamps() {
+        document.querySelectorAll('.bubble[data-time]').forEach(bubble => {
+            bubble.addEventListener('mouseenter', () => {
+                if (bubble.querySelector('.timestamp')) return;
+                const tip = document.createElement('span');
+                tip.className = 'timestamp';
+                tip.textContent = bubble.dataset.time;
+                bubble.appendChild(tip);
+            });
+            bubble.addEventListener('mouseleave', () => {
+                const tip = bubble.querySelector('.timestamp');
+                if (tip) tip.remove();
+            });
+        });
+    }
+
+    initReactions();
+    initTimestamps();
 </script>
 
 </body>
