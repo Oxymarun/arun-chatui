@@ -1,6 +1,6 @@
 # Arun ChatUI
 
-Chat-style personal portfolio. Dark starfield bg, red accents, messages appear on load, topic buttons expand inline.
+Chat-style personal portfolio. Dark starfield bg, red accents, glassmorphism bubbles, messages appear on load, topic buttons expand inline. v2 shipped 2026-04-18. v2.1 shipped 2026-04-19 (persona chips, KPI toggle, time-travel slider).
 
 ## Stack
 - Single `index.html` — no build step, no framework
@@ -30,14 +30,31 @@ STATE.md     # Current state & todos
 2. **Skills** — chip tags
 3. **Education** — IIM Calcutta + NITK
 4. **About me** — personal facts, availability
-5. **Let's connect** — email, phone, LinkedIn, CV link
+5. **Things I've Built** — GitHub projects (Dopamine, ChatUI, CV website)
+6. **Let's connect** — email, phone, LinkedIn, CV link
+7. **Thoughts** — scaffolded, awaiting real copy (3-4 sharp opinions)
+
+## Design (v2 tokens)
+| Token | Value |
+|---|---|
+| Accent RGB var | `--accent-rgb: 192, 57, 43` — single source, use `rgba(var(--accent-rgb), α)` |
+| Bubble bg | `rgba(255,255,255,0.06)` + `backdrop-filter: blur(12px)` |
+| Bubble shadow | `0 2px 12px rgba(0,0,0,0.3)` |
+| Header | frosted glass (`backdrop-filter: blur(16px)`) |
+| Nebula blobs | decorative `position:fixed` radial gradients, pointer-events none |
 
 ## JS Patterns
 - Messages stagger in on load via `setTimeout` + `.show` class
-- Topic buttons toggle `.open` on `.reply-block` divs; pass `event` explicitly: `openTopic('work', event)`
+- Topics array data-driven — topic config in JS object, not hardcoded per button
+- Topic buttons toggle `.open` on `.reply-block` divs; accordion closes others; `scrollIntoView({block:'start'})`
 - Reply block messages stagger in at 150ms each via `querySelectorAll('.msg')` + `setTimeout`
-- Starfield: canvas, `requestAnimationFrame`, twinkle via `Math.sin` phase drift (not `Math.random` per frame)
-- Canvas resizes on `window.resize` and after topic expand — `initStars()` only on resize, not expand
+- Starfield: canvas, `requestAnimationFrame`, twinkle via `Math.sin` phase drift; paused on `visibilitychange`; null-guarded
+- Canvas resizes on `window.resize` — `initStars()` only on resize, not expand
+- Emoji reactions: click to toggle, persist to `localStorage`, key = `reaction-{topic}-{emoji}`
+- ✓✓ Seen receipts: `.seen` class added after last message stagger completes
+- Persona chips: `.persona-bar` shows at 2750ms; `selectPersona(name)` calls `openTopic()` with synthetic event `{currentTarget: btn}`; idempotency guard; `history.replaceState` sets `?persona=`; URL param auto-fires at 3200ms on load
+- KPI toggle: `toggleMetrics()` toggles `.metrics-visible` on `#tl-metrics-container`; `.metric` spans highlight red via CSS; button text flips
+- Time-travel slider: `scrubTimeline(year)` matches `.mini-tl-item[data-start][data-end]`; adds `.tl-active`/`.tl-dim`; hue-rotates `.nebula` via JS `style.filter` (not CSS var — avoids permanent rotation at load)
 
 ## Running
 Open `index.html` in browser. No server needed.
