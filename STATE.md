@@ -17,13 +17,17 @@ In progress — not yet pushed to GitHub.
 - [x] No star reinit on topic expand — `resizeCanvas()` only, stars persist
 - [x] Reply block messages stagger in (150ms each) instead of appearing instantly
 
+## Done (this session)
+- [x] Typing indicator (bouncing dots) before each reply appears
+- [x] Mobile polish — 480px breakpoint, smaller buttons/bubbles
+- [x] Replace emoji avatar with "AS" initials
+- [x] Red glow on avatar (box-shadow)
+- [x] "Available now" green pulsing dot in header
+- [x] Page title + OG/meta tags for sharing
+- [x] Accordion behavior — opening one topic closes others
+- [x] CV sync: $2M MRR, 5 months (was $1.5M, 4 months)
+
 ## Todo / Improvements
-- [ ] Typing indicator (bouncing dots) before each reply appears
-- [ ] Mobile polish — check button/bubble sizing on 390px
-- [ ] Replace emoji avatar with pixel-art style or photo
-- [ ] Add subtle red glow to avatar
-- [ ] "Available now" green dot in header
-- [ ] Page title / meta tags for sharing
 - [ ] Push to GitHub Pages
 
 ## Known Issues

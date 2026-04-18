@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arun Sharma</title>
+    <title>Arun Sharma — Strategy & Growth</title>
+    <meta name="description" content="Arun Sharma — strategy operator scaling 0-to-1 bets. Ex-PocketFM, InsuranceDekho, MPL. Chief of Staff, GTM, fundraising.">
+    <meta property="og:title" content="Arun Sharma — Strategy & Growth">
+    <meta property="og:description" content="Scaled micro-drama to $2M MRR, closed a $20M Series A with Sequoia, built cross-sell P&amp;L from zero. Open to CoS / Strategy roles.">
+    <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,10 +55,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.05em;
             flex-shrink: 0;
             border: 2px solid rgba(192,57,43,0.4);
-            box-shadow: 0 0 16px rgba(192,57,43,0.3);
+            box-shadow: 0 0 20px rgba(192,57,43,0.4);
         }
 
         .header-name {
@@ -67,6 +74,23 @@
             font-size: 11px;
             color: rgba(255,255,255,0.4);
             margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            flex-shrink: 0;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.6; }
         }
 
         /* Messages */
@@ -221,6 +245,13 @@
             to { opacity: 1; }
         }
 
+        /* Mobile */
+        @media (max-width: 480px) {
+            .topic-btn { font-size: 12px; padding: 8px 16px; }
+            .bubble { font-size: 13px; }
+            .chat-wrap { padding: 32px 16px 100px; }
+        }
+
         /* Scrollbar */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -235,10 +266,10 @@
 
     <!-- Header -->
     <div class="chat-header">
-        <div class="avatar">🧑‍💼</div>
+        <div class="avatar">AS</div>
         <div>
             <div class="header-name">Arun Sharma</div>
-            <div class="header-sub">Chief of Staff · Strategy & Growth</div>
+            <div class="header-sub"><span class="online-dot"></span>Available now · Strategy & Growth</div>
         </div>
     </div>
 
@@ -259,7 +290,7 @@
     <!-- Message 3 -->
     <div class="msg" id="m3">
         <div class="bubble highlight">
-            Last few years: scaled micro-drama at <strong>PocketFM</strong> to <strong>$1.5M MRR</strong>, built a cross-sell P&L from zero at <strong>InsuranceDekho</strong>, and closed a <strong>$20M Series A</strong> at MPL with Sequoia.
+            Last few years: scaled micro-drama at <strong>PocketFM</strong> to <strong>$2M MRR</strong>, built a cross-sell P&L from zero at <strong>InsuranceDekho</strong>, and closed a <strong>$20M Series A</strong> at MPL with Sequoia.
         </div>
     </div>
 
@@ -281,6 +312,7 @@
 
     <!-- Work reply -->
     <div class="reply-block" id="reply-work">
+        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble">
                 Sure! Here's my journey so far:
@@ -291,7 +323,7 @@
                 <div class="mini-timeline">
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">2025–26</div>
-                        <div class="mini-tl-text"><span>PocketFM</span> — Early Strategy & Growth. Scaled micro-drama to $1.5M MRR & 500K DAU in 4 months.</div>
+                        <div class="mini-tl-text"><span>PocketFM</span> — Early Strategy & Growth. Scaled micro-drama to $2M MRR & 500K DAU in 5 months.</div>
                     </div>
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">2025–26</div>
@@ -320,6 +352,7 @@
 
     <!-- Skills reply -->
     <div class="reply-block" id="reply-skills">
+        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble">
                 I operate at the intersection of strategy, growth, and execution. Here's what I bring:
@@ -352,6 +385,7 @@
 
     <!-- Education reply -->
     <div class="reply-block" id="reply-education">
+        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble highlight">
                 <div class="mini-timeline">
@@ -370,6 +404,7 @@
 
     <!-- About reply -->
     <div class="reply-block" id="reply-about">
+        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble">
                 Outside of work, I'm an <strong>Everest Base Camp trekker</strong> (5364m, + three 5000m+ peaks) and state-level basketball player. 🏔️
@@ -389,6 +424,7 @@
 
     <!-- Contact reply -->
     <div class="reply-block" id="reply-contact">
+        <div class="typing" style="margin-top:16px"><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble">
                 Would love to connect! Here's where to find me:
@@ -481,27 +517,56 @@
     }, 3000);
 
     // Topic expand
+    const topics = ['work', 'skills', 'education', 'about', 'contact'];
+
     function openTopic(topic, event) {
         const btn = event.currentTarget;
         const replyId = 'reply-' + topic;
         const reply = document.getElementById(replyId);
 
-        // Toggle
+        // Toggle off if already open
         if (reply.classList.contains('open')) {
             reply.classList.remove('open');
             btn.classList.remove('active');
             reply.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+            const t = reply.querySelector('.typing');
+            if (t) { t.classList.remove('show'); }
             return;
         }
+
+        // Accordion: close all others
+        topics.forEach(t => {
+            if (t === topic) return;
+            const r = document.getElementById('reply-' + t);
+            if (r && r.classList.contains('open')) {
+                r.classList.remove('open');
+                r.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+                const dot = r.querySelector('.typing');
+                if (dot) dot.classList.remove('show');
+            }
+        });
+        document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
 
         reply.classList.add('open');
         btn.classList.add('active');
 
-        // Stagger messages in
-        const msgs = reply.querySelectorAll('.msg');
-        msgs.forEach((m, i) => {
-            setTimeout(() => m.classList.add('show'), i * 150);
-        });
+        // Typing indicator → then stagger messages
+        const typing = reply.querySelector('.typing');
+        if (typing) {
+            typing.classList.add('show');
+            setTimeout(() => {
+                typing.classList.remove('show');
+                const msgs = reply.querySelectorAll('.msg');
+                msgs.forEach((m, i) => {
+                    setTimeout(() => m.classList.add('show'), i * 150);
+                });
+            }, 700);
+        } else {
+            const msgs = reply.querySelectorAll('.msg');
+            msgs.forEach((m, i) => {
+                setTimeout(() => m.classList.add('show'), i * 150);
+            });
+        }
 
         // Scroll to reply
         setTimeout(() => {
@@ -509,7 +574,7 @@
         }, 100);
 
         // Resize canvas only — no star reinit
-        setTimeout(() => { resizeCanvas(); }, 400);
+        setTimeout(() => { resizeCanvas(); }, 1200);
     }
 </script>
 
