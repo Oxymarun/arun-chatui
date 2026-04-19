@@ -76,6 +76,12 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        :focus-visible {
+            outline: 2px solid rgba(var(--accent-rgb), 0.8);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
         body {
             background: var(--bg);
             font-family: 'Inter', sans-serif;
@@ -193,7 +199,7 @@
         }
 
         .header-action-btn {
-            height: 36px;
+            height: 44px;
             padding: 0 12px;
             border-radius: 10px;
             background: var(--header-btn-bg);
@@ -455,7 +461,7 @@
 
         /* Reaction bar */
         .reaction-bar {
-            display: none;
+            display: flex;
             position: absolute;
             bottom: -40px;
             left: 0;
@@ -468,8 +474,16 @@
             gap: 4px;
             z-index: 10;
             white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(4px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
         }
-        .bubble:hover .reaction-bar { display: flex; }
+        .bubble:hover .reaction-bar {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
 
         .reaction-btn {
             background: none;
@@ -489,13 +503,24 @@
         .reaction-btn:hover { background: var(--bubble-bg); }
         .reaction-count { font-size: 11px; margin-left: 3px; color: var(--text-secondary); }
 
+        @media (prefers-reduced-motion: reduce) {
+            .msg, .bubble, .persona-bar, .typing-indicator,
+            .reply-block, .sub-reply-block {
+                transition: none !important;
+                animation: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+            body { transition: none !important; }
+        }
+
         /* Mobile */
         @media (max-width: 480px) {
-            .topic-btn { font-size: 12px; padding: 8px 16px; }
-            .bubble { font-size: 13px; }
+            .topic-btn { font-size: 13px; padding: 8px 16px; }
+            .bubble { font-size: 15px; }
             .chat-wrap { padding: 32px 16px 100px; }
-            .sub-btn { font-size: 11px; padding: 6px 12px; }
-            .header-action-btn { height: 32px; padding: 0 10px; font-size: 11px; }
+            .sub-btn { font-size: 12px; padding: 6px 12px; }
+            .header-action-btn { height: 44px; padding: 0 10px; font-size: 12px; }
             .header-action-btn .btn-icon { font-size: 13px; }
             .header-action-btn .btn-label { display: none; }
         }
@@ -512,7 +537,8 @@
         }
         .persona-bar.show { opacity: 1; transform: translateY(0); }
         .persona-chip {
-            padding: 7px 14px;
+            padding: 0 14px;
+            min-height: 44px;
             background: transparent;
             color: var(--text-secondary);
             border: 1px solid rgba(255,255,255,0.15);
@@ -527,6 +553,12 @@
             border-color: rgba(var(--accent-rgb),0.5);
             color: var(--text-primary);
             transform: translateY(-1px);
+        }
+        .persona-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            width: 100%;
+            margin-bottom: 2px;
         }
         .persona-chip.active {
             background: rgba(var(--accent-rgb),0.12);
@@ -664,6 +696,7 @@
 
     <!-- Persona chips -->
     <div class="persona-bar" id="persona-bar">
+        <span class="persona-label">Jump to what's relevant for you →</span>
         <button class="persona-chip" data-persona="recruiter" onclick="selectPersona('recruiter')">👔 Recruiter</button>
         <button class="persona-chip" data-persona="founder" onclick="selectPersona('founder')">🚀 Founder</button>
         <button class="persona-chip" data-persona="peer" onclick="selectPersona('peer')">👋 Curious peer</button>
