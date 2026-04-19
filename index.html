@@ -315,7 +315,9 @@
         }
         .topic-btn.active {
             background: #e74c3c;
-            box-shadow: 0 0 0 2px rgba(231,76,60,0.4), 0 0 16px rgba(var(--accent-rgb),0.3);
+            box-shadow: 0 0 0 3px rgba(231,76,60,0.5), 0 0 24px rgba(var(--accent-rgb),0.4);
+            transform: translateY(-2px) scale(1.04);
+            font-size: 14px;
         }
 
         /* Sub-option buttons inside chat bubble */
@@ -353,9 +355,21 @@
         .reply-block {
             display: none;
             margin-top: 10px;
+            border-left: 2px solid rgba(var(--accent-rgb),0.25);
+            padding-left: 12px;
         }
         .reply-block.open {
             display: block;
+        }
+        .section-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #e74c3c;
+            margin-bottom: 6px;
+            margin-top: 4px;
+            opacity: 0.8;
         }
 
         /* Sub-reply blocks inside a reply block */
@@ -600,9 +614,9 @@
             flex: 1;
         }
         .tl-impact-metric {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
-            color: #e74c3c;
+            color: var(--text-primary);
             line-height: 1.2;
             letter-spacing: -0.5px;
         }
@@ -697,6 +711,7 @@
 
     <!-- ===== WORK reply (2-level) ===== -->
     <div class="reply-block" id="reply-work">
+        <div class="section-label">💼 Work Experience</div>
         <div class="typing" id="typing-work" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
 
         <!-- L1 prompt + sub-buttons -->
@@ -716,8 +731,7 @@
             <div class="typing" id="typing-sub-work-timeline"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-work-timeline" data-time="just now">
-                    <button class="metrics-toggle" id="metrics-toggle-btn" onclick="toggleMetrics()">✦ Show impact metrics</button>
-                    <div class="mini-timeline" id="tl-metrics-container">
+<div class="mini-timeline" id="tl-metrics-container">
                         <div class="mini-tl-item impact-first" data-start="2025" data-end="2026">
                             <div class="mini-tl-year">2025–26</div>
                             <div class="tl-impact">
@@ -846,6 +860,7 @@
 
     <!-- ===== SKILLS reply (2-level) ===== -->
     <div class="reply-block" id="reply-skills">
+        <div class="section-label">🧠 Skills</div>
         <div class="typing" id="typing-skills" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
 
         <!-- L1 prompt + sub-buttons -->
@@ -1048,6 +1063,7 @@
 
     <!-- Education reply (flat) -->
     <div class="reply-block" id="reply-education">
+        <div class="section-label">🎓 Education</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble highlight" data-id="msg-edu-1" data-time="just now">
@@ -1067,6 +1083,7 @@
 
     <!-- ===== ABOUT reply (2-level) ===== -->
     <div class="reply-block" id="reply-about">
+        <div class="section-label">🙋 About Me</div>
         <div class="typing" id="typing-about" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
 
         <!-- L1 prompt + sub-buttons -->
@@ -1242,6 +1259,7 @@
 
     <!-- Things I've Built reply (flat) -->
     <div class="reply-block" id="reply-built">
+        <div class="section-label">🛠️ Things I've Built</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble" data-id="msg-built-1" data-time="just now">
@@ -1270,6 +1288,7 @@
 
     <!-- Contact reply (flat) -->
     <div class="reply-block" id="reply-contact">
+        <div class="section-label">📬 Let's Connect</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble" data-id="msg-contact-1" data-time="just now">
