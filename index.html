@@ -25,8 +25,6 @@
             --text-secondary: #c8ccd4;
             --text-muted: rgba(255,255,255,0.4);
             --header-bg: rgba(13,17,23,0.8);
-            --reaction-bg: rgba(13,17,23,0.9);
-            --reaction-border: rgba(255,255,255,0.1);
             --typing-dot: rgba(255,255,255,0.4);
             --typing-bg: rgba(255,255,255,0.06);
             --typing-border: rgba(255,255,255,0.08);
@@ -55,8 +53,6 @@
             --text-secondary: #4a5060;
             --text-muted: rgba(0,0,0,0.4);
             --header-bg: rgba(240,242,245,0.92);
-            --reaction-bg: rgba(255,255,255,0.96);
-            --reaction-border: rgba(0,0,0,0.1);
             --typing-dot: rgba(0,0,0,0.35);
             --typing-bg: rgba(255,255,255,0.88);
             --typing-border: rgba(0,0,0,0.07);
@@ -459,49 +455,6 @@
             animation: fadeIn 0.3s ease 0.3s forwards;
         }
 
-        /* Reaction bar */
-        .reaction-bar {
-            display: flex;
-            position: absolute;
-            bottom: -40px;
-            left: 0;
-            background: var(--reaction-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--reaction-border);
-            border-radius: 20px;
-            padding: 4px 8px;
-            gap: 4px;
-            z-index: 10;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(4px);
-            transition: opacity 0.15s ease, transform 0.15s ease;
-        }
-        .bubble:hover .reaction-bar {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateY(0);
-        }
-
-        .reaction-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            padding: 4px 6px;
-            border-radius: 12px;
-            color: var(--text-secondary);
-            min-width: 44px;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.15s;
-        }
-        .reaction-btn:hover { background: var(--bubble-bg); }
-        .reaction-count { font-size: 11px; margin-left: 3px; color: var(--text-secondary); }
 
         @media (prefers-reduced-motion: reduce) {
             .msg, .bubble, .persona-bar, .typing-indicator,
@@ -1332,71 +1285,6 @@
         setTimeout(() => { resizeCanvas(); }, 1200);
     }
 
-    // Reactions
-    let reactions = {};
-    try {
-        reactions = JSON.parse(localStorage.getItem('chatui_reactions') || '{}');
-    } catch(e) { reactions = {}; }
-
-    function saveReactions() {
-        try { localStorage.setItem('chatui_reactions', JSON.stringify(reactions)); } catch(e) {}
-    }
-
-    function initReactions() {
-        document.querySelectorAll('.bubble[data-id]').forEach(bubble => {
-            const bar = document.createElement('div');
-            bar.className = 'reaction-bar';
-            bar.innerHTML = ['👍','❤️','😂','🔥','💯'].map(e =>
-                `<button class="reaction-btn" data-emoji="${e}">${e}<span class="reaction-count"></span></button>`
-            ).join('');
-            bubble.appendChild(bar);
-
-            const id = bubble.dataset.id;
-
-            if (reactions[id]) {
-                Object.entries(reactions[id]).forEach(([emoji, count]) => {
-                    if (emoji === '_reacted') return;
-                    const btn = bar.querySelector(`[data-emoji="${emoji}"]`);
-                    if (btn && count > 0) {
-                        btn.querySelector('.reaction-count').textContent = count;
-                        if (reactions[id]?._reacted === emoji) btn.classList.add('reacted');
-                    }
-                });
-            }
-
-            bar.querySelectorAll('.reaction-btn').forEach(btn => {
-                btn.addEventListener('click', e => {
-                    e.stopPropagation();
-                    const emoji = btn.dataset.emoji;
-                    if (!reactions[id]) reactions[id] = {};
-                    const prev = reactions[id]._reacted;
-
-                    if (prev === emoji) {
-                        reactions[id][emoji] = Math.max(0, (reactions[id][emoji] || 1) - 1);
-                        btn.querySelector('.reaction-count').textContent = reactions[id][emoji] > 0 ? reactions[id][emoji] : '';
-                        btn.classList.remove('reacted');
-                        reactions[id]._reacted = null;
-                    } else {
-                        if (prev) {
-                            reactions[id][prev] = Math.max(0, (reactions[id][prev] || 1) - 1);
-                            const oldBtn = bar.querySelector(`[data-emoji="${prev}"]`);
-                            if (oldBtn) {
-                                oldBtn.querySelector('.reaction-count').textContent = reactions[id][prev] > 0 ? reactions[id][prev] : '';
-                                oldBtn.classList.remove('reacted');
-                            }
-                        }
-                        reactions[id][emoji] = (reactions[id][emoji] || 0) + 1;
-                        btn.querySelector('.reaction-count').textContent = reactions[id][emoji];
-                        btn.classList.add('reacted');
-                        reactions[id]._reacted = emoji;
-                    }
-                    saveReactions();
-                });
-            });
-        });
-    }
-
-    initReactions();
 
     // ===== Feature 1: Persona chips =====
     const PERSONAS = {
