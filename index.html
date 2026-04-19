@@ -8,110 +8,103 @@
     <meta property="og:title" content="Arun Sharma — Strategy & Growth">
     <meta property="og:description" content="Scaled micro-drama to $2M MRR, closed a $20M Series A with Sequoia, built cross-sell P&amp;L from zero. Open to CoS / Strategy roles.">
     <meta property="og:type" content="website">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent-rgb: 192, 57, 43;
-            --accent: #c0392b;
-            --accent-hover: #e74c3c;
+            --accent-rgb: 245, 158, 11;
+            --accent: #f59e0b;
+            --accent-hover: #fbbf24;
+            --accent-glow: rgba(245,158,11,0.2);
 
-            /* Dark theme (default) */
-            --bg: #0d1117;
-            --bubble-bg: rgba(255,255,255,0.06);
+            --bg: #0a0900;
+            --surface: #12100a;
+            --surface-2: #181409;
+            --bubble-bg: rgba(18,16,10,0.85);
             --bubble-border: rgba(255,255,255,0.08);
-            --bubble-highlight-bg: rgba(192,57,43,0.15);
-            --bubble-highlight-border: rgba(192,57,43,0.2);
-            --text-primary: #e8eaf0;
-            --text-secondary: #c8ccd4;
-            --text-muted: rgba(255,255,255,0.4);
-            --header-bg: rgba(13,17,23,0.8);
-            --typing-dot: rgba(255,255,255,0.4);
-            --typing-bg: rgba(255,255,255,0.06);
+            --bubble-highlight-bg: rgba(245,158,11,0.07);
+            --bubble-highlight-border: rgba(245,158,11,0.18);
+            --text-primary: #f8f4ec;
+            --text-secondary: #a8956e;
+            --text-muted: rgba(255,240,200,0.3);
+            --header-bg: rgba(10,9,0,0.85);
+            --typing-dot: rgba(255,220,120,0.4);
+            --typing-bg: rgba(18,16,10,0.8);
             --typing-border: rgba(255,255,255,0.08);
-            --scrollbar-thumb: rgba(192,57,43,0.3);
-            --tl-border: rgba(255,255,255,0.05);
+            --scrollbar-thumb: rgba(245,158,11,0.3);
+            --tl-border: rgba(255,255,255,0.06);
 
-            --chip-border: rgba(231,76,60,0.35);
-            --chip-bg: rgba(192,57,43,0.08);
-            --sub-btn-color: #e74c3c;
-            --sub-btn-border: rgba(231,76,60,0.4);
-            --sub-btn-hover-bg: rgba(231,76,60,0.12);
-            --header-btn-bg: rgba(255,255,255,0.08);
-            --header-btn-border: rgba(255,255,255,0.12);
-            --header-btn-color: rgba(255,255,255,0.7);
-            --header-btn-hover-bg: rgba(255,255,255,0.14);
-            --star-color: 255,255,255;
+            --chip-border: rgba(245,158,11,0.3);
+            --chip-bg: rgba(245,158,11,0.08);
+            --sub-btn-color: #fbbf24;
+            --sub-btn-border: rgba(245,158,11,0.35);
+            --sub-btn-hover-bg: rgba(245,158,11,0.12);
+            --header-btn-bg: rgba(255,255,255,0.06);
+            --header-btn-border: rgba(255,255,255,0.1);
+            --header-btn-color: rgba(255,255,255,0.65);
+            --header-btn-hover-bg: rgba(255,255,255,0.12);
         }
 
         [data-theme="light"] {
-            --bg: #f0f2f5;
+            --bg: #faf7f0;
+            --surface: rgba(255,255,255,0.95);
+            --surface-2: rgba(255,255,255,0.98);
             --bubble-bg: rgba(255,255,255,0.92);
             --bubble-border: rgba(0,0,0,0.07);
-            --bubble-highlight-bg: rgba(192,57,43,0.08);
-            --bubble-highlight-border: rgba(192,57,43,0.18);
-            --text-primary: #1a1a2e;
-            --text-secondary: #4a5060;
-            --text-muted: rgba(0,0,0,0.4);
-            --header-bg: rgba(240,242,245,0.92);
+            --bubble-highlight-bg: rgba(245,158,11,0.06);
+            --bubble-highlight-border: rgba(245,158,11,0.18);
+            --text-primary: #1a1508;
+            --text-secondary: #6b5830;
+            --text-muted: rgba(0,0,0,0.38);
+            --header-bg: rgba(250,247,240,0.92);
             --typing-dot: rgba(0,0,0,0.35);
             --typing-bg: rgba(255,255,255,0.88);
             --typing-border: rgba(0,0,0,0.07);
-            --scrollbar-thumb: rgba(192,57,43,0.3);
+            --scrollbar-thumb: rgba(245,158,11,0.3);
             --tl-border: rgba(0,0,0,0.06);
-            --chip-border: rgba(192,57,43,0.3);
-            --chip-bg: rgba(192,57,43,0.06);
-            --sub-btn-color: #c0392b;
-            --sub-btn-border: rgba(192,57,43,0.35);
-            --sub-btn-hover-bg: rgba(192,57,43,0.08);
-            --header-btn-bg: rgba(0,0,0,0.06);
-            --header-btn-border: rgba(0,0,0,0.1);
-            --header-btn-color: rgba(0,0,0,0.55);
-            --header-btn-hover-bg: rgba(0,0,0,0.1);
-            --star-color: 100,110,130;
+            --chip-border: rgba(245,158,11,0.25);
+            --chip-bg: rgba(245,158,11,0.06);
+            --sub-btn-color: #d97706;
+            --sub-btn-border: rgba(245,158,11,0.3);
+            --sub-btn-hover-bg: rgba(245,158,11,0.08);
+            --header-btn-bg: rgba(0,0,0,0.05);
+            --header-btn-border: rgba(0,0,0,0.09);
+            --header-btn-color: rgba(0,0,0,0.5);
+            --header-btn-hover-bg: rgba(0,0,0,0.09);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :focus-visible {
-            outline: 2px solid rgba(var(--accent-rgb), 0.8);
+            outline: 2px solid rgba(var(--accent-rgb), 0.7);
             outline-offset: 2px;
             border-radius: 4px;
         }
 
         body {
             background: var(--bg);
+            background-image:
+                radial-gradient(ellipse 80% 50% at 20% -10%, rgba(245,158,11,0.1) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 85% 90%, rgba(217,119,6,0.07) 0%, transparent 55%),
+                radial-gradient(ellipse 50% 60% at 50% 50%, rgba(245,158,11,0.03) 0%, transparent 70%);
             font-family: 'Inter', sans-serif;
+            font-feature-settings: "cv02","cv03","cv04","ss01";
             min-height: 100vh;
             overflow-x: hidden;
             transition: background 0.3s ease;
         }
 
-        /* Starfield */
-        #stars-canvas {
+        /* Noise grain overlay */
+        body::after {
+            content: '';
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.025;
             pointer-events: none;
+            z-index: 0;
         }
 
-        /* Nebula blobs */
-        .nebula {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .nebula-1 {
-            width: 35vw; height: 35vw;
-            left: 15%; top: 8%;
-            background: radial-gradient(circle, rgba(var(--accent-rgb),0.05) 0%, transparent 70%);
-        }
-        .nebula-2 {
-            width: 40vw; height: 40vw;
-            left: 75%; top: 65%;
-            background: radial-gradient(circle, rgba(60,40,120,0.05) 0%, transparent 70%);
-        }
+        [data-theme="light"] body::after { opacity: 0.015; }
 
         /* Layout */
         .chat-wrap {
@@ -122,7 +115,7 @@
             padding: 48px 20px 120px;
         }
 
-        /* Avatar + name header */
+        /* Header */
         .chat-header {
             display: flex;
             align-items: center;
@@ -131,10 +124,17 @@
             opacity: 0;
             animation: fadeIn 0.6s ease 0.2s forwards;
             background: var(--header-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 12px;
-            padding: 12px;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 16px;
+            padding: 12px 14px;
+            border: 1px solid rgba(255,255,255,0.07);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 32px rgba(0,0,0,0.25);
+        }
+
+        [data-theme="light"] .chat-header {
+            border-color: rgba(0,0,0,0.06);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .avatar {
@@ -147,18 +147,41 @@
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
-            border: 2px solid rgba(var(--accent-rgb),0.4);
-            box-shadow: 0 0 20px rgba(var(--accent-rgb),0.6);
+            border: 2px solid rgba(var(--accent-rgb), 0.4);
         }
 
         .header-name {
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: 0.04em;
+            letter-spacing: -0.02em;
             margin: 0;
             line-height: normal;
         }
+
+        /* Animated gradient name */
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .gradient-name {
+            background: linear-gradient(135deg, #f8f4ec 0%, #fbbf24 35%, #f59e0b 65%, #f8f4ec 100%);
+            background-size: 300% 300%;
+            animation: gradient-shift 6s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        [data-theme="light"] .gradient-name {
+            background: linear-gradient(135deg, #1a1508 0%, #d97706 40%, #f59e0b 70%, #1a1508 100%);
+            background-size: 300% 300%;
+            animation: gradient-shift 6s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .header-sub {
             font-size: 11px;
             color: var(--text-muted);
@@ -169,20 +192,20 @@
         }
 
         .online-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            background: #22c55e;
+            background: #f59e0b;
             flex-shrink: 0;
-            animation: pulse-dot 2s ease-in-out infinite;
+            box-shadow: 0 0 6px rgba(245,158,11,0.7);
+            animation: pulse-dot 2.5s ease-in-out infinite;
         }
 
         @keyframes pulse-dot {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 0.5; }
         }
 
-        /* Header action buttons (call + theme toggle) */
         .header-actions {
             display: flex;
             align-items: center;
@@ -192,7 +215,7 @@
         }
 
         .header-action-btn {
-            height: 44px;
+            height: 36px;
             padding: 0 12px;
             border-radius: 10px;
             background: var(--header-btn-bg);
@@ -203,57 +226,61 @@
             justify-content: center;
             gap: 5px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             font-family: 'Inter', sans-serif;
-            transition: background 0.2s, transform 0.15s;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
             text-decoration: none;
             flex-shrink: 0;
             white-space: nowrap;
         }
-        .header-action-btn .btn-icon { font-size: 15px; }
+        .header-action-btn .btn-icon { font-size: 14px; }
         .header-action-btn:hover {
             background: var(--header-btn-hover-bg);
-            transform: scale(1.05);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-        .header-action-btn:active {
-            transform: scale(0.95);
-        }
+        .header-action-btn:active { transform: scale(0.96); }
         .header-action-btn.call-btn {
-            background: rgba(34,197,94,0.12);
-            border-color: rgba(34,197,94,0.25);
+            background: rgba(34,197,94,0.1);
+            border-color: rgba(34,197,94,0.22);
             color: #22c55e;
         }
         .header-action-btn.call-btn:hover {
-            background: rgba(34,197,94,0.2);
+            background: rgba(34,197,94,0.18);
+            box-shadow: 0 4px 12px rgba(34,197,94,0.15);
         }
 
         /* Messages */
         .msg {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             opacity: 0;
-            transform: translateY(16px);
+            transform: translateY(12px);
         }
 
         .bubble {
             display: inline-block;
             max-width: 100%;
-            padding: 12px 16px;
+            padding: 14px 18px;
             border-radius: 4px 18px 18px 18px;
             font-size: 15px;
-            line-height: 1.6;
+            line-height: 1.65;
             color: var(--text-primary);
             background: var(--bubble-bg);
             border: 1px solid var(--bubble-border);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
             position: relative;
             transition: background 0.3s, border-color 0.3s, color 0.3s;
         }
 
+        [data-theme="light"] .bubble {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+
         @supports not (backdrop-filter: blur(1px)) {
-            .bubble { background: var(--bubble-bg); }
+            .bubble { background: var(--surface); }
         }
 
         .bubble strong {
@@ -264,6 +291,11 @@
         .bubble.highlight {
             background: var(--bubble-highlight-bg);
             border-color: var(--bubble-highlight-border);
+            box-shadow: 0 8px 32px rgba(245,158,11,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        [data-theme="light"] .bubble.highlight {
+            box-shadow: 0 4px 20px rgba(245,158,11,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
         }
 
         /* Topic buttons */
@@ -271,111 +303,107 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 10px;
+            gap: 8px;
             margin-top: 16px;
             opacity: 0;
             transform: translateY(16px);
         }
 
         .topic-btn {
-            padding: 12px 20px;
-            background: #c0392b;
-            color: #fff;
-            border: none;
+            padding: 10px 18px;
+            background: rgba(245,158,11,0.07);
+            color: #fbbf24;
+            border: 1px solid rgba(245,158,11,0.28);
             border-radius: 20px;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            transition: background 0.2s, transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s, border-color 0.2s;
             font-family: 'Inter', sans-serif;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
         .topic-btn:hover {
-            background: #e74c3c;
-            transform: translateY(-1px);
-            box-shadow: 0 0 12px rgba(var(--accent-rgb),0.3), 0 4px 16px rgba(231,76,60,0.35);
+            background: rgba(245,158,11,0.14);
+            border-color: rgba(245,158,11,0.55);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(245,158,11,0.22), 0 1px 0 rgba(255,255,255,0.05) inset;
         }
-        .topic-btn:active {
-            transform: scale(0.97);
-        }
+        .topic-btn:active { transform: scale(0.97); }
         .topic-btn.active {
-            background: #e74c3c;
-            box-shadow: 0 0 0 3px rgba(231,76,60,0.5), 0 0 24px rgba(var(--accent-rgb),0.4);
-            transform: translateY(-2px) scale(1.04);
-            font-size: 14px;
+            background: rgba(245,158,11,0.18);
+            border-color: rgba(245,158,11,0.65);
+            color: #fde68a;
+            box-shadow: 0 0 0 3px rgba(245,158,11,0.15), 0 6px 24px rgba(245,158,11,0.28);
+            transform: translateY(-2px) scale(1.02);
         }
 
-        /* Sub-option buttons inside chat bubble */
+        /* Sub-option buttons */
         .sub-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 7px;
             margin-top: 10px;
         }
         .sub-btn {
-            padding: 7px 14px;
+            padding: 6px 13px;
             background: transparent;
             color: var(--sub-btn-color);
             border: 1px solid var(--sub-btn-border);
-            border-radius: 16px;
+            border-radius: 14px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
             font-family: 'Inter', sans-serif;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
         }
         .sub-btn:hover {
             background: var(--sub-btn-hover-bg);
-            border-color: rgba(231,76,60,0.7);
+            border-color: rgba(99,102,241,0.6);
             transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(99,102,241,0.15);
         }
         .sub-btn.active {
-            background: #c0392b;
-            border-color: #c0392b;
-            color: #fff;
+            background: rgba(99,102,241,0.18);
+            border-color: rgba(99,102,241,0.65);
+            color: #a5b4fc;
         }
 
-        /* Reply block that expands after button click */
+        /* Reply block */
         .reply-block {
             display: none;
             margin-top: 10px;
-            border-left: 2px solid rgba(var(--accent-rgb),0.25);
+            border-left: 2px solid rgba(245,158,11,0.2);
             padding-left: 12px;
         }
-        .reply-block.open {
-            display: block;
-        }
+        .reply-block.open { display: block; }
+
         .section-label {
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #e74c3c;
+            color: #f59e0b;
             margin-bottom: 6px;
             margin-top: 4px;
-            opacity: 0.8;
+            opacity: 0.75;
         }
 
-        /* Sub-reply blocks inside a reply block */
-        .sub-reply {
-            display: none;
-        }
-        .sub-reply.open {
-            display: block;
-        }
+        /* Sub-reply blocks */
+        .sub-reply { display: none; }
+        .sub-reply.open { display: block; }
 
-        /* Tag chips inside bubbles */
+        /* Tag chips */
         .chips {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 7px;
             margin-top: 10px;
         }
         .chip {
-            padding: 4px 10px;
+            padding: 4px 11px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 500;
@@ -384,7 +412,7 @@
             background: var(--chip-bg);
         }
 
-        /* Timeline mini inside bubble */
+        /* Timeline */
         .mini-timeline { margin-top: 8px; }
         .mini-tl-item {
             display: flex;
@@ -398,12 +426,13 @@
         .mini-tl-item:last-child { border-bottom: none; }
         .mini-tl-year {
             font-size: 11px;
-            color: #e74c3c;
+            color: #f59e0b;
             font-weight: 700;
             min-width: 36px;
             padding-top: 2px;
+            font-family: 'JetBrains Mono', monospace;
         }
-        .mini-tl-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+        .mini-tl-text { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
         .mini-tl-text span { color: var(--text-primary); font-weight: 600; }
 
         /* Typing indicator */
@@ -417,6 +446,8 @@
             display: inline-flex;
             margin-bottom: 10px;
             opacity: 0;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .typing-label {
@@ -427,7 +458,7 @@
         }
 
         .typing span:not(.typing-label) {
-            width: 6px; height: 6px;
+            width: 5px; height: 5px;
             border-radius: 50%;
             background: var(--typing-dot);
             animation: bounce 1.2s infinite;
@@ -437,12 +468,10 @@
 
         @keyframes bounce {
             0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-6px); }
+            30% { transform: translateY(-5px); }
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { to { opacity: 1; } }
 
         /* Read receipt */
         .receipt {
@@ -454,30 +483,7 @@
             animation: fadeIn 0.3s ease 0.3s forwards;
         }
 
-
-        @media (prefers-reduced-motion: reduce) {
-            .msg, .bubble, .persona-bar, .typing-indicator,
-            .reply-block, .sub-reply-block {
-                transition: none !important;
-                animation: none !important;
-                transform: none !important;
-                opacity: 1 !important;
-            }
-            body { transition: none !important; }
-        }
-
-        /* Mobile */
-        @media (max-width: 480px) {
-            .topic-btn { font-size: 13px; padding: 8px 16px; }
-            .bubble { font-size: 15px; }
-            .chat-wrap { padding: 32px 16px 100px; }
-            .sub-btn { font-size: 12px; padding: 6px 12px; }
-            .header-action-btn { height: 44px; padding: 0 10px; font-size: 12px; }
-            .header-action-btn .btn-icon { font-size: 13px; }
-            .header-action-btn .btn-label { display: none; }
-        }
-
-        /* ===== Feature 1: Persona chips ===== */
+        /* ===== Persona chips ===== */
         .persona-bar {
             display: flex;
             gap: 8px;
@@ -488,21 +494,22 @@
         }
         .persona-chip {
             padding: 0 14px;
-            min-height: 44px;
+            min-height: 38px;
             background: transparent;
             color: var(--text-secondary);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
             font-size: 12px;
             font-weight: 500;
             cursor: pointer;
-            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
             font-family: 'Inter', sans-serif;
         }
         .persona-chip:hover {
-            border-color: rgba(var(--accent-rgb),0.5);
+            border-color: rgba(var(--accent-rgb),0.45);
             color: var(--text-primary);
             transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(99,102,241,0.12);
         }
         .persona-label {
             font-size: 11px;
@@ -511,13 +518,13 @@
             margin-bottom: 2px;
         }
         .persona-chip.active {
-            background: rgba(var(--accent-rgb),0.12);
-            border-color: rgba(var(--accent-rgb),0.5);
-            color: #e74c3c;
+            background: rgba(245,158,11,0.1);
+            border-color: rgba(245,158,11,0.5);
+            color: #fbbf24;
             font-weight: 600;
         }
 
-        /* ===== Feature 2: KPI toggle ===== */
+        /* ===== KPI toggle ===== */
         .metrics-toggle {
             display: inline-flex;
             align-items: center;
@@ -525,11 +532,11 @@
             padding: 5px 12px;
             margin-bottom: 10px;
             background: transparent;
-            border: 1px solid rgba(var(--accent-rgb),0.3);
+            border: 1px solid rgba(245,158,11,0.28);
             border-radius: 14px;
             font-size: 11px;
             font-weight: 600;
-            color: #e74c3c;
+            color: #f59e0b;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
             transition: background 0.2s, border-color 0.2s;
@@ -543,14 +550,14 @@
             white-space: nowrap;
         }
         .metrics-visible .metric {
-            background: rgba(var(--accent-rgb),0.18);
-            color: #e74c3c;
+            background: rgba(245,158,11,0.15);
+            color: #f59e0b;
             padding: 1px 5px;
             border-radius: 4px;
             font-weight: 600;
         }
 
-        /* ===== Feature 3: Timeline scrubber ===== */
+        /* ===== Timeline scrubber ===== */
         .tl-scrubber {
             margin-top: 12px;
             padding-top: 12px;
@@ -567,11 +574,12 @@
         .tl-yr-current {
             font-size: 13px;
             font-weight: 700;
-            color: #e74c3c;
+            color: #f59e0b;
+            font-family: 'JetBrains Mono', monospace;
         }
         .tl-scrubber input[type="range"] {
             width: 100%;
-            accent-color: #c0392b;
+            accent-color: #f59e0b;
             cursor: pointer;
             display: block;
         }
@@ -581,13 +589,14 @@
             font-size: 10px;
             color: var(--text-muted);
             margin-top: 4px;
+            font-family: 'JetBrains Mono', monospace;
         }
         .mini-tl-item.tl-active {
             opacity: 1;
-            background: rgba(var(--accent-rgb),0.08);
+            background: rgba(245,158,11,0.07);
             padding: 8px 8px;
         }
-        .mini-tl-item.tl-dim { opacity: 0.25; }
+        .mini-tl-item.tl-dim { opacity: 0.2; }
 
         /* Impact-first timeline */
         .tl-impact {
@@ -601,12 +610,14 @@
             font-weight: 800;
             color: var(--text-primary);
             line-height: 1.2;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.03em;
+            font-family: 'JetBrains Mono', monospace;
         }
         .tl-impact-role {
             font-size: 12px;
             font-weight: 600;
             color: var(--text-primary);
+            margin-top: 2px;
         }
         .tl-impact-desc {
             font-size: 12px;
@@ -622,19 +633,24 @@
         /* Education cards */
         .edu-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
         .edu-card {
-            background: rgba(255,255,255,0.04);
+            background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 14px;
             padding: 14px 16px;
             position: relative;
             overflow: hidden;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .edu-card:hover {
+            border-color: rgba(99,102,241,0.25);
+            box-shadow: 0 4px 20px rgba(99,102,241,0.08);
         }
         .edu-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0;
             width: 3px; height: 100%;
-            background: linear-gradient(180deg, #e74c3c, rgba(192,57,43,0.3));
+            background: linear-gradient(180deg, #f59e0b, rgba(245,158,11,0.2));
             border-radius: 3px 0 0 3px;
         }
         .edu-card-header {
@@ -649,6 +665,7 @@
             font-weight: 700;
             color: var(--text-primary);
             line-height: 1.2;
+            letter-spacing: -0.01em;
         }
         .edu-degree {
             font-size: 12px;
@@ -659,13 +676,14 @@
             margin-left: auto;
             font-size: 11px;
             font-weight: 700;
-            color: #e74c3c;
-            background: rgba(192,57,43,0.1);
-            border: 1px solid rgba(192,57,43,0.25);
+            color: #f59e0b;
+            background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.22);
             border-radius: 8px;
             padding: 3px 8px;
             white-space: nowrap;
             flex-shrink: 0;
+            font-family: 'JetBrains Mono', monospace;
         }
         .edu-chips {
             display: flex;
@@ -677,32 +695,48 @@
             font-weight: 600;
             padding: 4px 10px;
             border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.09);
             color: var(--text-secondary);
             background: rgba(255,255,255,0.04);
         }
         .edu-chip.gold {
-            color: #f5c842;
-            border-color: rgba(245,200,66,0.25);
-            background: rgba(245,200,66,0.07);
+            color: #fbbf24;
+            border-color: rgba(251,191,36,0.22);
+            background: rgba(251,191,36,0.07);
         }
         .edu-chip.red {
-            color: #e74c3c;
-            border-color: rgba(231,76,60,0.3);
-            background: rgba(192,57,43,0.08);
+            color: #f59e0b;
+            border-color: rgba(245,158,11,0.25);
+            background: rgba(245,158,11,0.07);
         }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 2px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .msg, .bubble, .persona-bar, .typing,
+            .reply-block, .sub-reply, .gradient-name {
+                transition: none !important;
+                animation: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+            body { transition: none !important; }
+        }
+
+        @media (max-width: 480px) {
+            .topic-btn { font-size: 13px; padding: 8px 15px; }
+            .bubble { font-size: 15px; }
+            .chat-wrap { padding: 32px 16px 100px; }
+            .sub-btn { font-size: 12px; padding: 5px 11px; }
+            .header-action-btn { height: 36px; padding: 0 10px; font-size: 12px; }
+            .header-action-btn .btn-label { display: none; }
+        }
     </style>
 </head>
 <body>
-
-<canvas id="stars-canvas"></canvas>
-<div class="nebula nebula-1"></div>
-<div class="nebula nebula-2"></div>
 
 <div class="chat-wrap">
 
@@ -710,7 +744,7 @@
     <div class="chat-header">
         <div class="avatar"><img src="assets/0409_Arun_Sharma-removebg-preview.jpg" alt="Arun Sharma" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;"></div>
         <div>
-            <h1 class="header-name">Arun Sharma</h1>
+            <h1 class="header-name"><span class="gradient-name">Arun Sharma</span></h1>
             <div class="header-sub"><span class="online-dot"></span>Available now · Strategy & Growth</div>
         </div>
         <div class="header-actions">
@@ -770,7 +804,6 @@
         <div class="section-label">💼 Work Experience</div>
         <div class="typing" id="typing-work" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
 
-        <!-- L1 prompt + sub-buttons -->
         <div class="msg" id="submenu-work" style="margin-top:16px">
             <div class="bubble" data-id="msg-work-menu" data-time="just now">
                 7 years, 5 companies — what aspect do you want to explore?
@@ -787,7 +820,7 @@
             <div class="typing" id="typing-sub-work-timeline"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-work-timeline" data-time="just now">
-<div class="mini-timeline" id="tl-metrics-container">
+                    <div class="mini-timeline" id="tl-metrics-container">
                         <div class="mini-tl-item impact-first" data-start="2025" data-end="2026">
                             <div class="mini-tl-year">2025–26</div>
                             <div class="tl-impact">
@@ -919,7 +952,6 @@
         <div class="section-label">🧠 Skills</div>
         <div class="typing" id="typing-skills" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
 
-        <!-- L1 prompt + sub-buttons -->
         <div class="msg" id="submenu-skills" style="margin-top:16px">
             <div class="bubble" data-id="msg-skills-menu" data-time="just now">
                 I operate at the intersection of strategy, growth, and execution. Which area?
@@ -1117,7 +1149,7 @@
         </div>
     </div>
 
-    <!-- Education reply (flat) -->
+    <!-- Education reply -->
     <div class="reply-block" id="reply-education">
         <div class="section-label">🎓 Education</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
@@ -1173,7 +1205,6 @@
         <div class="section-label">🙋 About Me</div>
         <div class="typing" id="typing-about" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
 
-        <!-- L1 prompt + sub-buttons -->
         <div class="msg" id="submenu-about" style="margin-top:16px">
             <div class="bubble" data-id="msg-about-menu" data-time="just now">
                 There's a lot to unpack. What are you curious about?
@@ -1344,7 +1375,7 @@
         </div>
     </div>
 
-    <!-- Things I've Built reply (flat) -->
+    <!-- Things I've Built reply -->
     <div class="reply-block" id="reply-built">
         <div class="section-label">🛠️ Things I've Built</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
@@ -1358,22 +1389,22 @@
                 <div class="mini-timeline">
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">🖥️</div>
-                        <div class="mini-tl-text"><span>Dopamine</span> — macOS widget for ADHDers. Pomodoro + tasks + energy-aware streaks. No accounts, no cloud. Built with Electron + vanilla JS. <a href="https://github.com/Oxymarun/dopamine" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">GitHub →</a></div>
+                        <div class="mini-tl-text"><span>Dopamine</span> — macOS widget for ADHDers. Pomodoro + tasks + energy-aware streaks. No accounts, no cloud. Built with Electron + vanilla JS. <a href="https://github.com/Oxymarun/dopamine" target="_blank" rel="noopener noreferrer" style="color:#f59e0b;text-decoration:none">GitHub →</a></div>
                     </div>
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">💬</div>
-                        <div class="mini-tl-text"><span>This portfolio</span> — Chat-style personal site. Single HTML file, no framework. Glassmorphism + emoji reactions + starfield. <a href="https://github.com/Oxymarun/arun-chatui" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">GitHub →</a></div>
+                        <div class="mini-tl-text"><span>This portfolio</span> — Chat-style personal site. Single HTML file, no framework. <a href="https://github.com/Oxymarun/arun-chatui" target="_blank" rel="noopener noreferrer" style="color:#f59e0b;text-decoration:none">GitHub →</a></div>
                     </div>
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">📄</div>
-                        <div class="mini-tl-text"><span>CV Website</span> — Full work history as a live website. <a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">Live →</a></div>
+                        <div class="mini-tl-text"><span>CV Website</span> — Full work history as a live website. <a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer" style="color:#f59e0b;text-decoration:none">Live →</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Contact reply (flat) -->
+    <!-- Contact reply -->
     <div class="reply-block" id="reply-contact">
         <div class="section-label">📬 Let's Connect</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
@@ -1387,19 +1418,19 @@
                 <div class="mini-timeline">
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">📧</div>
-                        <div class="mini-tl-text"><a href="mailto:aruns2021@email.iimcal.ac.in" style="color:#e74c3c;text-decoration:none">aruns2021@email.iimcal.ac.in</a></div>
+                        <div class="mini-tl-text"><a href="mailto:aruns2021@email.iimcal.ac.in" style="color:#f59e0b;text-decoration:none">aruns2021@email.iimcal.ac.in</a></div>
                     </div>
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">📱</div>
-                        <div class="mini-tl-text"><a href="tel:+919663338493" style="color:#e74c3c;text-decoration:none">+91-9663338493</a></div>
+                        <div class="mini-tl-text"><a href="tel:+919663338493" style="color:#f59e0b;text-decoration:none">+91-9663338493</a></div>
                     </div>
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">💼</div>
-                        <div class="mini-tl-text"><a href="https://www.linkedin.com/in/arunsharma281995/" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">LinkedIn → Arun Sharma</a></div>
+                        <div class="mini-tl-text"><a href="https://www.linkedin.com/in/arunsharma281995/" target="_blank" rel="noopener noreferrer" style="color:#f59e0b;text-decoration:none">LinkedIn → Arun Sharma</a></div>
                     </div>
                     <div class="mini-tl-item">
                         <div class="mini-tl-year">📄</div>
-                        <div class="mini-tl-text"><a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer" style="color:#e74c3c;text-decoration:none">Full CV website →</a></div>
+                        <div class="mini-tl-text"><a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer" style="color:#f59e0b;text-decoration:none">Full CV website →</a></div>
                     </div>
                 </div>
             </div>
@@ -1410,76 +1441,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
-    // Starfield
-    const canvas = document.getElementById('stars-canvas');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    let animPaused = false;
-    let starIsDark = true;
-
-    document.addEventListener('visibilitychange', () => {
-        animPaused = document.hidden;
-    });
-
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = Math.max(document.body.scrollHeight, window.innerHeight);
-    }
-
-    function initStars() {
-        if (!ctx) return;
-        stars = [];
-        const count = Math.floor((canvas.width * canvas.height) / 3500);
-        for (let i = 0; i < count; i++) {
-            const isBright = Math.random() < 0.08; // 8% are bright flash stars
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: isBright ? Math.random() * 1.8 + 1.0 : Math.random() * 1.2 + 0.2,
-                baseAlpha: isBright ? 0.7 : Math.random() * 0.4 + 0.1,
-                twinkleAmp: isBright ? 0.55 : Math.random() * 0.3 + 0.1,
-                phase: Math.random() * Math.PI * 2,
-                phaseSpeed: isBright
-                    ? Math.random() * 0.06 + 0.03   // flash stars pulse faster
-                    : Math.random() * 0.025 + 0.005,
-                isBright
-            });
-        }
-    }
-
-    function drawStars() {
-        if (!ctx || animPaused) { requestAnimationFrame(drawStars); return; }
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const isDark = starIsDark;
-        stars.forEach(s => {
-            s.phase += s.phaseSpeed;
-            const alpha = s.baseAlpha + s.twinkleAmp * Math.sin(s.phase);
-            const clamped = Math.min(0.95, Math.max(0.02, alpha));
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            if (isDark) {
-                // bright stars get a warm tint
-                const warm = s.isBright ? `rgba(255,240,200,${clamped})` : `rgba(255,255,255,${clamped})`;
-                ctx.fillStyle = warm;
-                // glow for bright stars
-                if (s.isBright && clamped > 0.5) {
-                    ctx.shadowBlur = 6;
-                    ctx.shadowColor = `rgba(255,240,200,${clamped * 0.6})`;
-                }
-            } else {
-                ctx.fillStyle = `rgba(100,110,140,${clamped * 0.35})`;
-            }
-            ctx.fill();
-            ctx.shadowBlur = 0;
-        });
-        requestAnimationFrame(drawStars);
-    }
-
-    resizeCanvas();
-    initStars();
-    drawStars();
-    window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
-
     // Theme toggle
     function setThemeBtn(theme) {
         const btn = document.getElementById('theme-toggle');
@@ -1498,17 +1459,14 @@
         const html = document.documentElement;
         const isDark = html.dataset.theme === 'dark';
         html.dataset.theme = isDark ? 'light' : 'dark';
-        starIsDark = html.dataset.theme === 'dark';
         setThemeBtn(html.dataset.theme);
         try { localStorage.setItem('chatui_theme', html.dataset.theme); } catch(e) {}
     }
 
-    // Restore saved theme
     try {
         const saved = localStorage.getItem('chatui_theme');
         if (saved) {
             document.documentElement.dataset.theme = saved;
-            starIsDark = saved === 'dark';
             setThemeBtn(saved);
         } else {
             setThemeBtn(document.documentElement.dataset.theme);
@@ -1528,27 +1486,25 @@
         .to('#topics', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 3.0)
         .to('#topics .topic-btn', { opacity: 1, y: 0, stagger: 0.08, duration: 0.4, ease: 'back.out(1.4)' }, 3.05);
 
-    // Avatar glow pulse
+    // Avatar glow pulse — amber
     gsap.to('.avatar', {
-        boxShadow: '0 0 28px rgba(192,57,43,0.9), 0 0 56px rgba(192,57,43,0.3)',
-        duration: 1.5, ease: 'sine.inOut', repeat: -1, yoyo: true
+        boxShadow: '0 0 0 2px #12100a, 0 0 0 4px rgba(245,158,11,0.5), 0 0 24px rgba(245,158,11,0.25)',
+        duration: 1.8, ease: 'sine.inOut', repeat: -1, yoyo: true
     });
 
-    // Topics that use 2-level tree navigation
     const L2_TOPICS = ['work', 'skills', 'about'];
 
     function openTopic(topic, event) {
         const btn = event.currentTarget;
         const reply = document.getElementById('reply-' + topic);
 
-        // Toggle off if already open
         if (reply.classList.contains('open')) {
             reply.classList.remove('open');
             btn.classList.remove('active');
-            reply.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
+            reply.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
             reply.querySelectorAll('.sub-reply').forEach(s => {
                 s.classList.remove('open');
-                s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
+                s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
             });
             reply.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
             reply.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
@@ -1557,17 +1513,16 @@
             return;
         }
 
-        // Accordion: close all others
         document.querySelectorAll('.topic-btn').forEach(b => {
             const t = b.dataset.topic;
             if (t === topic) return;
             const r = document.getElementById('reply-' + t);
             if (r && r.classList.contains('open')) {
                 r.classList.remove('open');
-                r.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
+                r.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
                 r.querySelectorAll('.sub-reply').forEach(s => {
                     s.classList.remove('open');
-                    s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
+                    s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
                 });
                 r.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
                 r.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
@@ -1618,8 +1573,6 @@
         setTimeout(() => {
             reply.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
-
-        setTimeout(() => { resizeCanvas(); }, 1200);
     }
 
     function openSubTopic(topic, sub, event) {
@@ -1632,7 +1585,7 @@
 
         reply.querySelectorAll('.sub-reply').forEach(s => {
             s.classList.remove('open');
-            s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
+            s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
             s.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
         });
 
@@ -1668,12 +1621,9 @@
         setTimeout(() => {
             subReply.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 200);
-
-        setTimeout(() => { resizeCanvas(); }, 1200);
     }
 
-
-    // ===== Feature 1: Persona chips =====
+    // ===== Persona chips =====
     const PERSONAS = {
         recruiter: { primary: 'work'  },
         founder:   { primary: 'built' },
@@ -1699,13 +1649,12 @@
         if (btn) openTopic(PERSONAS[name].primary, { currentTarget: btn });
     }
 
-    // Auto-select persona from URL on load
     window.addEventListener('load', () => {
         const p = new URLSearchParams(window.location.search).get('persona');
         if (p && PERSONAS[p]) setTimeout(() => selectPersona(p), 3200);
     });
 
-    // ===== Feature 2: KPI toggle =====
+    // ===== KPI toggle =====
     let metricsOn = false;
 
     function toggleMetrics() {
@@ -1716,7 +1665,7 @@
         if (btn) btn.textContent = metricsOn ? '✦ Hide impact metrics' : '✦ Show impact metrics';
     }
 
-    // ===== Feature 3: Timeline scrubber =====
+    // ===== Timeline scrubber =====
     function scrubTimeline(year) {
         const display = document.getElementById('tl-yr');
         if (display) display.textContent = year;
