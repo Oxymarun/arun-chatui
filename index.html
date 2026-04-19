@@ -899,6 +899,7 @@
                     <button class="sub-btn" onclick="openSubTopic('about','background',event)">🏔️ Background</button>
                     <button class="sub-btn" onclick="openSubTopic('about','adventures',event)">🧗 Adventures</button>
                     <button class="sub-btn" onclick="openSubTopic('about','sports',event)">🏀 Sports</button>
+                    <button class="sub-btn" onclick="openSubTopic('about','gaming',event)">🎮 Gaming</button>
                     <button class="sub-btn" onclick="openSubTopic('about','now',event)">🟢 Right now</button>
                 </div>
             </div>
@@ -908,18 +909,78 @@
         <div class="sub-reply" id="sub-about-background">
             <div class="typing" id="typing-sub-about-background"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-about-bg-1" data-time="just now">
-                    Grew up across Himachal Pradesh — village kid, moved schools 5 times. Missed IIT counselling because of Grandpa's health. Landed at NITK, finished 2nd/100. Somehow ended up at IIM-C and BCG. 🏔️→🏢
+                <div class="bubble" data-id="msg-about-bg-intro" data-time="just now">
+                    Village kid from Himachal Pradesh. Moved schools 5 times. Somehow ended up at NITK → IIM-C → BCG. Which part?
+                    <div class="sub-buttons">
+                        <button class="sub-btn" onclick="openSubTopic('about','growing-up',event)">🏘️ Growing up</button>
+                        <button class="sub-btn" onclick="openSubTopic('about','education',event)">🎓 Education</button>
+                        <button class="sub-btn" onclick="openSubTopic('about','countries',event)">🌍 Countries</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- L3: Growing up -->
+        <div class="sub-reply" id="sub-about-growing-up">
+            <div class="typing" id="typing-sub-about-growing-up"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-grow-1" data-time="just now">
+                    Born 1995 in Dohgi — a small village in Una, Himachal Pradesh. Dad was a civil engineer, often away on remote sites. Early years with grandparents and mom in the village while he worked.
                 </div>
             </div>
             <div class="msg">
-                <div class="bubble" data-id="msg-about-bg-2" data-time="just now">
-                    9 countries: Canada, Thailand, Turkey, Nepal, Egypt, Indonesia, Sri Lanka, Malaysia, Philippines. Always off-beat. ✈️
+                <div class="bubble" data-id="msg-about-grow-2" data-time="just now">
+                    Moved to Malana (Kullu) → Una → Manali → Chandigarh → Surathkal. Five cities, five schools. Always the new kid. Always top 3 in class.
                 </div>
             </div>
             <div class="msg">
-                <div class="bubble" data-id="msg-about-bg-3" data-time="just now">
-                    Deep into the Indian VC ecosystem, build side projects with Claude, read a lot of non-fiction. Growth-X Fellow. 📚
+                <div class="bubble highlight" data-id="msg-about-grow-3" data-time="just now">
+                    Best chapter: Manali. 2008–2011. Mountains, snow, basketball, DPS. That's where a lot of who I am got shaped. 🏔️
+                </div>
+            </div>
+        </div>
+
+        <!-- L3: Education -->
+        <div class="sub-reply" id="sub-about-education">
+            <div class="typing" id="typing-sub-about-education"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-edu-1" data-time="just now">
+                    Prepared for IIT JEE in Chandigarh. Got a solid ~4K rank — IIT-eligible. But missed counselling day because Grandpa was unwell. Decided to go to the best non-IIT engineering college instead.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-edu-2" data-time="just now">
+                    <strong>NIT Karnataka, Surathkal (2013–2017)</strong> — Civil Engineering, following my father's footsteps. Graduated 2nd out of 100. MITACS research internship in Canada in 2016. Vice Captain + Sports Convener.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-about-edu-3" data-time="just now">
+                    <strong>IIM Calcutta (2019–2021)</strong> — MBA, top 10%. BCG internship. Got admits to HEC Paris too — chose India. 🇮🇳
+                </div>
+            </div>
+        </div>
+
+        <!-- L3: Countries -->
+        <div class="sub-reply" id="sub-about-countries">
+            <div class="typing" id="typing-sub-about-countries"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-countries-1" data-time="just now">
+                    9 countries. Usually off-beat routes, not resorts. ✈️
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-about-countries-2" data-time="just now">
+                    <div class="mini-timeline">
+                        <div class="mini-tl-item"><div class="mini-tl-year">🇨🇦 2016</div><div class="mini-tl-text">Canada — MITACS internship. Montreal, Toronto, Niagara Falls, Quebec City.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🇹🇭 2021</div><div class="mini-tl-text">Thailand — 10-day New Year's trip with 5 IIMC friends.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🇹🇷 2022</div><div class="mini-tl-text">Turkey — 12 days: Antalya, Istanbul, Oludeniz, Cappadocia.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🇳🇵 2023</div><div class="mini-tl-text">Nepal — 18-day Everest Base Camp trek. Gokyo-Ri + two 6000m peaks.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🇪🇬 2024</div><div class="mini-tl-text">Egypt — 10 days: Giza, Luxor, Hurghada.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🇮🇩 2024</div><div class="mini-tl-text">Indonesia — New Year's: Bali, Gili Islands, Ubud, Uluwatu.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🇱🇰 2025</div><div class="mini-tl-text">Sri Lanka — 3 days.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🇲🇾 2025</div><div class="mini-tl-text">Malaysia — 3 days.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🇵🇭 2025</div><div class="mini-tl-text">Philippines — New Year's: Cebu, Moalboal, Bohol, Boracay.</div></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -928,8 +989,23 @@
         <div class="sub-reply" id="sub-about-adventures">
             <div class="typing" id="typing-sub-about-adventures"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble highlight" data-id="msg-about-adv" data-time="just now">
-                    Outside work: <strong>Everest Base Camp trekker</strong> — 18-day Gokyo-Ri + EBC loop, plus two 6000m peaks (Chola Pass &amp; Kaala-Pathar). 🏔️
+                <div class="bubble" data-id="msg-about-adv-1" data-time="just now">
+                    Outside work I'm usually at altitude, on a board, or deep in a game. 🏔️🛹❄️
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-about-adv-2" data-time="just now">
+                    <strong>Trekking</strong> — 18-day Gokyo-Ri + Everest Base Camp loop. Scaled two 6000m peaks: Chola Pass &amp; Kaala-Pathar. Plus Hampta Pass and 5 other Manali-area trails.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-adv-3" data-time="just now">
+                    <strong>Skateboarding</strong> — learnt in Montreal during my 2016 Canada internship. <strong>Snowboarding</strong> — two winters in Manali (2008–2010), literally had mountains as my backyard.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-adv-4" data-time="just now">
+                    Also did a T-shirt business in college — sold 1000+ tees, ₹2.5L revenue, ₹75K profit, team of 3. First taste of 0-to-1. 👕
                 </div>
             </div>
         </div>
@@ -938,8 +1014,39 @@
         <div class="sub-reply" id="sub-about-sports">
             <div class="typing" id="typing-sub-about-sports"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble highlight" data-id="msg-about-sports" data-time="just now">
-                    State-level basketball player since age 13. <strong>National Inter-NIT Runners Up twice</strong> (24 teams). Captain at IIM Calcutta — Gold at Inter-IIM Sangharsh. 🏀
+                <div class="bubble" data-id="msg-about-sports-1" data-time="just now">
+                    Started basketball at 13 in Manali. Late starter — picked it up partly because all the cool kids played. Ended up representing the state. 🏀
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-about-sports-2" data-time="just now">
+                    <div class="mini-timeline">
+                        <div class="mini-tl-item"><div class="mini-tl-year">2009</div><div class="mini-tl-text">U-14 State representation + Inter-DPS North.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">2014</div><div class="mini-tl-text">NITK — National Inter-NIT Runners Up (24 teams).</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">2017</div><div class="mini-tl-text">NITK — National Inter-NIT Runners Up again. Vice Captain. Sports Convener (₹5L prize pool).</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">2020</div><div class="mini-tl-text">IIM Calcutta — Captain. 1st Runner Up at IIML Sports Fest. <strong>Gold at Inter-IIM Sangharsh.</strong></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- L2: Gaming -->
+        <div class="sub-reply" id="sub-about-gaming">
+            <div class="typing" id="typing-sub-about-gaming"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-about-gaming-1" data-time="just now">
+                    Serious gamer. Not casual. 🎮
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-about-gaming-2" data-time="just now">
+                    <div class="mini-timeline">
+                        <div class="mini-tl-item"><div class="mini-tl-year">⚔️</div><div class="mini-tl-text"><strong>Dota 2</strong> — 3,000 hrs. The real one.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🔫</div><div class="mini-tl-text"><strong>CS:GO</strong> — 1,500 hrs.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">💥</div><div class="mini-tl-text"><strong>Call of Duty: Warzone</strong> — 500 hrs.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">📱</div><div class="mini-tl-text"><strong>COD Mobile + PUBG Mobile</strong> — 700 hrs combined.</div></div>
+                        <div class="mini-tl-item"><div class="mini-tl-year">🦸</div><div class="mini-tl-text"><strong>Overwatch</strong> — 100 hrs.</div></div>
+                    </div>
                 </div>
             </div>
         </div>
