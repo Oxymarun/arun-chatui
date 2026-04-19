@@ -592,6 +592,36 @@
         }
         .mini-tl-item.tl-dim { opacity: 0.25; }
 
+        /* Impact-first timeline */
+        .tl-impact {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+        }
+        .tl-impact-metric {
+            font-size: 20px;
+            font-weight: 800;
+            color: #e74c3c;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+        .tl-impact-role {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .tl-impact-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            line-height: 1.4;
+        }
+        .mini-tl-item.impact-first {
+            align-items: flex-start;
+            padding: 10px 4px;
+        }
+
         /* Scrollbar */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -688,29 +718,53 @@
                 <div class="bubble highlight" data-id="msg-work-timeline" data-time="just now">
                     <button class="metrics-toggle" id="metrics-toggle-btn" onclick="toggleMetrics()">✦ Show impact metrics</button>
                     <div class="mini-timeline" id="tl-metrics-container">
-                        <div class="mini-tl-item" data-start="2025" data-end="2026">
+                        <div class="mini-tl-item impact-first" data-start="2025" data-end="2026">
                             <div class="mini-tl-year">2025–26</div>
-                            <div class="mini-tl-text"><span>PocketFM</span> — Early Strategy & Growth. Scaled micro-drama to <span class="metric">$2M MRR</span> &amp; <span class="metric">500K DAU</span> in 5 months.</div>
+                            <div class="tl-impact">
+                                <div class="tl-impact-metric">$2M MRR · 500K DAU</div>
+                                <div class="tl-impact-role">PocketFM — Strategy & Growth</div>
+                                <div class="tl-impact-desc">Scaled micro-drama vertical from zero in 5 months.</div>
+                            </div>
                         </div>
-                        <div class="mini-tl-item" data-start="2025" data-end="2026">
+                        <div class="mini-tl-item impact-first" data-start="2025" data-end="2026">
                             <div class="mini-tl-year">2025–26</div>
-                            <div class="mini-tl-text"><span>Physical-AI Startup</span> — Chief of Staff. Series A fundraise, built team <span class="metric">0→20</span>.</div>
+                            <div class="tl-impact">
+                                <div class="tl-impact-metric">0 → 20 team · Series A</div>
+                                <div class="tl-impact-role">Physical-AI Startup — Chief of Staff</div>
+                                <div class="tl-impact-desc">Built org from scratch while running fundraise simultaneously.</div>
+                            </div>
                         </div>
-                        <div class="mini-tl-item" data-start="2023" data-end="2025">
+                        <div class="mini-tl-item impact-first" data-start="2023" data-end="2025">
                             <div class="mini-tl-year">2023–25</div>
-                            <div class="mini-tl-text"><span>InsuranceDekho</span> — Sr. Assoc Director / CoS. Built cross-sell P&amp;L: <span class="metric">₹100+ Cr AGWP</span> from scratch.</div>
+                            <div class="tl-impact">
+                                <div class="tl-impact-metric">₹100+ Cr AGWP</div>
+                                <div class="tl-impact-role">InsuranceDekho — Sr. Assoc Director / CoS</div>
+                                <div class="tl-impact-desc">Built cross-sell P&amp;L from scratch. Zero to revenue vertical.</div>
+                            </div>
                         </div>
-                        <div class="mini-tl-item" data-start="2021" data-end="2023">
+                        <div class="mini-tl-item impact-first" data-start="2021" data-end="2023">
                             <div class="mini-tl-year">2021–23</div>
-                            <div class="mini-tl-text"><span>MPL / Mayhem Studios</span> — Chief of Staff. Closed <span class="metric">$20M Series A</span> with Sequoia. <span class="metric">1.7M+ DAU</span>.</div>
+                            <div class="tl-impact">
+                                <div class="tl-impact-metric">$20M Series A · 1.7M DAU</div>
+                                <div class="tl-impact-role">MPL / Mayhem Studios — Chief of Staff</div>
+                                <div class="tl-impact-desc">Closed Sequoia round. Scaled gaming platform to 1.7M daily users.</div>
+                            </div>
                         </div>
-                        <div class="mini-tl-item" data-start="2020" data-end="2020">
+                        <div class="mini-tl-item impact-first" data-start="2020" data-end="2020">
                             <div class="mini-tl-year">2020</div>
-                            <div class="mini-tl-text"><span>BCG</span> — Strategy Consulting. Influenced <span class="metric">3000+ execs</span> at 2 NASSCOM conferences.</div>
+                            <div class="tl-impact">
+                                <div class="tl-impact-metric">3,000+ execs influenced</div>
+                                <div class="tl-impact-role">BCG — Strategy Consulting</div>
+                                <div class="tl-impact-desc">2 NASSCOM conferences. Enterprise strategy for India's largest cos.</div>
+                            </div>
                         </div>
-                        <div class="mini-tl-item" data-start="2017" data-end="2019">
+                        <div class="mini-tl-item impact-first" data-start="2017" data-end="2019">
                             <div class="mini-tl-year">2017–19</div>
-                            <div class="mini-tl-text"><span>Novartis</span> — Data & Strategy Analyst. Built physician segmentation for <span class="metric">$1B+</span> drug portfolio.</div>
+                            <div class="tl-impact">
+                                <div class="tl-impact-metric">$1B+ drug portfolio</div>
+                                <div class="tl-impact-role">Novartis — Data & Strategy Analyst</div>
+                                <div class="tl-impact-desc">Physician segmentation models. First taste of data-to-decision loops.</div>
+                            </div>
                         </div>
                     </div>
                     <div class="tl-scrubber">
@@ -892,17 +946,57 @@
             <div class="typing" id="typing-sub-skills-ops"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-skills-ops" data-time="just now">
-                    <div class="chips">
-                        <span class="chip">Chief of Staff</span>
-                        <span class="chip">Cross-functional Leadership</span>
-                        <span class="chip">Program Management</span>
-                        <span class="chip">Team Building</span>
+                    The person who makes the founder's vision actually move. Pick a lens:
+                    <div class="sub-buttons">
+                        <button class="sub-btn" onclick="openSubTopic('skills','ops-cos',event)">🧭 Chief of Staff</button>
+                        <button class="sub-btn" onclick="openSubTopic('skills','ops-xfn',event)">🔗 Cross-functional</button>
+                        <button class="sub-btn" onclick="openSubTopic('skills','ops-team',event)">👥 Team Building</button>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- L3: Chief of Staff -->
+        <div class="sub-reply" id="sub-skills-ops-cos">
+            <div class="typing" id="typing-sub-skills-ops-cos"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-skills-ops-2" data-time="just now">
-                    I've been the person who makes the founder's vision move — running sprints, unblocking teams, and making sure nothing falls through the cracks.
+                <div class="bubble" data-id="msg-ops-cos-1" data-time="just now">
+                    Ran CoS at MPL and a Physical-AI startup — managed board prep, investor comms, weekly exec rhythms, and priority-setting across 4+ functions simultaneously.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-ops-cos-2" data-time="just now">
+                    At InsuranceDekho, operated as CoS while owning a revenue vertical — rare combo of strategic and commercial accountability.
+                </div>
+            </div>
+        </div>
+
+        <!-- L3: Cross-functional -->
+        <div class="sub-reply" id="sub-skills-ops-xfn">
+            <div class="typing" id="typing-sub-skills-ops-xfn"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-ops-xfn-1" data-time="just now">
+                    Run sprints across product, growth, sales, and finance without owning any single one. The job is alignment, not control.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-ops-xfn-2" data-time="just now">
+                    At MPL: coordinated $20M fundraise across legal, finance, product, and founders while the team was still shipping features daily. No process paused.
+                </div>
+            </div>
+        </div>
+
+        <!-- L3: Team Building -->
+        <div class="sub-reply" id="sub-skills-ops-team">
+            <div class="typing" id="typing-sub-skills-ops-team"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-ops-team-1" data-time="just now">
+                    Built a 0→20 team at a Physical-AI startup in months — defined roles, ran hiring, onboarded, and set culture before the org chart existed.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-ops-team-2" data-time="just now">
+                    Strong believer: hire for ownership, not skills. Skills compound, entitlement doesn't.
                 </div>
             </div>
         </div>
@@ -912,16 +1006,41 @@
             <div class="typing" id="typing-sub-skills-data"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-skills-data" data-time="just now">
-                    <div class="chips">
-                        <span class="chip">Data Analytics</span>
-                        <span class="chip">SQL / Power BI</span>
-                        <span class="chip">AI-native workflows</span>
+                    Data-led since day 1. Now AI-native on top. Pick one:
+                    <div class="sub-buttons">
+                        <button class="sub-btn" onclick="openSubTopic('skills','data-analytics',event)">📊 Analytics</button>
+                        <button class="sub-btn" onclick="openSubTopic('skills','data-ai',event)">🤖 AI-native</button>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- L3: Analytics -->
+        <div class="sub-reply" id="sub-skills-data-analytics">
+            <div class="typing" id="typing-sub-skills-data-analytics"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-skills-data-2" data-time="just now">
-                    Started in pharma analytics, stayed data-led. Now I build side projects with Claude and ship faster than most engineers expect.
+                <div class="bubble" data-id="msg-data-analytics-1" data-time="just now">
+                    Started career in pharma analytics at Novartis — built physician segmentation models for a $1B+ drug portfolio using SQL and Power BI.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-data-analytics-2" data-time="just now">
+                    Stayed data-led across every role since — cohort analysis, funnel metrics, CAC/LTV, retention curves. I read dashboards before I read decks.
+                </div>
+            </div>
+        </div>
+
+        <!-- L3: AI-native -->
+        <div class="sub-reply" id="sub-skills-data-ai">
+            <div class="typing" id="typing-sub-skills-data-ai"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-data-ai-1" data-time="just now">
+                    Build side projects entirely with Claude — this portfolio, Dopamine (macOS widget), ReplyGenius (Chrome extension). No CS degree. Just fast iteration.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-data-ai-2" data-time="just now">
+                    AI isn't a tool I use. It's how I operate. Every workflow, every doc, every decision loop has AI in it now.
                 </div>
             </div>
         </div>
