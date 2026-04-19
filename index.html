@@ -811,19 +811,78 @@
             <div class="typing" id="typing-sub-skills-strategy"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-skills-strat" data-time="just now">
-                    <div class="chips">
-                        <span class="chip">0-to-1 Scaling</span>
-                        <span class="chip">GTM Strategy</span>
-                        <span class="chip">P&L Ownership</span>
-                        <span class="chip">OKR Design</span>
-                        <span class="chip">Fundraising</span>
-                        <span class="chip">Content Marketing</span>
+                    Comfortable owning the full loop — thesis to execution to metrics. Dig into any area:
+                    <div class="sub-buttons">
+                        <button class="sub-btn" onclick="openSubTopic('skills','strat-01',event)">🚀 0-to-1 Scaling</button>
+                        <button class="sub-btn" onclick="openSubTopic('skills','strat-gtm',event)">📣 GTM Strategy</button>
+                        <button class="sub-btn" onclick="openSubTopic('skills','strat-pl',event)">💰 P&amp;L Ownership</button>
+                        <button class="sub-btn" onclick="openSubTopic('skills','strat-okr',event)">🎯 OKR Design</button>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- L3: 0-to-1 Scaling -->
+        <div class="sub-reply" id="sub-skills-strat-01">
+            <div class="typing" id="typing-sub-skills-strat-01"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-skills-strat-2" data-time="just now">
-                    Comfortable owning the full loop — from thesis to execution to metrics. Not just slides.
+                <div class="bubble" data-id="msg-strat-01-1" data-time="just now">
+                    Launched InsuranceDekho's first B2B2C channel from zero — defined ICP, built the pitch, closed early partners, owned the P&amp;L from day 1.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-strat-01-2" data-time="just now">
+                    At MPL, built growth loops for new game verticals before product-market fit was confirmed — rapid test-learn-kill cycles, not polished roadmaps.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-strat-01-3" data-time="just now">
+                    Also done this outside work — sold 1,000+ tees in college with ₹2.5L revenue, team of 3. First 0-to-1 was at 21. 👕
+                </div>
+            </div>
+        </div>
+
+        <!-- L3: GTM Strategy -->
+        <div class="sub-reply" id="sub-skills-strat-gtm">
+            <div class="typing" id="typing-sub-skills-strat-gtm"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-strat-gtm-1" data-time="just now">
+                    Segment → message → channel. I don't do spray-and-pray. Built GTM playbooks at InsuranceDekho for agent, digital, and B2B2C segments — each had different economics and retention curves.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-strat-gtm-2" data-time="just now">
+                    Managed content marketing at scale — worked with creators, built funnels, tracked CAC/LTV back to channel.
+                </div>
+            </div>
+        </div>
+
+        <!-- L3: P&L Ownership -->
+        <div class="sub-reply" id="sub-skills-strat-pl">
+            <div class="typing" id="typing-sub-skills-strat-pl"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-strat-pl-1" data-time="just now">
+                    Owned revenue targets, not just activity metrics. At InsuranceDekho, tracked premium, commission, and retention cohorts — and was accountable when numbers slipped.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble highlight" data-id="msg-strat-pl-2" data-time="just now">
+                    P&amp;L ownership and 0-to-1 overlap heavily — when you launch a new channel, you're also setting the unit economics from scratch.
+                </div>
+            </div>
+        </div>
+
+        <!-- L3: OKR Design -->
+        <div class="sub-reply" id="sub-skills-strat-okr">
+            <div class="typing" id="typing-sub-skills-strat-okr"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-strat-okr-1" data-time="just now">
+                    Designed OKR frameworks for cross-functional teams — making sure individual KRs roll up to company-level outcomes, not just departmental activity.
+                </div>
+            </div>
+            <div class="msg">
+                <div class="bubble" data-id="msg-strat-okr-2" data-time="just now">
+                    Also coached teams on the diff between lag and lead metrics. Most OKR failures are measurement failures, not ambition failures.
                 </div>
             </div>
         </div>
@@ -1343,7 +1402,8 @@
         const btn = event.currentTarget;
         const reply = document.getElementById('reply-' + topic);
 
-        reply.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+        const btnGroup = btn.closest('.sub-buttons');
+        if (btnGroup) btnGroup.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
         reply.querySelectorAll('.sub-reply').forEach(s => {
