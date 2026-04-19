@@ -233,11 +233,6 @@
             margin-bottom: 10px;
             opacity: 0;
             transform: translateY(16px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .msg.show {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .bubble {
@@ -280,11 +275,6 @@
             margin-top: 16px;
             opacity: 0;
             transform: translateY(16px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .topics.show {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .topic-btn {
@@ -427,9 +417,7 @@
             display: inline-flex;
             margin-bottom: 10px;
             opacity: 0;
-            transition: opacity 0.3s;
         }
-        .typing.show { opacity: 1; }
 
         .typing-label {
             font-size: 11px;
@@ -497,9 +485,7 @@
             flex-wrap: wrap;
             opacity: 0;
             transform: translateY(12px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
         }
-        .persona-bar.show { opacity: 1; transform: translateY(0); }
         .persona-chip {
             padding: 0 14px;
             min-height: 44px;
@@ -631,6 +617,79 @@
         .mini-tl-item.impact-first {
             align-items: flex-start;
             padding: 10px 4px;
+        }
+
+        /* Education cards */
+        .edu-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+        .edu-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 14px 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .edu-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, #e74c3c, rgba(192,57,43,0.3));
+            border-radius: 3px 0 0 3px;
+        }
+        .edu-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .edu-logo { font-size: 24px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+        .edu-institution {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .edu-degree {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .edu-year-badge {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 700;
+            color: #e74c3c;
+            background: rgba(192,57,43,0.1);
+            border: 1px solid rgba(192,57,43,0.25);
+            border-radius: 8px;
+            padding: 3px 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .edu-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .edu-chip {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+            background: rgba(255,255,255,0.04);
+        }
+        .edu-chip.gold {
+            color: #f5c842;
+            border-color: rgba(245,200,66,0.25);
+            background: rgba(245,200,66,0.07);
+        }
+        .edu-chip.red {
+            color: #e74c3c;
+            border-color: rgba(231,76,60,0.3);
+            background: rgba(192,57,43,0.08);
         }
 
         /* Scrollbar */
@@ -1063,15 +1122,46 @@
         <div class="section-label">🎓 Education</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
-            <div class="bubble highlight" data-id="msg-edu-1" data-time="just now">
-                <div class="mini-timeline">
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">2019–21</div>
-                        <div class="mini-tl-text"><span>IIM Calcutta</span> — MBA. Institute Rank 20/480. CAT 99.72%ile. National Runners Up in Accenture B-School Challenge.</div>
+            <div class="bubble" data-id="msg-edu-intro" data-time="just now">
+                Top 0.3% CAT. Silver Medal engineer. Here's the full picture:
+            </div>
+        </div>
+        <div class="msg">
+            <div class="bubble highlight" data-id="msg-edu-cards" data-time="just now">
+                <div class="edu-cards">
+                    <div class="edu-card">
+                        <div class="edu-card-header">
+                            <div class="edu-logo">🏛️</div>
+                            <div>
+                                <div class="edu-institution">IIM Calcutta</div>
+                                <div class="edu-degree">MBA · Finance &amp; Strategy</div>
+                            </div>
+                            <div class="edu-year-badge">2019–21</div>
+                        </div>
+                        <div class="edu-chips">
+                            <span class="edu-chip gold">🏆 Rank 20 / 480</span>
+                            <span class="edu-chip red">📊 CAT 99.72%ile</span>
+                            <span class="edu-chip">🏢 BCG Intern</span>
+                            <span class="edu-chip">🥈 Accenture Challenge RU</span>
+                            <span class="edu-chip">🎓 HEC Paris admit — chose India</span>
+                        </div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">2013–17</div>
-                        <div class="mini-tl-text"><span>NITK Surathkal</span> — B.Tech. Silver Medalist, 2nd/100 (9.2/10). "Best Outgoing Student". MITACS International Scholar.</div>
+                    <div class="edu-card">
+                        <div class="edu-card-header">
+                            <div class="edu-logo">⚙️</div>
+                            <div>
+                                <div class="edu-institution">NIT Karnataka, Surathkal</div>
+                                <div class="edu-degree">B.Tech · Civil Engineering</div>
+                            </div>
+                            <div class="edu-year-badge">2013–17</div>
+                        </div>
+                        <div class="edu-chips">
+                            <span class="edu-chip gold">🥈 Silver Medal · 2nd / 100</span>
+                            <span class="edu-chip red">📈 GPA 9.2 / 10</span>
+                            <span class="edu-chip">🏅 Best Outgoing Student</span>
+                            <span class="edu-chip">🇨🇦 MITACS Scholar · Canada</span>
+                            <span class="edu-chip">🏀 Vice Captain &amp; Sports Convener</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1318,6 +1408,7 @@
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
     // Starfield
     const canvas = document.getElementById('stars-canvas');
@@ -1426,26 +1517,22 @@
         setThemeBtn(document.documentElement.dataset.theme);
     }
 
-    // Sequential message reveal
-    const messages = ['m1', 'm2', 'm3', 'm4'];
-    const delays = [300, 900, 1600, 2400];
+    // Initial reveal — GSAP
+    gsap.set('#topics .topic-btn', { opacity: 0, y: 8 });
+    gsap.timeline()
+        .to('#m1', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3)
+        .to('#m2', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.9)
+        .to('#m3', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 1.6)
+        .to('#m4', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 2.4)
+        .to('#persona-bar', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 2.75)
+        .to('#topics', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 3.0)
+        .to('#topics .topic-btn', { opacity: 1, y: 0, stagger: 0.08, duration: 0.4, ease: 'back.out(1.4)' }, 3.05);
 
-    messages.forEach((id, i) => {
-        setTimeout(() => {
-            const el = document.getElementById(id);
-            if (el) el.classList.add('show');
-        }, delays[i]);
+    // Avatar glow pulse
+    gsap.to('.avatar', {
+        boxShadow: '0 0 28px rgba(192,57,43,0.9), 0 0 56px rgba(192,57,43,0.3)',
+        duration: 1.5, ease: 'sine.inOut', repeat: -1, yoyo: true
     });
-
-    setTimeout(() => {
-        const personaBar = document.getElementById('persona-bar');
-        if (personaBar) personaBar.classList.add('show');
-    }, 2750);
-
-    setTimeout(() => {
-        const topics = document.getElementById('topics');
-        if (topics) topics.classList.add('show');
-    }, 3000);
 
     // Topics that use 2-level tree navigation
     const L2_TOPICS = ['work', 'skills', 'about'];
@@ -1458,12 +1545,12 @@
         if (reply.classList.contains('open')) {
             reply.classList.remove('open');
             btn.classList.remove('active');
-            reply.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+            reply.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
             reply.querySelectorAll('.sub-reply').forEach(s => {
                 s.classList.remove('open');
-                s.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+                s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
             });
-            reply.querySelectorAll('.typing').forEach(t => t.classList.remove('show'));
+            reply.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
             reply.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
             const receipt = reply.querySelector('.receipt');
             if (receipt) receipt.remove();
@@ -1477,12 +1564,12 @@
             const r = document.getElementById('reply-' + t);
             if (r && r.classList.contains('open')) {
                 r.classList.remove('open');
-                r.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+                r.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
                 r.querySelectorAll('.sub-reply').forEach(s => {
                     s.classList.remove('open');
-                    s.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+                    s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
                 });
-                r.querySelectorAll('.typing').forEach(t => t.classList.remove('show'));
+                r.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
                 r.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
                 const rec = r.querySelector('.receipt');
                 if (rec) rec.remove();
@@ -1496,24 +1583,24 @@
         if (L2_TOPICS.includes(topic)) {
             const typing = document.getElementById('typing-' + topic);
             if (typing) {
-                typing.classList.add('show');
+                gsap.to(typing, { opacity: 1, duration: 0.3 });
                 setTimeout(() => {
-                    typing.classList.remove('show');
+                    gsap.to(typing, { opacity: 0, duration: 0.2 });
                     const submenu = document.getElementById('submenu-' + topic);
-                    if (submenu) submenu.classList.add('show');
+                    if (submenu) {
+                        gsap.to(submenu, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out', delay: 0.1 });
+                    }
                 }, 400);
             }
         } else {
             const typing = reply.querySelector('.typing');
             if (typing) {
-                typing.classList.add('show');
+                gsap.to(typing, { opacity: 1, duration: 0.3 });
                 setTimeout(() => {
-                    typing.classList.remove('show');
+                    gsap.to(typing, { opacity: 0, duration: 0.2 });
                     const msgs = reply.querySelectorAll('.msg');
-                    msgs.forEach((m, i) => {
-                        setTimeout(() => m.classList.add('show'), i * 150);
-                    });
-                    const lastDelay = (msgs.length - 1) * 150 + 300;
+                    gsap.to(msgs, { opacity: 1, y: 0, stagger: 0.15, duration: 0.45, ease: 'power2.out', delay: 0.15 });
+                    const lastDelay = (msgs.length - 1) * 150 + 450;
                     setTimeout(() => {
                         if (!reply.querySelector('.receipt')) {
                             const receipt = document.createElement('div');
@@ -1525,6 +1612,8 @@
                 }, 700);
             }
         }
+
+        gsap.fromTo(btn, { scale: 0.95 }, { scale: 1, duration: 0.35, ease: 'back.out(2)' });
 
         setTimeout(() => {
             reply.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1543,8 +1632,8 @@
 
         reply.querySelectorAll('.sub-reply').forEach(s => {
             s.classList.remove('open');
-            s.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
-            s.querySelectorAll('.typing').forEach(t => t.classList.remove('show'));
+            s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 16 }));
+            s.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
         });
 
         const oldReceipt = reply.querySelector('.receipt');
@@ -1556,14 +1645,12 @@
 
         const typing = document.getElementById('typing-sub-' + topic + '-' + sub);
         if (typing) {
-            typing.classList.add('show');
+            gsap.to(typing, { opacity: 1, duration: 0.3 });
             setTimeout(() => {
-                typing.classList.remove('show');
+                gsap.to(typing, { opacity: 0, duration: 0.2 });
                 const msgs = subReply.querySelectorAll('.msg');
-                msgs.forEach((m, i) => {
-                    setTimeout(() => m.classList.add('show'), i * 150);
-                });
-                const lastDelay = (msgs.length - 1) * 150 + 300;
+                gsap.to(msgs, { opacity: 1, y: 0, stagger: 0.15, duration: 0.45, ease: 'power2.out', delay: 0.15 });
+                const lastDelay = (msgs.length - 1) * 150 + 450;
                 setTimeout(() => {
                     if (!reply.querySelector('.receipt')) {
                         const receipt = document.createElement('div');
@@ -1575,9 +1662,7 @@
             }, 700);
         } else {
             const msgs = subReply.querySelectorAll('.msg');
-            msgs.forEach((m, i) => {
-                setTimeout(() => m.classList.add('show'), i * 150);
-            });
+            gsap.to(msgs, { opacity: 1, y: 0, stagger: 0.15, duration: 0.45, ease: 'power2.out' });
         }
 
         setTimeout(() => {
