@@ -15,7 +15,6 @@ No walls of text. No boring grid layout. Your visitor opens it and gets a chat i
 - Typing indicator before replies appear
 - ✓✓ Seen receipts after last message in each topic
 - Emoji reactions with localStorage persistence
-- Light/dark theme toggle with saved preference
 
 ### Interactive (v2.1)
 - **Persona chips** — Recruiter / Founder / Peer shortcuts auto-expand the right topic. Supports `?persona=recruiter` URL param
@@ -23,11 +22,10 @@ No walls of text. No boring grid layout. Your visitor opens it and gets a chat i
 - **Time-travel slider** — drag to a year (2017–2026) and the matching role highlights; others dim; background hue shifts
 
 ### Design
-- Canvas starfield background (twinkle via `Math.sin` phase drift, not `Math.random`)
+- Gradient mesh background (static radial gradients, no canvas/CPU overhead)
 - Glassmorphism bubbles (`backdrop-filter: blur(12px)`)
 - Nebula blob decorations (fixed radial gradients)
-- CSS accent token system (`--accent-rgb: 192, 57, 43`) — single source of truth for the red
-- Full `[data-theme]` light/dark token system
+- Amber accent (`--accent-rgb: 245, 158, 11`) — CSS token system, single source of truth
 
 ## Stack
 
@@ -46,11 +44,12 @@ That's it. No install, no server, no build.
 ## Structure
 
 ```
-index.html    — Entire site (HTML + CSS + JS)
-README.md     — This file
-CLAUDE.md     — AI coding instructions
-STATE.md      — Feature log and open todos
-TODOS.md      — Backlog with context
+index.html          — Entire site (HTML + CSS + JS)
+assets/             — Headshot image
+README.md           — This file
+CLAUDE.md           — AI coding instructions
+STATE.md            — Feature log and open todos
+TODOS.md            — Backlog with context
 ```
 
 ## Roadmap

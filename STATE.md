@@ -43,10 +43,9 @@ Shipped — pushed to GitHub (main branch). v2 live.
 - [x] **Time-Travel Slider** — range input (2017–2026) in Timeline; `scrubTimeline(year)` highlights matching `.mini-tl-item` via `data-start`/`data-end`; dims non-matching roles; hue-rotates all `.nebula` elements via JS (not CSS, to avoid permanent rotation at load)
 
 ## Todo / Open
-- [ ] Thoughts section — add 3-4 real opinions/takes (see TODOS.md)
-- [ ] Wire Founder persona to Thoughts topic once Thoughts content is live (currently maps to 'built')
-- [ ] Remove orphaned `data-time` attributes (P3, see TODOS.md)
+- [x] Remove orphaned `data-time` attributes
 - [ ] Push to GitHub Pages (not just GitHub repo)
+- [ ] Thoughts section — parked, revisit later
 
 ## Known Issues
 - Canvas console error on first load (minor, no UX impact)

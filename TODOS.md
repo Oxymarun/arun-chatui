@@ -20,26 +20,6 @@
 
 ---
 
-## P2 — Thoughts Section (Real Opinions)
-
-**What:** Add a "Thoughts" topic button with 3-4 sharp takes on growth, product, or AI. Each take as a bubble: one-line opinion + 1-2 sentences of supporting evidence.
-
-**Why:** The original v2 spec identified opinions as the #1 differentiator. No other portfolio does this. The Thoughts button was scaffolded and then removed (2026-04-19) pending copy. When you have the takes, the structure is a 10-min build.
-
-**Pros:** Strongest personality signal in the portfolio — people screenshot opinions, not bios.
-
-**Cons:** Requires committing to public opinions. Copy must not sound generic.
-
-**Context:** Removed from the 2026-04-19 diff because the placeholder (social redirect) was duplicating "Let's connect." Add back once you have 3-4 real takes. Write like you'd text a smart friend at 11pm, not a LinkedIn post.
-
-**Effort:** S (human: ~30min once copy exists / CC: ~5min)
-
-**Priority:** P2
-
-**Depends on:** Content (opinions) from Arun.
-
----
-
 ## P4 — `setThemeBtn` Null Guard
 
 **What:** Add `if (!btn) return;` at the top of `setThemeBtn()`.
@@ -49,18 +29,6 @@
 **Effort:** XS
 
 **Depends on:** None.
-
----
-
-## P2 — Wire Founder Persona to Thoughts Topic
-
-**What:** Change `PERSONAS.founder.primary` from `'built'` to `'thoughts'` once Thoughts content is live.
-
-**Why:** Founder persona should fast-track to opinions/takes — that's the strongest signal for a founder audience. Currently maps to 'built' as placeholder.
-
-**Effort:** XS (1-line JS change)
-
-**Depends on:** Thoughts section content.
 
 ---
 
@@ -81,3 +49,9 @@
 **Priority:** P3
 
 **Depends on:** None.
+
+---
+
+## Parked — Thoughts Section
+
+Add 3-4 sharp takes on growth, product, or AI once copy is ready. Wire Founder persona chip to it after.
