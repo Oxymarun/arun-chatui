@@ -1188,10 +1188,201 @@
             .chat-wrap::after { display: none; }
             .topics { padding: 12px 10px 8px; }
             .view-status { margin-left: 0; }
+            .depth-counter { display: none; }
+        }
+
+        /* ============================================================
+           v2.3 — Executive Dossier
+           ============================================================ */
+
+        /* Mono glyph for button prefixes — replaces decorative emoji */
+        .btn-glyph {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: 0.84em;
+            color: var(--topic-accent);
+            margin-right: 8px;
+            letter-spacing: 0.04em;
+            opacity: 0.72;
+            font-variant-numeric: tabular-nums;
+        }
+        .topic-btn .btn-glyph { color: rgba(var(--topic-rgb),0.72); }
+        .topic-btn.active .btn-glyph { color: var(--topic-accent); opacity: 1; }
+        .sub-btn .btn-glyph { margin-right: 6px; opacity: 0.6; }
+
+        /* Section label — § marker, no emoji */
+        .section-label .btn-glyph {
+            margin-right: 6px;
+            opacity: 0.55;
+            font-size: 1em;
+        }
+
+        /* Theme toggle as text label */
+        #theme-toggle .btn-icon {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            opacity: 0.85;
+        }
+
+        /* ---------- Rarify glow ---------- */
+
+        /* Strip glow from .highlight — keep tint + border only */
+        .bubble.highlight {
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.06) inset,
+                0 6px 18px -10px rgba(0,0,0,0.28);
+        }
+        [data-theme="light"] .bubble.highlight {
+            box-shadow: none;
+            border-left: 2px solid var(--topic-accent);
+            background: transparent;
+        }
+
+        /* New: .proof — rare glow reward, reserved for headline metrics */
+        .bubble.proof {
+            background: var(--bubble-highlight-bg);
+            border-color: var(--bubble-highlight-border);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.07) inset,
+                0 14px 38px -10px rgba(var(--topic-rgb),0.32),
+                0 4px 12px rgba(0,0,0,0.20);
+        }
+        [data-theme="light"] .bubble.proof {
+            background: rgba(var(--topic-rgb),0.07);
+            border-color: rgba(var(--topic-rgb),0.28);
+            border-left: 3px solid var(--topic-accent);
+            box-shadow:
+                0 6px 22px -10px rgba(var(--topic-rgb),0.28),
+                0 1px 4px rgba(49,39,24,0.06);
+        }
+
+        /* Slow + soften online dot */
+        .online-dot {
+            animation: pulse-dot 4s ease-in-out infinite;
+            box-shadow: 0 0 0 2px rgba(var(--topic-rgb),0.10);
+        }
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 0.95; }
+            50% { transform: scale(1.18); opacity: 0.65; }
+        }
+
+        /* ---------- Type contrast ---------- */
+        .tl-impact-metric,
+        .mini-tl-item.impact-first .tl-impact-metric {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+        }
+        .metric, .tl-yr-current {
+            font-variant-numeric: tabular-nums;
+        }
+        .company-name {
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .edu-institution {
+            letter-spacing: -0.01em;
+        }
+        .edu-degree {
+            font-variant-caps: all-small-caps;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+        }
+
+        /* ---------- Light theme: warm paper dossier ---------- */
+        [data-theme="light"] {
+            --bg: #f4ece0;
+            --surface: #fbf6ec;
+            --surface-2: #efe6d4;
+            --bubble-bg: #fbf6ec;
+            --bubble-border: #e8dcc6;
+            --text-primary: #1a1410;
+            --text-secondary: #6b5a42;
+            --header-bg: rgba(244,236,224,0.92);
+            --shadow-deep: rgba(60,42,18,0.08);
+        }
+        [data-theme="light"] .bubble {
+            border: 1px solid var(--bubble-border);
+            box-shadow: none;
+        }
+        [data-theme="light"] body::after {
+            opacity: 0.035;
+            mix-blend-mode: multiply;
+        }
+
+        /* ---------- Focus inside chat column ---------- */
+        .chat-wrap:focus-within .bubble:not(:focus-within) {
+            transition: opacity 200ms var(--ease-standard);
+        }
+        .chat-wrap :focus-visible {
+            outline: 1px solid var(--topic-accent);
+            outline-offset: 4px;
+            border-radius: var(--radius-xs);
+        }
+        .topic-btn:focus-visible::before {
+            content: '';
+            position: absolute;
+            left: -3px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--topic-accent);
+            border-radius: 2px;
+        }
+
+        /* ---------- Bonus D: depth counter ---------- */
+        .depth-counter {
+            position: fixed;
+            top: 18px;
+            right: 22px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            background: var(--header-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 6px 10px;
+            border: 1px solid var(--border-soft);
+            border-radius: 999px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 0.6s ease 3.6s forwards;
+            font-variant-numeric: tabular-nums;
+            text-transform: uppercase;
+        }
+        .depth-counter.complete { color: var(--topic-accent); border-color: var(--topic-accent-border); }
+
+        /* ---------- Bonus E: sign-off bubble ---------- */
+        .signoff {
+            display: none;
+            margin-top: 28px;
+            text-align: right;
+            font-family: var(--font-mono);
+            font-style: italic;
+            font-size: 13px;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+            opacity: 0;
+        }
+        .signoff.show {
+            display: block;
+        }
+        .signoff::before {
+            content: '— ';
+            color: var(--topic-accent);
+            font-style: normal;
         }
     </style>
 </head>
 <body>
+
+<div class="depth-counter" id="depth-counter" aria-live="polite"><span id="depth-current">00</span> / 06 explored</div>
 
 <div class="chat-wrap">
 
@@ -1204,7 +1395,7 @@
         </div>
         <div class="header-actions">
             <a href="tel:+919663338493" class="header-action-btn call-btn" title="Call Arun" aria-label="Call Arun"><span class="btn-icon">📞</span><span class="btn-label">Call</span></a>
-            <button class="header-action-btn" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle theme" onclick="toggleTheme()"><span class="btn-icon">🌙</span><span class="btn-label">Dark mode</span></button>
+            <button class="header-action-btn" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle theme" onclick="toggleTheme()"><span class="btn-icon">DARK</span><span class="btn-label">mode</span></button>
         </div>
     </div>
     <div class="view-status" id="view-status" aria-live="polite">
@@ -1228,8 +1419,8 @@
 
     <!-- Message 3 -->
     <div class="msg" id="m3">
-        <div class="bubble highlight" data-id="msg-intro-3">
-            Last few years: scaled micro-drama at <strong>PocketFM</strong> to <strong>$2M MRR</strong>, built a cross-sell P&L from zero at <strong>InsuranceDekho</strong>, and closed a <strong>$20M Series A</strong> at MPL with Sequoia.
+        <div class="bubble highlight proof" data-id="msg-intro-3">
+            Last few years: scaled micro-drama at <span class="company-name">PocketFM</span> to <strong>$2M MRR</strong>, built a cross-sell P&L from zero at <span class="company-name">InsuranceDekho</span>, and closed a <strong>$20M Series A</strong> at MPL with Sequoia.
         </div>
     </div>
 
@@ -1254,17 +1445,17 @@
 
     <!-- Topic buttons -->
     <div class="topics" id="topics">
-        <button class="topic-btn" data-topic="work" onclick="openTopic('work', event)">💼 Work</button>
-        <button class="topic-btn" data-topic="skills" onclick="openTopic('skills', event)">⚡ Skills</button>
-        <button class="topic-btn" data-topic="education" onclick="openTopic('education', event)">🎓 Education</button>
-        <button class="topic-btn" data-topic="about" onclick="openTopic('about', event)">🙋 About me</button>
-        <button class="topic-btn" data-topic="built" onclick="openTopic('built', event)">🔨 Things I've Built</button>
-        <button class="topic-btn" data-topic="contact" onclick="openTopic('contact', event)">📬 Let's connect</button>
+        <button class="topic-btn" data-topic="work" onclick="openTopic('work', event)"><span class="btn-glyph">01</span>Work</button>
+        <button class="topic-btn" data-topic="skills" onclick="openTopic('skills', event)"><span class="btn-glyph">02</span>Skills</button>
+        <button class="topic-btn" data-topic="education" onclick="openTopic('education', event)"><span class="btn-glyph">03</span>Education</button>
+        <button class="topic-btn" data-topic="about" onclick="openTopic('about', event)"><span class="btn-glyph">04</span>About me</button>
+        <button class="topic-btn" data-topic="built" onclick="openTopic('built', event)"><span class="btn-glyph">05</span>Things I've Built</button>
+        <button class="topic-btn" data-topic="contact" onclick="openTopic('contact', event)"><span class="btn-glyph">06</span>Let's connect</button>
     </div>
 
     <!-- ===== WORK reply (2-level) ===== -->
     <div class="reply-block" id="reply-work">
-        <div class="section-label">💼 Work Experience</div>
+        <div class="section-label"><span class="btn-glyph">§</span>Work Experience</div>
         <div class="typing" id="typing-work" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
 
         <div class="msg" id="submenu-work" style="margin-top:16px">
@@ -1413,7 +1604,7 @@
 
     <!-- ===== SKILLS reply (2-level) ===== -->
     <div class="reply-block" id="reply-skills">
-        <div class="section-label">🧠 Skills</div>
+        <div class="section-label"><span class="btn-glyph">§</span>Skills</div>
         <div class="typing" id="typing-skills" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
 
         <div class="msg" id="submenu-skills" style="margin-top:16px">
@@ -1615,7 +1806,7 @@
 
     <!-- Education reply -->
     <div class="reply-block" id="reply-education">
-        <div class="section-label">🎓 Education</div>
+        <div class="section-label"><span class="btn-glyph">§</span>Education</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble" data-id="msg-edu-intro">
@@ -1636,7 +1827,7 @@
                         </div>
                         <div class="edu-chips">
                             <span class="edu-chip gold">🏆 Rank 20 / 480</span>
-                            <span class="edu-chip red">📊 CAT 99.72%ile</span>
+                            <span class="edu-chip red">CAT 99.72%ile</span>
                             <span class="edu-chip">🏢 BCG Intern</span>
                             <span class="edu-chip">🥈 Accenture Challenge RU</span>
                             <span class="edu-chip">🎓 HEC Paris admit — chose India</span>
@@ -1666,7 +1857,7 @@
 
     <!-- ===== ABOUT reply (2-level) ===== -->
     <div class="reply-block" id="reply-about">
-        <div class="section-label">🙋 About Me</div>
+        <div class="section-label"><span class="btn-glyph">§</span>About Me</div>
         <div class="typing" id="typing-about" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
 
         <div class="msg" id="submenu-about" style="margin-top:16px">
@@ -1841,7 +2032,7 @@
 
     <!-- Things I've Built reply -->
     <div class="reply-block" id="reply-built">
-        <div class="section-label">🛠️ Things I've Built</div>
+        <div class="section-label"><span class="btn-glyph">§</span>Things I've Built</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble" data-id="msg-built-1">
@@ -1870,7 +2061,7 @@
 
     <!-- Contact reply -->
     <div class="reply-block" id="reply-contact">
-        <div class="section-label">📬 Let's Connect</div>
+        <div class="section-label"><span class="btn-glyph">§</span>Let's Connect</div>
         <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
         <div class="msg" style="margin-top:16px">
             <div class="bubble" data-id="msg-contact-1">
@@ -1905,6 +2096,8 @@
         </div>
     </div>
 
+    <div class="signoff" id="signoff">Arun · sent from Bombay · 2026</div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -1915,11 +2108,11 @@
         const icon = btn.querySelector('.btn-icon');
         const label = btn.querySelector('.btn-label');
         if (theme === 'light') {
-            icon.textContent = '🌙';
-            label.textContent = 'Dark mode';
+            icon.textContent = 'DARK';
+            label.textContent = 'mode';
         } else {
-            icon.textContent = '☀️';
-            label.textContent = 'Light mode';
+            icon.textContent = 'LIGHT';
+            label.textContent = 'mode';
         }
     }
 
@@ -1955,13 +2148,33 @@
         .to('#topics', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 3.0)
         .to('#topics .topic-btn', { opacity: 1, y: 0, stagger: 0.08, duration: 0.4, ease: 'back.out(1.4)' }, 3.05);
 
-    // Avatar glow pulse follows the active topic accent.
+    // Avatar glow — one-shot pulse on load, then settle.
     gsap.to('.avatar', {
         boxShadow: '0 0 0 2px var(--surface), 0 0 0 4px rgba(var(--topic-rgb),0.32), 0 8px 20px rgba(0,0,0,0.18)',
-        duration: 1.8, ease: 'sine.inOut', repeat: -1, yoyo: true
+        duration: 1.4, ease: 'sine.inOut', repeat: 1, yoyo: true,
+        onComplete: () => gsap.set('.avatar', { clearProps: 'boxShadow' })
     });
 
     const L2_TOPICS = ['work', 'skills', 'about'];
+
+    // Depth counter — tracks unique topics opened
+    const exploredTopics = new Set();
+    function bumpExplored(topic) {
+        if (exploredTopics.has(topic)) return;
+        exploredTopics.add(topic);
+        const el = document.getElementById('depth-current');
+        if (el) el.textContent = String(exploredTopics.size).padStart(2, '0');
+        const counter = document.getElementById('depth-counter');
+        if (exploredTopics.size === 6) {
+            if (counter) counter.classList.add('complete');
+            const signoff = document.getElementById('signoff');
+            if (signoff && !signoff.classList.contains('show')) {
+                signoff.classList.add('show');
+                gsap.to(signoff, { opacity: 1, duration: 0.8, delay: 0.4, ease: 'power2.out' });
+            }
+        }
+    }
+
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function tickControl(el) {
@@ -2058,6 +2271,7 @@
         document.documentElement.dataset.activeTopic = topic;
         reply.classList.add('open');
         btn.classList.add('active');
+        bumpExplored(topic);
         updateViewStatus(topic);
 
         if (L2_TOPICS.includes(topic)) {
