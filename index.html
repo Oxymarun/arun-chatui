@@ -322,8 +322,21 @@
             transition: opacity var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
+        .sky-plane::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 124'%3E%3Cpath fill='%23e64656' d='M14 61l40-11 38-39h18L89 49l44 1v36l-52-5-22 27H42l11-30-31-4z'/%3E%3Cpath fill='%23f7c948' d='M54 50l38-39h18L89 49z'/%3E%3Cpath fill='%234a90e2' d='M14 61l46 4-7 13-31-4z'/%3E%3Cpath fill='%23f7c948' d='M78 43l62 1c26 0 44 12 52 26 3 7-2 14-13 14H78z'/%3E%3Cpath fill='%232fbf71' d='M84 52h51c17 0 33 7 45 18H84z'/%3E%3Cpath fill='%23f15a29' d='M85 72h94c-5 8-15 12-31 12H85z'/%3E%3Ccircle cx='141' cy='62' r='12' fill='%23f5fbff'/%3E%3Cpath fill='%23244f7a' d='M179 61l12 5-12 6z'/%3E%3C/svg%3E") center / contain no-repeat;
+            filter: drop-shadow(0 2px 4px rgba(40,69,104,0.16));
+            transition: opacity var(--duration-short) var(--ease-standard);
+        }
+
         .sky-plane.crashing {
             transition: none;
+        }
+
+        .sky-plane.crashing::before {
+            opacity: 0;
         }
 
         .sky-plane-half,
@@ -335,7 +348,7 @@
         }
 
         .sky-plane-half {
-            opacity: 1;
+            opacity: 0;
             background-repeat: no-repeat;
             background-size: contain;
             filter: drop-shadow(0 2px 4px rgba(40,69,104,0.16));
@@ -600,6 +613,16 @@
             transition: color var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
+        .header-edu {
+            margin-top: 4px;
+            color: var(--topic-accent-hover);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
         .online-dot {
             width: 7px;
             height: 7px;
@@ -648,37 +671,17 @@
         }
         .header-action-btn .btn-icon { font-size: 14px; }
         .header-action-btn.call-btn .btn-icon {
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
+            width: 16px;
+            height: 16px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: var(--topic-accent-hover);
-            color: var(--surface);
-            font-size: 0;
             line-height: 1;
-            position: relative;
         }
-        .header-action-btn.call-btn .btn-icon::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            border: 2px solid currentColor;
-            border-top-color: transparent;
-            border-right-color: transparent;
-            border-radius: 50%;
-            transform: rotate(-38deg);
-        }
-        .header-action-btn.call-btn .btn-icon::after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            right: 4px;
-            top: 4px;
-            border-radius: 50%;
-            background: currentColor;
+        .header-action-btn.call-btn .btn-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2.2;
         }
         .header-action-btn:hover {
             background: var(--header-btn-hover-bg);
@@ -1572,6 +1575,13 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+            .header-edu {
+                font-size: 8px;
+                max-width: min(164px, calc(100vw - 178px));
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
             .chat-header > div:not(.avatar):not(.header-actions) {
                 flex: 1 1 auto;
                 min-width: 0;
@@ -1911,9 +1921,10 @@
         <div>
             <h1 class="header-name"><span class="gradient-name">Arun Sharma</span></h1>
             <div class="header-sub"><span class="online-dot"></span>Available now · Strategy & Growth</div>
+            <div class="header-edu">IIMC · NITK</div>
         </div>
         <div class="header-actions">
-            <a href="tel:+919663338493" class="header-action-btn call-btn" title="Call Arun" aria-label="Call Arun"><span class="btn-icon" aria-hidden="true"></span><span class="btn-label">Call</span></a>
+            <a href="tel:+919663338493" class="header-action-btn call-btn" title="Call Arun" aria-label="Call Arun"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.89.66 2.78a2 2 0 0 1-.45 2.11L8.09 9.84a16 16 0 0 0 6.07 6.07l1.23-1.23a2 2 0 0 1 2.11-.45c.89.31 1.82.53 2.78.66A2 2 0 0 1 22 16.92z"></path></svg></span><span class="btn-label">Call</span></a>
             <button class="header-action-btn" id="theme-toggle" title="Switch to light mode" aria-label="Switch to light mode" onclick="toggleTheme()"><span class="btn-icon">☀</span><span class="btn-label">light</span></button>
         </div>
     </div>
@@ -1932,7 +1943,7 @@
     <!-- Message 2 -->
     <div class="msg" id="m2">
         <div class="bubble" data-id="msg-intro-2">
-            I'm a strategy operator — I take messy 0-to-1 bets and turn them into structured, scalable businesses.
+            I'm an <strong>IIMC + NITK</strong> strategy operator — I take messy 0-to-1 bets and turn them into structured, scalable businesses.
         </div>
     </div>
 
@@ -2809,23 +2820,26 @@
     function getPlaneOrbitConfig(plane) {
         const planeWidth = plane.offsetWidth || 96;
         const planeHeight = plane.offsetHeight || 62;
-        const margin = window.innerWidth < 700 ? 58 : 86;
-        const radiusX = Math.max(96, (window.innerWidth - planeWidth - margin * 2) / 2);
-        const radiusY = Math.max(70, (window.innerHeight - planeHeight - margin * 2) / 2);
-        const centerX = window.innerWidth / 2;
-        const preferredCenterY = window.innerHeight * (window.innerWidth < 700 ? 0.42 : 0.44);
-        const centerY = clampValue(preferredCenterY, margin + radiusY, window.innerHeight - margin - radiusY);
-        return { centerX, centerY, radiusX, radiusY, planeWidth, planeHeight };
+        const margin = window.innerWidth < 700 ? 84 : 128;
+        const pathStart = window.innerWidth < 900 ? -planeWidth - margin : window.innerWidth * 0.62;
+        const pathEnd = window.innerWidth + planeWidth + margin;
+        const pathLength = pathEnd - pathStart;
+        const baseY = clampValue(window.innerHeight * (window.innerWidth < 700 ? 0.28 : 0.32), 92, window.innerHeight - 150);
+        const waveHeight = clampValue(window.innerHeight * 0.045, 18, 42);
+        return { pathStart, pathLength, baseY, waveHeight, planeWidth, planeHeight };
     }
 
     function renderPlaneOrbit(plane, state) {
         const config = getPlaneOrbitConfig(plane);
-        const angle = state.angle * Math.PI / 180;
-        const x = config.centerX + Math.cos(angle) * config.radiusX - config.planeWidth / 2;
-        const y = config.centerY + Math.sin(angle) * config.radiusY - config.planeHeight / 2;
-        const tangentX = -Math.sin(angle) * config.radiusX;
-        const tangentY = Math.cos(angle) * config.radiusY;
-        const rotation = Math.atan2(tangentY, tangentX) * 180 / Math.PI;
+        const progress = state.progress;
+        const phase = state.phase || 0;
+        const wave = Math.sin(progress * Math.PI * 2 + phase);
+        const secondWave = Math.sin(progress * Math.PI * 4 + phase * 0.7);
+        const x = config.pathStart + progress * config.pathLength;
+        const y = config.baseY + wave * config.waveHeight + secondWave * config.waveHeight * 0.22;
+        const dy = Math.cos(progress * Math.PI * 2 + phase) * config.waveHeight * Math.PI * 2 +
+            Math.cos(progress * Math.PI * 4 + phase * 0.7) * config.waveHeight * 0.22 * Math.PI * 4;
+        const rotation = clampValue(Math.atan2(dy, config.pathLength) * 180 / Math.PI, -9, 9);
 
         gsap.set(plane, {
             x,
@@ -2874,22 +2888,25 @@
         const plane = document.getElementById('sky-plane');
         if (!plane || reduceMotion) return;
 
-        function startPlaneOrbit(startAngle = randomBetween(190, 250)) {
+        function startPlaneOrbit() {
             if (planeCrashed || !isPlaneVisibleTheme()) return;
 
             stopPlaneLoop();
             plane.classList.remove('crashing');
             resetPlaneParts(plane);
-            const state = { angle: startAngle };
+            const state = { progress: 0, phase: randomBetween(-0.8, 0.8) };
             renderPlaneOrbit(plane, state);
             planeTrailTimer = setInterval(() => emitPlanePuff(plane), window.innerWidth < 700 ? 340 : 280);
             planeLoop = gsap.to(state, {
-                angle: startAngle + 360,
-                duration: window.innerWidth < 700 ? 31 : 38,
+                progress: 1,
+                duration: window.innerWidth < 900 ? 22 : 16,
                 ease: 'none',
                 repeat: -1,
                 onUpdate: () => renderPlaneOrbit(plane, state),
-                onRepeat: () => { state.angle -= 360; }
+                onRepeat: () => {
+                    state.progress = 0;
+                    state.phase = randomBetween(-0.8, 0.8);
+                }
             });
         }
 
@@ -2903,52 +2920,55 @@
             plane.classList.add('crashing');
 
             const parts = getPlaneParts(plane);
-            const direction = Math.cos((gsap.getProperty(plane, 'rotation') || 0) * Math.PI / 180) >= 0 ? 1 : -1;
-            const fallDistance = Math.max(window.innerHeight * 0.44, 280);
+            const direction = 1;
+            const fallDistance = clampValue(window.innerHeight * 0.34, 210, 390);
+            planeRespawnTimer = setTimeout(() => {
+                planeRespawnTimer = null;
+                planeCrashed = false;
+                gsap.killTweensOf([plane, parts.front, parts.rear, parts.propeller, parts.fire]);
+                gsap.set(plane, { autoAlpha: 0 });
+                startPlaneOrbit();
+            }, 5000);
 
             gsap.timeline({
                 onComplete: () => {
-                    gsap.set(plane, { autoAlpha: 0 });
-                    planeRespawnTimer = setTimeout(() => {
-                        planeRespawnTimer = null;
-                        planeCrashed = false;
-                        startPlaneOrbit(randomBetween(190, 250));
-                    }, 5000);
+                    if (planeCrashed) gsap.set(plane, { autoAlpha: 0 });
                 }
             })
+                .set([parts.front, parts.rear, parts.propeller], { opacity: 1 })
                 .set(parts.fire, { opacity: 1, scale: 0.3 })
-                .to(parts.fire, { scale: 1.75, opacity: 1, duration: 0.16, ease: 'power2.out' }, 0)
-                .to(parts.fire, { scale: 2.2, opacity: 0, duration: 0.62, ease: 'sine.out' }, 0.16)
+                .to(parts.fire, { scale: 1.45, opacity: 1, duration: 0.2, ease: 'power2.out' }, 0)
+                .to(parts.fire, { scale: 1.9, opacity: 0, duration: 0.86, ease: 'sine.out' }, 0.2)
                 .to(parts.front, {
-                    x: direction * 98,
+                    x: direction * 64,
                     y: fallDistance,
-                    rotation: direction * 138,
+                    rotation: direction * 58,
                     opacity: 0,
-                    duration: 1.28,
-                    ease: 'power2.in'
+                    duration: 2.28,
+                    ease: 'power1.in'
                 }, 0.08)
                 .to(parts.rear, {
-                    x: direction * -72,
-                    y: fallDistance * 0.94,
-                    rotation: direction * -124,
+                    x: direction * -46,
+                    y: fallDistance * 0.9,
+                    rotation: direction * -52,
                     opacity: 0,
-                    duration: 1.34,
-                    ease: 'power2.in'
+                    duration: 2.38,
+                    ease: 'power1.in'
                 }, 0.08)
                 .to(parts.propeller, {
-                    x: direction * 128,
-                    y: fallDistance * 0.72,
-                    rotation: direction * 760,
-                    scale: 0.42,
+                    x: direction * 76,
+                    y: fallDistance * 0.62,
+                    rotation: direction * 540,
+                    scale: 0.52,
                     opacity: 0,
-                    duration: 1.04,
-                    ease: 'power2.in'
+                    duration: 1.92,
+                    ease: 'power1.in'
                 }, 0.02)
                 .to(plane, {
-                    x: `+=${direction * 34}`,
-                    y: '+=18',
-                    duration: 1.16,
-                    ease: 'power1.in'
+                    x: `+=${direction * 28}`,
+                    y: '+=42',
+                    duration: 2.3,
+                    ease: 'sine.in'
                 }, 0);
 
             for (let i = 0; i < 7; i++) {
