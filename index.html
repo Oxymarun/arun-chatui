@@ -241,12 +241,25 @@
 
         .sky-sun,
         .sky-moon {
+            display: block;
+            appearance: none;
+            -webkit-appearance: none;
+            padding: 0;
+            border: 0;
             border-radius: 50%;
+            cursor: pointer;
+            pointer-events: none;
             transition:
                 opacity var(--theme-shift-duration) var(--theme-shift-ease),
                 transform var(--theme-shift-duration) var(--theme-shift-ease),
                 box-shadow var(--theme-shift-duration) var(--theme-shift-ease),
                 background var(--theme-shift-duration) var(--theme-shift-ease);
+        }
+
+        .sky-sun:focus-visible,
+        .sky-moon:focus-visible {
+            outline: 2px solid rgba(var(--topic-rgb),0.72);
+            outline-offset: 8px;
         }
 
         .sky-sun {
@@ -379,10 +392,35 @@
             height: 18px;
             border-radius: 50%;
             background:
-                linear-gradient(90deg, transparent 0 42%, rgba(33,51,80,0.78) 43% 57%, transparent 58%),
-                linear-gradient(0deg, transparent 0 42%, rgba(33,51,80,0.78) 43% 57%, transparent 58%);
+                radial-gradient(circle at 50% 50%, #244f7a 0 24%, transparent 27%),
+                linear-gradient(90deg, transparent 0 8%, rgba(33,51,80,0.08) 9% 16%, rgba(33,51,80,0.72) 17% 42%, transparent 43% 57%, rgba(33,51,80,0.72) 58% 83%, rgba(33,51,80,0.08) 84% 91%, transparent 92%);
             animation: plane-propeller-spin 0.12s linear infinite;
-            opacity: 0.78;
+            opacity: 0.82;
+            transform-origin: 50% 50%;
+        }
+
+        .sky-plane-propeller::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            background: #f5fbff;
+            box-shadow: 0 0 0 2px rgba(36,79,122,0.86);
+            z-index: 1;
+        }
+
+        .sky-plane-propeller::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 21px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(33,51,80,0.58);
+            transform: translate(-50%, -50%);
+            filter: blur(0.3px);
+            z-index: 0;
         }
 
         .sky-plane-fire {
@@ -423,9 +461,25 @@
             transform: translate3d(0, 0, 0) scale(1);
         }
 
+        html[data-theme="light"]:not([data-theme-transition]) .sky-sun {
+            pointer-events: auto;
+        }
+
+        html[data-theme="light"]:not([data-theme-transition]) .sky-sun:hover {
+            transform: translate3d(0, 0, 0) scale(1.035);
+        }
+
         html[data-theme="dark"] .sky-moon {
             opacity: 0.92;
             transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        html[data-theme="dark"]:not([data-theme-transition]) .sky-moon {
+            pointer-events: auto;
+        }
+
+        html[data-theme="dark"]:not([data-theme-transition]) .sky-moon:hover {
+            transform: translate3d(0, 0, 0) scale(1.04);
         }
 
         html[data-theme="light"] .sky-plane {
@@ -1108,6 +1162,8 @@
             color: var(--text-primary);
             line-height: 1.2;
             letter-spacing: 0;
+            min-width: 0;
+            overflow-wrap: anywhere;
         }
         .section-card-meta {
             font-size: 12px;
@@ -1237,6 +1293,7 @@
         .section-card a {
             color: var(--topic-accent);
             text-decoration: none;
+            overflow-wrap: anywhere;
         }
         .section-card.tl-active {
             opacity: 1;
@@ -1375,15 +1432,36 @@
             box-shadow: 0 0 0 1px rgba(var(--topic-rgb),0.18);
         }
 
-        /* Restrained warm call pill */
+        /* Contact action */
         .header-action-btn.call-btn {
-            background: rgba(var(--topic-rgb),0.10);
-            border-color: rgba(var(--topic-rgb),0.30);
-            color: var(--topic-accent-hover);
+            background:
+                linear-gradient(180deg, rgba(34,197,94,0.22), rgba(34,197,94,0.11)),
+                rgba(var(--topic-rgb),0.04);
+            border-color: rgba(34,197,94,0.38);
+            color: #7af0a0;
+            box-shadow:
+                0 0 0 1px rgba(34,197,94,0.08) inset,
+                0 8px 20px rgba(34,197,94,0.08);
+            font-weight: 650;
+        }
+        .header-action-btn.call-btn .btn-icon {
+            border-radius: 999px;
+            background: rgba(34,197,94,0.16);
         }
         .header-action-btn.call-btn:hover {
-            background: var(--topic-selection-bg);
-            box-shadow: 0 4px 14px rgba(0,0,0,0.16);
+            background:
+                linear-gradient(180deg, rgba(34,197,94,0.32), rgba(34,197,94,0.16)),
+                rgba(var(--topic-rgb),0.05);
+            border-color: rgba(34,197,94,0.58);
+            box-shadow:
+                0 0 0 1px rgba(34,197,94,0.14) inset,
+                0 10px 24px rgba(34,197,94,0.14);
+        }
+        [data-theme="light"] .header-action-btn.call-btn {
+            color: #13743a;
+            background:
+                linear-gradient(180deg, rgba(34,197,94,0.18), rgba(34,197,94,0.08)),
+                rgba(255,255,255,0.58);
         }
 
         /* Topic cluster anchor band — subtle gradient, no hard panel */
@@ -1774,10 +1852,10 @@
 <body>
 
 <canvas id="stars-canvas" aria-hidden="true"></canvas>
-<div class="sky-scene" aria-hidden="true">
-    <div class="sky-moon" id="sky-moon"></div>
-    <div class="sky-sun" id="sky-sun"></div>
-    <div class="sky-plane" id="sky-plane">
+<div class="sky-scene">
+    <div class="sky-moon" id="sky-moon" role="button" tabindex="0" title="Switch to light mode" aria-label="Switch to light mode" onclick="toggleTheme()" onkeydown="handleSkyToggleKey(event)"></div>
+    <div class="sky-sun" id="sky-sun" tabindex="-1" aria-hidden="true" onclick="toggleTheme()" onkeydown="handleSkyToggleKey(event)"></div>
+    <div class="sky-plane" id="sky-plane" aria-hidden="true">
         <div class="sky-plane-fire"></div>
         <div class="sky-plane-half sky-plane-rear"></div>
         <div class="sky-plane-half sky-plane-front"></div>
@@ -1827,7 +1905,7 @@
     <!-- Message 3 -->
     <div class="msg" id="m3">
         <div class="bubble highlight proof" data-id="msg-intro-3">
-            My pattern: take ambiguous 0-to-1 bets and turn them into operating verticals. That has meant <strong>$2M MRR</strong> at <span class="company-name">PocketFM</span>, <strong>₹100+ Cr AGWP</strong> at <span class="company-name">InsuranceDekho</span>, <strong>$20M Series A</strong> at MPL, and <strong>$15M+ closed</strong> in Physical AI.
+            My pattern: Take ambiguous 0-to-1 bets and turn them into operating verticals. That has meant <strong>$2M MRR</strong> at <span class="company-name">PocketFM</span>, <strong>₹100+ Cr AGWP</strong> at <span class="company-name">InsuranceDekho</span>, <strong>$20M Series A</strong> at MPL, and <strong>$15M+ closed</strong> in Physical AI.
         </div>
     </div>
 
@@ -2886,6 +2964,27 @@
         label.textContent = nextTheme;
         btn.title = `Switch to ${nextTheme} mode`;
         btn.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
+        document.querySelectorAll('.sky-sun, .sky-moon').forEach(control => {
+            const isActive = (theme === 'light' && control.id === 'sky-sun') ||
+                (theme === 'dark' && control.id === 'sky-moon');
+            control.tabIndex = isActive ? 0 : -1;
+            control.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+            if (isActive) {
+                control.setAttribute('role', 'button');
+                control.title = `Switch to ${nextTheme} mode`;
+                control.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
+            } else {
+                control.removeAttribute('role');
+                control.removeAttribute('title');
+                control.removeAttribute('aria-label');
+            }
+        });
+    }
+
+    function handleSkyToggleKey(event) {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        toggleTheme();
     }
 
     function persistTheme(theme) {
