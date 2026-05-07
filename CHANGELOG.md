@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.0.2.0] - 2026-05-07
+
+### Added
+- Numeric mono prefixes (`01`–`06`) on topic buttons replace decorative emoji for an executive table-of-contents feel.
+- `§` glyph prefix on all six section labels inside reply blocks.
+- `.bubble.proof` modifier class — reserved rare glow for headline metric bubbles (intro bubble only).
+- Depth counter: fixed top-right pill showing `00 / 06 explored`, updates as topics open.
+- Sign-off bubble: `— Arun · sent from Bombay · 2026` fades in after all six topics are opened.
+- `.company-name` and `.btn-glyph` utility classes for typography hierarchy.
+
+### Changed
+- Light theme retoned to warm paper dossier: `#f4ece0` background, `#fbf6ec` surface, `#e8dcc6` hairline borders, no shadow.
+- `.bubble.highlight` glow stripped — keeps tint and border only; glow is now the rare `.proof` reward.
+- Online dot pulse slowed from 2.5s to 4s, amplitude softened.
+- Avatar glow fires once on load (was infinite repeat).
+- Theme toggle button changed from `🌙` emoji to mono `DARK` / `LIGHT` text label.
+- Focus ring inside chat column: hairline `1px solid` accent at 4px offset instead of 2px OS-default outline.
+- `tl-impact-metric` sizing and tabular-nums applied across timeline and metric spans.
+- Edu degree row uses `all-small-caps` with wider tracking.
+- Intro headline bubble promoted from `.highlight` to `.highlight.proof`; company names wrapped in `.company-name`.
+
+### Fixed
+- Removed `box-shadow` glow from `.bubble.highlight` in light mode; replaced with left-rule annotation treatment consistent with paper dossier aesthetic.
+
 ## [0.0.1.0] - 2026-05-07
 
 ### Added
