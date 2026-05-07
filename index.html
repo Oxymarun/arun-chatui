@@ -1882,12 +1882,12 @@
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-work-timeline">
                     <div class="tl-year-nav" aria-label="Jump to a career period">
-                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2026)">Now</button>
-                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2025)">2025</button>
-                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2023)">2023</button>
-                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2021)">2021</button>
-                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2020)">2020</button>
-                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2017)">2017</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2026, true)">Now</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2025, true)">2025</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2023, true)">2023</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2021, true)">2021</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2020, true)">2020</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2017, true)">2017</button>
                     </div>
                     <div class="section-stack" id="tl-metrics-container">
                         <div class="section-card timeline-card" data-start="2025" data-end="2026">
@@ -3530,7 +3530,7 @@
     });
 
     // ===== Timeline year nav =====
-    function scrubTimeline(year) {
+    function scrubTimeline(year, shouldScroll) {
         const timeline = document.getElementById('sub-work-timeline');
         if (timeline && timeline.classList.contains('open')) updateViewStatus('work', 'timeline', year);
 
@@ -3540,11 +3540,17 @@
             btn.classList.toggle('active', btnYear === year);
         });
 
+        let targetCard = null;
         document.querySelectorAll('#tl-metrics-container [data-start]').forEach(item => {
             const active = year >= +item.dataset.start && year <= +item.dataset.end;
             item.classList.toggle('tl-active', active);
             item.classList.toggle('tl-dim', !active);
+            if (active && !targetCard) targetCard = item;
         });
+
+        if (shouldScroll && targetCard) {
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
         const deg = (year - 2017) * 12;
         document.querySelectorAll('.nebula').forEach(n => {
