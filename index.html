@@ -257,11 +257,31 @@
             opacity: 0;
             transform: translate3d(18px, 150px, 0) scale(0.82);
             background:
-                radial-gradient(circle at 34% 28%, rgba(255,240,196,0.48) 0 11%, rgba(255,214,118,0.94) 33%, rgba(255,186,78,0.94) 58%, rgba(255,154,58,0.36) 74%, transparent 100%),
-                radial-gradient(circle at 62% 68%, rgba(255,206,112,0.28) 0 28%, transparent 58%);
+                radial-gradient(circle at 34% 28%, rgba(255,246,198,0.72) 0 9%, rgba(255,224,122,0.98) 30%, rgba(255,178,66,0.96) 58%, rgba(255,137,52,0.34) 76%, transparent 100%),
+                radial-gradient(circle at 64% 72%, rgba(255,225,120,0.36) 0 26%, transparent 58%);
             box-shadow:
-                0 0 68px rgba(255,189,86,0.22),
-                0 0 132px rgba(255,219,130,0.10);
+                0 0 0 14px rgba(255,209,96,0.08),
+                0 0 44px rgba(255,184,72,0.34),
+                0 0 104px rgba(255,216,118,0.22),
+                0 0 172px rgba(255,149,67,0.12);
+        }
+
+        .sky-sun::before {
+            content: '';
+            position: absolute;
+            inset: -46%;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle, rgba(255,221,116,0.20) 0 28%, rgba(255,173,70,0.11) 46%, transparent 70%),
+                conic-gradient(from 16deg, transparent 0 7%, rgba(255,234,154,0.14) 9% 13%, transparent 16% 24%, rgba(255,165,82,0.11) 27% 31%, transparent 34% 100%);
+            filter: blur(8px);
+            animation: summer-aura 7s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes summer-aura {
+            0%, 100% { transform: scale(0.96) rotate(0deg); opacity: 0.82; }
+            50% { transform: scale(1.06) rotate(9deg); opacity: 1; }
         }
 
         .sky-moon {
@@ -272,7 +292,7 @@
             opacity: 0;
             transform: translate3d(-16px, 126px, 0) scale(0.8);
             background:
-                radial-gradient(circle at 34% 34%, rgba(255,255,255,0.86) 0 18%, rgba(227,236,255,0.94) 36%, rgba(171,189,231,0.88) 62%, rgba(92,111,160,0.28) 78%, transparent 100%);
+                radial-gradient(circle at 28% 26%, rgba(255,255,255,0.92) 0 14%, rgba(229,237,255,0.96) 35%, rgba(175,192,231,0.88) 63%, rgba(95,115,166,0.28) 80%, transparent 100%);
             box-shadow:
                 0 0 42px rgba(174,198,255,0.12),
                 0 0 88px rgba(106,130,190,0.08);
@@ -281,32 +301,108 @@
         .sky-moon::after {
             content: '';
             position: absolute;
-            inset: 12% 10% 10% 42%;
+            inset: 0;
             border-radius: 50%;
-            background: rgba(9,8,6,0.92);
-            filter: blur(1px);
+            background:
+                radial-gradient(circle at 36% 42%, rgba(90,107,150,0.20) 0 7%, rgba(255,255,255,0.10) 8% 10%, transparent 11%),
+                radial-gradient(circle at 62% 30%, rgba(80,98,142,0.18) 0 5%, rgba(255,255,255,0.08) 6% 8%, transparent 9%),
+                radial-gradient(circle at 58% 66%, rgba(76,91,132,0.22) 0 8%, rgba(255,255,255,0.08) 9% 12%, transparent 13%),
+                radial-gradient(circle at 76% 50%, rgba(66,82,121,0.15) 0 4%, transparent 6%);
+            filter: blur(0.2px);
         }
 
         .sky-plane {
-            top: clamp(92px, 14vh, 154px);
-            left: -18vw;
-            width: 72px;
-            height: 52px;
+            top: 0;
+            left: 0;
+            width: 96px;
+            height: 62px;
             opacity: 0;
             pointer-events: none;
             cursor: default;
             transition: opacity var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
-        .sky-plane-mark {
+        .sky-plane.crashing {
+            transition: none;
+        }
+
+        .sky-plane-half,
+        .sky-plane-propeller,
+        .sky-plane-fire {
             position: absolute;
-            left: 15px;
-            top: 15px;
-            width: 42px;
-            height: 22px;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+
+        .sky-plane-half {
             opacity: 1;
-            background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 32'%3E%3Cpath fill='%233f668a' d='M2 17.4l16.5-1.8L35.8 3.8h5.8l-8.6 11.1 17.5 1.2c2.4.2 4.2 2.2 4.2 4.6 0 1.3-1 2.3-2.2 2.3l-19.6-.5-5.7 6.1h-4l2.5-6.3-10.7-.3c-3.4-.1-6.8-1-9.8-2.5L2 17.4z'/%3E%3C/svg%3E");
-            filter: drop-shadow(0 1px 3px rgba(40,69,104,0.10));
+            background-repeat: no-repeat;
+            background-size: contain;
+            filter: drop-shadow(0 2px 4px rgba(40,69,104,0.16));
+        }
+
+        .sky-plane-rear {
+            left: 7px;
+            top: 19px;
+            width: 43px;
+            height: 28px;
+            transform-origin: 84% 54%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 86 56'%3E%3Cpath fill='%23e64656' d='M2 29l19-5 18-19h9l-10 18 21 1v17l-25-2-10 12h-8l5-13-15-2z'/%3E%3Cpath fill='%23f7c948' d='M20 24l18-19h9l-10 18z'/%3E%3Cpath fill='%234a90e2' d='M2 29l22 2-3 7-15-2z'/%3E%3C/svg%3E");
+        }
+
+        .sky-plane-front {
+            left: 38px;
+            top: 18px;
+            width: 50px;
+            height: 30px;
+            transform-origin: 8% 54%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath fill='%23f7c948' d='M0 14l45 1c21 0 37 9 43 19 2 4-1 8-6 8H0z'/%3E%3Cpath fill='%232fbf71' d='M3 19h38c12 0 23 5 31 13H3z'/%3E%3Cpath fill='%23f15a29' d='M5 34h78c-2 5-8 8-17 8H5z'/%3E%3Ccircle cx='50' cy='25' r='7' fill='%23f5fbff'/%3E%3Cpath fill='%23244f7a' d='M86 26l10 4-10 4z'/%3E%3C/svg%3E");
+        }
+
+        .sky-plane-propeller {
+            right: 1px;
+            top: 21px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background:
+                linear-gradient(90deg, transparent 0 42%, rgba(33,51,80,0.78) 43% 57%, transparent 58%),
+                linear-gradient(0deg, transparent 0 42%, rgba(33,51,80,0.78) 43% 57%, transparent 58%);
+            animation: plane-propeller-spin 0.12s linear infinite;
+            opacity: 0.78;
+        }
+
+        .sky-plane-fire {
+            left: 39px;
+            top: 26px;
+            width: 20px;
+            height: 20px;
+            border-radius: 52% 48% 56% 44%;
+            opacity: 0;
+            transform: scale(0.2);
+            background:
+                radial-gradient(circle at 58% 55%, rgba(255,246,168,0.98) 0 18%, transparent 20%),
+                radial-gradient(circle at 46% 44%, rgba(255,126,36,0.96) 0 46%, rgba(202,43,24,0.76) 68%, transparent 72%);
+            filter: blur(0.2px) drop-shadow(0 0 12px rgba(255,91,28,0.55));
+        }
+
+        .sky-plane-puff {
+            position: absolute;
+            width: 18px;
+            height: 12px;
+            border-radius: 999px;
+            background:
+                radial-gradient(circle at 20% 54%, rgba(255,255,255,0.88) 0 28%, transparent 30%),
+                radial-gradient(circle at 48% 36%, rgba(255,255,255,0.78) 0 34%, transparent 36%),
+                radial-gradient(circle at 78% 58%, rgba(255,255,255,0.62) 0 24%, transparent 26%);
+            filter: blur(0.5px);
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes plane-propeller-spin {
+            to { transform: rotate(360deg); }
         }
 
         html[data-theme="light"] .sky-sun {
@@ -345,15 +441,30 @@
                 width: 68px;
             }
             .sky-plane {
-                top: 104px;
-                width: 60px;
-                height: 44px;
+                width: 72px;
+                height: 46px;
             }
-            .sky-plane-mark {
-                left: 15px;
+            .sky-plane-rear {
+                left: 5px;
                 top: 14px;
-                width: 30px;
-                height: 16px;
+                width: 32px;
+                height: 22px;
+            }
+            .sky-plane-front {
+                left: 28px;
+                top: 13px;
+                width: 38px;
+                height: 24px;
+            }
+            .sky-plane-propeller {
+                right: 0;
+                top: 16px;
+                width: 14px;
+                height: 14px;
+            }
+            .sky-plane-fire {
+                left: 29px;
+                top: 20px;
             }
             html[data-theme="light"][data-chat-mode="topic"] .sky-sun {
                 right: -50px;
@@ -536,6 +647,39 @@
             white-space: nowrap;
         }
         .header-action-btn .btn-icon { font-size: 14px; }
+        .header-action-btn.call-btn .btn-icon {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--topic-accent-hover);
+            color: var(--surface);
+            font-size: 0;
+            line-height: 1;
+            position: relative;
+        }
+        .header-action-btn.call-btn .btn-icon::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border: 2px solid currentColor;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-radius: 50%;
+            transform: rotate(-38deg);
+        }
+        .header-action-btn.call-btn .btn-icon::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            right: 4px;
+            top: 4px;
+            border-radius: 50%;
+            background: currentColor;
+        }
         .header-action-btn:hover {
             background: var(--header-btn-hover-bg);
             transform: translateY(-1px);
@@ -1438,6 +1582,10 @@
             }
             .header-action-btn { height: 34px; min-width: 34px; padding: 0 6px; font-size: 9px; }
             .header-action-btn .btn-icon { font-size: 9px; }
+            .header-action-btn.call-btn .btn-icon {
+                width: 16px;
+                height: 16px;
+            }
             .header-action-btn .btn-label { display: none; }
             #theme-toggle {
                 display: inline-flex;
@@ -1742,7 +1890,12 @@
 <div class="sky-scene" aria-hidden="true">
     <div class="sky-moon" id="sky-moon"></div>
     <div class="sky-sun" id="sky-sun"></div>
-    <div class="sky-plane" id="sky-plane"><div class="sky-plane-mark"></div></div>
+    <div class="sky-plane" id="sky-plane">
+        <div class="sky-plane-fire"></div>
+        <div class="sky-plane-half sky-plane-rear"></div>
+        <div class="sky-plane-half sky-plane-front"></div>
+        <div class="sky-plane-propeller"></div>
+    </div>
 </div>
 <div class="aurora-blob" id="ab1" aria-hidden="true"></div>
 <div class="aurora-blob" id="ab2" aria-hidden="true"></div>
@@ -1760,7 +1913,7 @@
             <div class="header-sub"><span class="online-dot"></span>Available now · Strategy & Growth</div>
         </div>
         <div class="header-actions">
-            <a href="tel:+919663338493" class="header-action-btn call-btn" title="Call Arun" aria-label="Call Arun"><span class="btn-icon">📞</span><span class="btn-label">Call</span></a>
+            <a href="tel:+919663338493" class="header-action-btn call-btn" title="Call Arun" aria-label="Call Arun"><span class="btn-icon" aria-hidden="true"></span><span class="btn-label">Call</span></a>
             <button class="header-action-btn" id="theme-toggle" title="Switch to light mode" aria-label="Switch to light mode" onclick="toggleTheme()"><span class="btn-icon">☀</span><span class="btn-label">light</span></button>
         </div>
     </div>
@@ -1786,7 +1939,7 @@
     <!-- Message 3 -->
     <div class="msg" id="m3">
         <div class="bubble highlight proof" data-id="msg-intro-3">
-            Last few years: scaled micro-drama at <span class="company-name">PocketFM</span> to <strong>$2M MRR</strong>, built a cross-sell P&L from zero at <span class="company-name">InsuranceDekho</span>, and closed a <strong>$20M Series A</strong> at MPL with Sequoia.
+            Last few years: scaled micro-drama at <span class="company-name">PocketFM</span> to <strong>$2M MRR</strong>, built a cross-sell P&L from zero at <span class="company-name">InsuranceDekho</span>, and closed a <strong>$20M Series A</strong> at MPL with Sequoia. <strong>IIMC &amp; NITK - Top Tier Academics.</strong>
         </div>
     </div>
 
@@ -2474,6 +2627,7 @@
     let themeTransitionTimeline = null;
     let planeLoop = null;
     let planeRespawnTimer = null;
+    let planeTrailTimer = null;
     let planeCrashed = false;
 
     function setThemeBtn(theme) {
@@ -2621,73 +2775,121 @@
             planeLoop.kill();
             planeLoop = null;
         }
+        if (planeTrailTimer) {
+            clearInterval(planeTrailTimer);
+            planeTrailTimer = null;
+        }
     }
 
     function randomBetween(min, max) {
         return min + Math.random() * (max - min);
     }
 
-    function getPlaneEdgePoint(side = Math.random() > 0.5 ? 'left' : 'right') {
-        const margin = Math.max(window.innerWidth * 0.14, 120);
-        const x = side === 'left' ? -margin : window.innerWidth + margin;
+    function clampValue(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+    }
+
+    function getPlaneParts(plane) {
         return {
+            front: plane.querySelector('.sky-plane-front'),
+            rear: plane.querySelector('.sky-plane-rear'),
+            propeller: plane.querySelector('.sky-plane-propeller'),
+            fire: plane.querySelector('.sky-plane-fire')
+        };
+    }
+
+    function resetPlaneParts(plane) {
+        const parts = getPlaneParts(plane);
+        gsap.set([parts.front, parts.rear, parts.propeller], {
+            clearProps: 'x,y,rotation,scale,scaleX,scaleY,opacity'
+        });
+        gsap.set(parts.fire, { opacity: 0, scale: 0.2, clearProps: 'x,y,rotation' });
+    }
+
+    function getPlaneOrbitConfig(plane) {
+        const planeWidth = plane.offsetWidth || 96;
+        const planeHeight = plane.offsetHeight || 62;
+        const margin = window.innerWidth < 700 ? 58 : 86;
+        const radiusX = Math.max(96, (window.innerWidth - planeWidth - margin * 2) / 2);
+        const radiusY = Math.max(70, (window.innerHeight - planeHeight - margin * 2) / 2);
+        const centerX = window.innerWidth / 2;
+        const preferredCenterY = window.innerHeight * (window.innerWidth < 700 ? 0.42 : 0.44);
+        const centerY = clampValue(preferredCenterY, margin + radiusY, window.innerHeight - margin - radiusY);
+        return { centerX, centerY, radiusX, radiusY, planeWidth, planeHeight };
+    }
+
+    function renderPlaneOrbit(plane, state) {
+        const config = getPlaneOrbitConfig(plane);
+        const angle = state.angle * Math.PI / 180;
+        const x = config.centerX + Math.cos(angle) * config.radiusX - config.planeWidth / 2;
+        const y = config.centerY + Math.sin(angle) * config.radiusY - config.planeHeight / 2;
+        const tangentX = -Math.sin(angle) * config.radiusX;
+        const tangentY = Math.cos(angle) * config.radiusY;
+        const rotation = Math.atan2(tangentY, tangentX) * 180 / Math.PI;
+
+        gsap.set(plane, {
             x,
-            y: randomBetween(window.innerHeight * 0.06, window.innerHeight * 0.52),
-            direction: side === 'left' ? 1 : -1
-        };
+            y,
+            rotation,
+            scaleX: 1,
+            transformOrigin: '50% 50%',
+            autoAlpha: 1
+        });
     }
 
-    function getPlaneWaypoint() {
-        return {
-            x: randomBetween(window.innerWidth * 0.08, window.innerWidth * 0.88),
-            y: randomBetween(window.innerHeight * 0.06, window.innerHeight * 0.55)
-        };
-    }
+    function emitPlanePuff(plane, force = false) {
+        if ((!force && planeCrashed) || !isPlaneVisibleTheme()) return;
+        const scene = document.querySelector('.sky-scene');
+        if (!scene) return;
 
-    function getPlaneRotation(from, to) {
-        return Math.max(-18, Math.min(18, (to.y - from.y) * 0.08));
+        const planeX = gsap.getProperty(plane, 'x') || 0;
+        const planeY = gsap.getProperty(plane, 'y') || 0;
+        const rotation = (gsap.getProperty(plane, 'rotation') || 0) * Math.PI / 180;
+        const tailDistance = window.innerWidth < 700 ? 30 : 42;
+        const x = planeX + plane.offsetWidth / 2 - Math.cos(rotation) * tailDistance;
+        const y = planeY + plane.offsetHeight / 2 - Math.sin(rotation) * tailDistance;
+        const puff = document.createElement('span');
+        puff.className = 'sky-plane-puff';
+        scene.insertBefore(puff, plane);
+
+        gsap.set(puff, {
+            x,
+            y,
+            scale: randomBetween(0.72, 1.16),
+            opacity: randomBetween(0.34, 0.58),
+            rotation: randomBetween(-8, 8)
+        });
+        gsap.to(puff, {
+            x: `-=${Math.cos(rotation) * randomBetween(14, 26)}`,
+            y: `-=${Math.sin(rotation) * randomBetween(14, 26) + randomBetween(2, 10)}`,
+            scale: randomBetween(1.45, 2.2),
+            opacity: 0,
+            duration: randomBetween(1.2, 1.8),
+            ease: 'sine.out',
+            onComplete: () => puff.remove()
+        });
     }
 
     function initPlaneLoop() {
         const plane = document.getElementById('sky-plane');
-        const planeMark = plane && plane.querySelector('.sky-plane-mark');
-        if (!plane || !planeMark || reduceMotion) return;
+        if (!plane || reduceMotion) return;
 
-        function startPlanePass(fromPoint = getPlaneEdgePoint()) {
+        function startPlaneOrbit(startAngle = randomBetween(190, 250)) {
             if (planeCrashed || !isPlaneVisibleTheme()) return;
 
             stopPlaneLoop();
-            const midPoint = getPlaneWaypoint();
-            const endPoint = Math.random() > 0.24 ? getPlaneWaypoint() : getPlaneEdgePoint(Math.random() > 0.5 ? 'left' : 'right');
-            const direction = endPoint.x >= fromPoint.x ? 1 : -1;
-            gsap.set(plane, {
-                x: fromPoint.x,
-                y: fromPoint.y,
-                rotation: getPlaneRotation(fromPoint, midPoint),
-                scaleX: direction,
-                transformOrigin: '50% 50%',
-                autoAlpha: 1
-            });
-            gsap.set(planeMark, { opacity: 1 });
-
-            planeLoop = gsap.to(plane, {
-                keyframes: [
-                    {
-                        x: midPoint.x,
-                        y: midPoint.y,
-                        rotation: getPlaneRotation(fromPoint, midPoint),
-                        duration: window.innerWidth < 700 ? randomBetween(4.2, 6.2) : randomBetween(5.4, 7.8),
-                        ease: 'sine.inOut'
-                    },
-                    {
-                        x: endPoint.x,
-                        y: endPoint.y,
-                        rotation: getPlaneRotation(midPoint, endPoint),
-                        duration: window.innerWidth < 700 ? randomBetween(4.2, 6.2) : randomBetween(5.4, 7.8),
-                        ease: 'sine.inOut'
-                    }
-                ],
-                onComplete: () => startPlanePass(endPoint)
+            plane.classList.remove('crashing');
+            resetPlaneParts(plane);
+            const state = { angle: startAngle };
+            renderPlaneOrbit(plane, state);
+            planeTrailTimer = setInterval(() => emitPlanePuff(plane), window.innerWidth < 700 ? 340 : 280);
+            planeLoop = gsap.to(state, {
+                angle: startAngle + 360,
+                duration: window.innerWidth < 700 ? 31 : 38,
+                ease: 'none',
+                repeat: -1,
+                onUpdate: () => renderPlaneOrbit(plane, state),
+                onRepeat: () => { state.angle -= 360; }
             });
         }
 
@@ -2698,30 +2900,67 @@
             clearPlaneRespawnTimer();
             stopPlaneLoop();
             gsap.killTweensOf(plane);
+            plane.classList.add('crashing');
 
-            const direction = gsap.getProperty(plane, 'scaleX') === -1 ? -1 : 1;
-            gsap.to(plane, {
-                y: `+=${Math.max(window.innerHeight * 0.42, 260)}`,
-                x: `+=${direction * 90}`,
-                rotation: direction * 92,
-                autoAlpha: 0,
-                duration: 1.15,
-                ease: 'power2.in',
+            const parts = getPlaneParts(plane);
+            const direction = Math.cos((gsap.getProperty(plane, 'rotation') || 0) * Math.PI / 180) >= 0 ? 1 : -1;
+            const fallDistance = Math.max(window.innerHeight * 0.44, 280);
+
+            gsap.timeline({
                 onComplete: () => {
+                    gsap.set(plane, { autoAlpha: 0 });
                     planeRespawnTimer = setTimeout(() => {
                         planeRespawnTimer = null;
                         planeCrashed = false;
-                        startPlanePass(getPlaneEdgePoint(Math.random() > 0.5 ? 'left' : 'right'));
+                        startPlaneOrbit(randomBetween(190, 250));
                     }, 5000);
                 }
-            });
+            })
+                .set(parts.fire, { opacity: 1, scale: 0.3 })
+                .to(parts.fire, { scale: 1.75, opacity: 1, duration: 0.16, ease: 'power2.out' }, 0)
+                .to(parts.fire, { scale: 2.2, opacity: 0, duration: 0.62, ease: 'sine.out' }, 0.16)
+                .to(parts.front, {
+                    x: direction * 98,
+                    y: fallDistance,
+                    rotation: direction * 138,
+                    opacity: 0,
+                    duration: 1.28,
+                    ease: 'power2.in'
+                }, 0.08)
+                .to(parts.rear, {
+                    x: direction * -72,
+                    y: fallDistance * 0.94,
+                    rotation: direction * -124,
+                    opacity: 0,
+                    duration: 1.34,
+                    ease: 'power2.in'
+                }, 0.08)
+                .to(parts.propeller, {
+                    x: direction * 128,
+                    y: fallDistance * 0.72,
+                    rotation: direction * 760,
+                    scale: 0.42,
+                    opacity: 0,
+                    duration: 1.04,
+                    ease: 'power2.in'
+                }, 0.02)
+                .to(plane, {
+                    x: `+=${direction * 34}`,
+                    y: '+=18',
+                    duration: 1.16,
+                    ease: 'power1.in'
+                }, 0);
+
+            for (let i = 0; i < 7; i++) {
+                setTimeout(() => emitPlanePuff(plane, true), i * 80);
+            }
         }
 
         if (!plane.dataset.crashBound) {
             plane.addEventListener('click', crashPlane);
             plane.dataset.crashBound = 'true';
         }
-        startPlanePass();
+        startPlaneOrbit();
     }
 
     initPlaneLoop();
@@ -2738,7 +2977,7 @@
         clearPlaneRespawnTimer();
         planeCrashed = false;
         stopPlaneLoop();
-        gsap.set('#sky-plane', { clearProps: 'autoAlpha' });
+        gsap.set('#sky-plane', { opacity: 0, visibility: 'hidden' });
     }).observe(document.documentElement, {
         attributes: true,
         attributeFilter: ['data-theme']
@@ -3205,14 +3444,17 @@
             const fromTop = Math.random() > 0.35;
             const x = fromTop ? randomBetween(canvas.width * 0.05, canvas.width * 0.85) : -80;
             const y = fromTop ? -40 : randomBetween(canvas.height * 0.05, canvas.height * 0.5);
+            const targetY = canvas.height + randomBetween(80, 220);
+            const duration = randomBetween(1500, 2100);
+            const fall = Math.max(targetY - y, canvas.height * 0.72);
             meteor = {
                 x,
                 y,
-                length: randomBetween(60, 120),
-                vx: randomBetween(520, 780),
-                vy: randomBetween(300, 470),
+                length: randomBetween(82, 138),
+                vx: randomBetween(250, 380),
+                vy: fall,
                 born: now,
-                duration: randomBetween(620, 820),
+                duration,
             };
         }
 
