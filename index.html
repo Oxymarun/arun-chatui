@@ -67,10 +67,10 @@
             --bg: #090806;
             --surface: #12100c;
             --surface-2: #19150f;
-            --bubble-bg: rgba(18,16,12,0.88);
-            --bubble-border: rgba(255,255,255,0.08);
-            --bubble-highlight-bg: var(--topic-accent-soft);
-            --bubble-highlight-border: var(--topic-accent-border);
+            --bubble-bg: rgba(22,19,14,0.96);
+            --bubble-border: rgba(255,255,255,0.13);
+            --bubble-highlight-bg: linear-gradient(90deg, rgba(var(--topic-rgb),0.16) 0%, rgba(23,20,15,0.96) 34%, rgba(23,20,15,0.96) 100%);
+            --bubble-highlight-border: rgba(var(--topic-rgb),0.42);
             --text-primary: #f7f1e8;
             --text-secondary: #b5a489;
             --text-muted: rgba(247,241,232,0.38);
@@ -1351,6 +1351,7 @@
             box-shadow:
                 0 1px 0 rgba(255,255,255,0.06) inset,
                 0 6px 18px -10px rgba(0,0,0,0.28);
+            border-left: 2px solid var(--topic-accent);
         }
         [data-theme="light"] .bubble.highlight {
             box-shadow: none;
@@ -1494,7 +1495,7 @@
             display: block;
         }
         .signoff::before {
-            content: '— ';
+            content: '';
             color: var(--topic-accent);
             font-style: normal;
         }
@@ -2285,7 +2286,7 @@
         </div>
     </div>
 
-    <div class="signoff" id="signoff">Arun · sent from Bombay · 2026</div>
+    <div class="signoff" id="signoff">Arun - Sent from Bangalore, 2026</div>
 
 </div>
 
