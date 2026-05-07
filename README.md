@@ -1,6 +1,6 @@
 # Arun ChatUI — Chat-Style Portfolio
 
-A personal portfolio that looks and feels like a messaging app. Dark starfield, glassmorphism bubbles, red accents, and interactive features that make it actually fun to explore.
+A personal portfolio that looks and feels like a messaging app. Dark operator-channel UI, glassmorphism bubbles, contextual topic accents, and interactive features that make it quick to explore.
 
 ## What it is
 
@@ -10,11 +10,10 @@ No walls of text. No boring grid layout. Your visitor opens it and gets a chat i
 
 ### Core
 - Staggered intro messages on load (chat-style)
-- 7 topic buttons — Work, Skills, Education, About me, Things I've Built, Let's connect, Thoughts (coming soon)
+- 6 topic buttons — Work, Skills, Education, About me, Things I've Built, Let's connect
 - Accordion navigation — opening one topic closes others
 - Typing indicator before replies appear
 - ✓✓ Seen receipts after last message in each topic
-- Emoji reactions with localStorage persistence
 
 ### Interactive (v2.1)
 - **Persona chips** — Recruiter / Founder / Peer shortcuts auto-expand the right topic. Supports `?persona=recruiter` URL param
@@ -24,13 +23,14 @@ No walls of text. No boring grid layout. Your visitor opens it and gets a chat i
 ### Design
 - Gradient mesh background (static radial gradients, no canvas/CPU overhead)
 - Glassmorphism bubbles (`backdrop-filter: blur(12px)`)
-- Nebula blob decorations (fixed radial gradients)
-- Amber accent (`--accent-rgb: 245, 158, 11`) — CSS token system, single source of truth
+- Operator-channel design system documented in `DESIGN.md`
+- Geist + Geist Mono via Google Fonts
+- Contextual topic accents via `data-active-topic` and `--topic-*` CSS tokens
 
 ## Stack
 
 - Vanilla JS + CSS — no framework, no build step
-- Google Fonts (Inter) via CDN
+- Google Fonts (Geist / Geist Mono) via CDN
 - Single file: `index.html`
 
 ## Run it
@@ -48,6 +48,7 @@ index.html          — Entire site (HTML + CSS + JS)
 assets/             — Headshot image
 README.md           — This file
 CLAUDE.md           — AI coding instructions
+DESIGN.md           — Design system source of truth
 STATE.md            — Feature log and open todos
 TODOS.md            — Backlog with context
 ```
@@ -57,7 +58,6 @@ TODOS.md            — Backlog with context
 - [ ] Thoughts section — 3-4 real opinions/takes (currently scaffolded, awaiting copy)
 - [ ] Wire Founder persona chip to Thoughts once content is live
 - [ ] GitHub Pages deployment
-- [ ] Clean up orphaned `data-time` attributes (~30 bubbles)
 
 ---
 
