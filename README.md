@@ -19,6 +19,7 @@ No walls of text. No boring grid layout. Your visitor opens it and gets a chat i
 - **Persona chips** — Recruiter / Founder / Peer shortcuts auto-expand the right topic. Supports `?persona=recruiter` URL param
 - **KPI toggle** — "Show impact metrics" button highlights key numbers ($2M MRR, 500K DAU, etc.) in the timeline
 - **Time-travel slider** — drag to a year (2017–2026) and the matching role highlights; others dim; background hue shifts
+- **Mini music player** — bottom-right soundtrack widget with local CC0 tracks and a collapsible launcher
 
 ### Design
 - Gradient mesh background (static radial gradients, no canvas/CPU overhead)
@@ -45,7 +46,7 @@ That's it. No install, no server, no build.
 
 ```
 index.html          — Entire site (HTML + CSS + JS)
-assets/             — Headshot image
+assets/             — Headshot, CV PDF, and local audio files
 README.md           — This file
 CLAUDE.md           — AI coding instructions
 DESIGN.md           — Design system source of truth

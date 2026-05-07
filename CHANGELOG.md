@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.4.0] - 2026-05-08
+
+### Added
+- Small bottom-right music player with local CC0 tracks, custom play/previous/next controls, and a collapsible music-note launcher.
+- Local audio track support under `assets/audio/` with documented CC0 source credits.
+
+### Changed
+- Kept the soundtrack experience out of the main chat flow so the portfolio remains focused on the conversation.
+
 ## [0.0.3.0] - 2026-05-07
 
 ### Added
