@@ -194,7 +194,7 @@
             display: flex;
             align-items: center;
             gap: var(--space-md);
-            margin-bottom: 28px;
+            margin-bottom: 8px;
             opacity: 0;
             animation: fadeIn 0.6s ease 0.2s forwards;
             background: var(--header-bg);
@@ -204,6 +204,26 @@
             padding: var(--space-md) 14px;
             border: 1px solid var(--border-soft);
             box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 32px var(--shadow-deep);
+        }
+
+        .view-status {
+            margin: 0 0 22px 68px;
+            font-size: 10px;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            line-height: 1.4;
+            letter-spacing: 0;
+            color: var(--text-muted);
+            opacity: 0;
+            animation: fadeIn 0.45s ease 0.34s forwards;
+        }
+
+        .view-status-label {
+            color: rgba(var(--topic-rgb),0.62);
+        }
+
+        .view-status-path {
+            color: var(--text-secondary);
         }
 
         [data-theme="light"] .chat-header {
@@ -1123,6 +1143,7 @@
             .header-action-btn .btn-label { display: none; }
             .chat-wrap::after { display: none; }
             .topics { padding: 12px 10px 8px; }
+            .view-status { margin-left: 0; }
         }
     </style>
 </head>
@@ -1141,6 +1162,10 @@
             <a href="tel:+919663338493" class="header-action-btn call-btn" title="Call Arun" aria-label="Call Arun"><span class="btn-icon">📞</span><span class="btn-label">Call</span></a>
             <button class="header-action-btn" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle theme" onclick="toggleTheme()"><span class="btn-icon">🌙</span><span class="btn-label">Dark mode</span></button>
         </div>
+    </div>
+    <div class="view-status" id="view-status" aria-live="polite">
+        <span class="view-status-label">currently viewing:</span>
+        <span class="view-status-path" id="view-status-path">Intro</span>
     </div>
 
     <!-- Message 1 -->
@@ -1888,6 +1913,40 @@
     });
 
     const L2_TOPICS = ['work', 'skills', 'about'];
+    const TOPIC_LABELS = {
+        work: 'Work',
+        skills: 'Skills',
+        education: 'Education',
+        about: 'About me',
+        built: "Things I've Built",
+        contact: "Let's connect"
+    };
+    const SUBTOPIC_LABELS = {
+        work: { timeline: 'Timeline', wins: 'Key wins', industries: 'Industries' },
+        skills: { strategy: 'Strategy & Growth', ops: 'Operations', data: 'Data & Tools' },
+        about: { background: 'Background', adventures: 'Adventures', sports: 'Sports', gaming: 'Gaming', now: 'Right now' }
+    };
+
+    function setViewStatus(parts) {
+        const path = document.getElementById('view-status-path');
+        if (path) path.textContent = parts.join(' → ');
+    }
+
+    function labelFromId(id) {
+        return id.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
+    }
+
+    function updateViewStatus(topic, sub, year) {
+        const parts = [TOPIC_LABELS[topic] || topic];
+        if (sub) {
+            parts.push((SUBTOPIC_LABELS[topic] && SUBTOPIC_LABELS[topic][sub]) || labelFromId(sub));
+            if (topic === 'work' && sub === 'timeline') {
+                const slider = document.getElementById('tl-slider');
+                parts.push(String(year || (slider ? slider.value : '2025')));
+            }
+        }
+        setViewStatus(parts);
+    }
 
     function openTopic(topic, event) {
         const btn = event.currentTarget;
@@ -1907,6 +1966,7 @@
             reply.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
             const receipt = reply.querySelector('.receipt');
             if (receipt) receipt.remove();
+            setViewStatus(['Intro']);
             return;
         }
 
@@ -1932,6 +1992,7 @@
         document.documentElement.dataset.activeTopic = topic;
         reply.classList.add('open');
         btn.classList.add('active');
+        updateViewStatus(topic);
 
         if (L2_TOPICS.includes(topic)) {
             const typing = document.getElementById('typing-' + topic);
@@ -1993,6 +2054,7 @@
         const subReply = document.getElementById('sub-' + topic + '-' + sub);
         if (!subReply) return;
         subReply.classList.add('open');
+        updateViewStatus(topic, sub);
 
         const typing = document.getElementById('typing-sub-' + topic + '-' + sub);
         if (typing) {
@@ -2067,6 +2129,8 @@
     function scrubTimeline(year) {
         const display = document.getElementById('tl-yr');
         if (display) display.textContent = year;
+        const timeline = document.getElementById('sub-work-timeline');
+        if (timeline && timeline.classList.contains('open')) updateViewStatus('work', 'timeline', year);
 
         const slider = document.getElementById('tl-slider');
         if (slider) {
