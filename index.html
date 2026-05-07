@@ -35,6 +35,7 @@
             --duration-short: 160ms;
             --duration-medium: 260ms;
             --duration-long: 420ms;
+            --tick-shadow: 0 0 0 3px rgba(var(--topic-rgb),0.16);
 
             --topic-rgb: 217, 154, 43;
             --topic-accent: #d99a2b;
@@ -469,6 +470,8 @@
             width: 3px;
             border-radius: 3px;
             background: var(--topic-accent);
+            opacity: 0.75;
+            animation: caret-blink 1s steps(2, start) infinite;
         }
 
         /* Sub-option buttons */
@@ -490,6 +493,7 @@
             transition: background var(--duration-short), border-color var(--duration-short), color var(--duration-short), transform var(--duration-short), box-shadow var(--duration-short);
             font-family: var(--font-sans);
             letter-spacing: 0.01em;
+            position: relative;
         }
         .sub-btn:hover {
             background: var(--sub-btn-hover-bg);
@@ -501,6 +505,7 @@
             background: var(--topic-selection-bg);
             border-color: var(--topic-rail);
             color: var(--topic-accent-hover);
+            box-shadow: var(--tick-shadow);
         }
 
         /* Reply block */
@@ -510,7 +515,10 @@
             border-left: 2px solid var(--topic-rail);
             padding-left: 12px;
         }
-        .reply-block.open { display: block; }
+        .reply-block.open {
+            display: block;
+            animation: rail-tick var(--duration-medium) var(--ease-enter);
+        }
 
         .section-label {
             font-size: 10px;
@@ -588,6 +596,16 @@
             margin-right: 6px;
             font-style: italic;
         }
+        .typing-label::after {
+            content: '';
+            display: inline-block;
+            width: 1px;
+            height: 10px;
+            margin-left: 6px;
+            background: var(--topic-accent);
+            vertical-align: -1px;
+            animation: caret-blink 1s steps(2, start) infinite;
+        }
 
         .typing span:not(.typing-label) {
             width: 5px; height: 5px;
@@ -603,6 +621,22 @@
             30% { transform: translateY(-5px); }
         }
 
+        @keyframes caret-blink {
+            0%, 45% { opacity: 0.8; }
+            46%, 100% { opacity: 0.18; }
+        }
+
+        @keyframes rail-tick {
+            0% {
+                border-left-color: var(--topic-accent);
+                box-shadow: -6px 0 18px -14px rgba(var(--topic-rgb),0.95);
+            }
+            100% {
+                border-left-color: rgba(var(--topic-rgb),0.24);
+                box-shadow: none;
+            }
+        }
+
         @keyframes fadeIn { to { opacity: 1; } }
 
         /* Read receipt */
@@ -613,6 +647,7 @@
             margin-top: 4px;
             opacity: 0;
             animation: fadeIn 0.3s ease 0.3s forwards;
+            font-family: var(--font-mono);
         }
 
         /* ===== Persona chips ===== */
@@ -1136,6 +1171,11 @@
                 --rail-opacity: 1 !important;
             }
             body { transition: none !important; }
+            .topic-btn.active::after,
+            .typing-label::after {
+                animation: none !important;
+                opacity: 0.55 !important;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1884,6 +1924,7 @@
     }
 
     function toggleTheme() {
+        tickControl(document.getElementById('theme-toggle'));
         const html = document.documentElement;
         const isDark = html.dataset.theme === 'dark';
         html.dataset.theme = isDark ? 'light' : 'dark';
@@ -1921,6 +1962,22 @@
     });
 
     const L2_TOPICS = ['work', 'skills', 'about'];
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function tickControl(el) {
+        if (!el || reduceMotion) return;
+        gsap.fromTo(el,
+            { scale: 0.98 },
+            {
+                scale: 1,
+                boxShadow: '0 0 0 3px rgba(var(--topic-rgb),0.16)',
+                duration: 0.18,
+                ease: 'back.out(2.2)',
+                clearProps: 'scale,boxShadow'
+            }
+        );
+    }
+
     const TOPIC_LABELS = {
         work: 'Work',
         skills: 'Skills',
@@ -1960,6 +2017,7 @@
         const btn = event.currentTarget;
         const reply = document.getElementById('reply-' + topic);
         if (!reply) return;
+        tickControl(btn);
 
         if (reply.classList.contains('open')) {
             reply.classList.remove('open');
@@ -2035,8 +2093,6 @@
             }
         }
 
-        gsap.fromTo(btn, { scale: 0.95 }, { scale: 1, duration: 0.35, ease: 'back.out(2)' });
-
         setTimeout(() => {
             reply.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
@@ -2049,6 +2105,7 @@
         const btnGroup = btn.closest('.sub-buttons');
         if (btnGroup && !options.keepExisting) btnGroup.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+        tickControl(btn);
 
         if (!options.keepExisting) {
             reply.querySelectorAll('.sub-reply').forEach(s => {
@@ -2170,7 +2227,10 @@
 
         document.querySelectorAll('.persona-chip').forEach(c => c.classList.remove('active'));
         const chip = document.querySelector('[data-persona="' + name + '"]');
-        if (chip) chip.classList.add('active');
+        if (chip) {
+            chip.classList.add('active');
+            tickControl(chip);
+        }
 
         const url = new URL(window.location);
         url.searchParams.set('persona', name);
@@ -2196,7 +2256,10 @@
         const container = document.getElementById('tl-metrics-container');
         if (container) container.classList.toggle('metrics-visible', metricsOn);
         const btn = document.getElementById('metrics-toggle-btn');
-        if (btn) btn.textContent = metricsOn ? '✦ Hide impact metrics' : '✦ Show impact metrics';
+        if (btn) {
+            btn.textContent = metricsOn ? '✦ Hide impact metrics' : '✦ Show impact metrics';
+            tickControl(btn);
+        }
     }
 
     // ===== Timeline scrubber =====
