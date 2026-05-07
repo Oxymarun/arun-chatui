@@ -38,7 +38,13 @@
             --tick-shadow: 0 0 0 3px rgba(var(--topic-rgb),0.16);
 
             --baseline-rgb: 124, 108, 240;
-            --sky-rgb: var(--baseline-rgb);
+            --sky-rgb: var(--topic-rgb);
+            --day-sky-rgb: 91, 177, 234;
+            --day-sky-top: #89d2ff;
+            --day-sky-mid: #d8f2ff;
+            --day-sky-bottom: #f7fcff;
+            --sun-rgb: 255, 211, 96;
+            --cloud-rgb: 255, 255, 255;
             --intro-rgb: 124, 108, 240;
             --intro-accent: #7c6cf0;
             --intro-accent-hover: #a59cff;
@@ -89,22 +95,23 @@
         }
 
         [data-theme="light"] {
-            --bg: #faf7f0;
-            --surface: #ffffff;
-            --surface-2: #f5efe4;
-            --bubble-bg: rgba(255,255,255,0.92);
-            --bubble-border: rgba(0,0,0,0.07);
+            --sky-rgb: var(--day-sky-rgb);
+            --bg: var(--day-sky-bottom);
+            --surface: rgba(255,255,255,0.9);
+            --surface-2: rgba(233,247,255,0.94);
+            --bubble-bg: rgba(255,255,255,0.86);
+            --bubble-border: rgba(34,87,130,0.14);
             --bubble-highlight-bg: rgba(var(--topic-rgb),0.08);
             --bubble-highlight-border: rgba(var(--topic-rgb),0.2);
-            --text-primary: #17130d;
-            --text-secondary: #6d5d45;
-            --text-muted: rgba(23,19,13,0.42);
-            --header-bg: rgba(250,247,240,0.92);
+            --text-primary: #132335;
+            --text-secondary: #496070;
+            --text-muted: rgba(19,35,53,0.42);
+            --header-bg: rgba(239,249,255,0.78);
             --typing-dot: rgba(var(--topic-rgb),0.45);
             --typing-bg: rgba(255,255,255,0.88);
-            --typing-border: rgba(0,0,0,0.07);
+            --typing-border: rgba(34,87,130,0.12);
             --scrollbar-thumb: rgba(var(--topic-rgb),0.3);
-            --tl-border: rgba(0,0,0,0.06);
+            --tl-border: rgba(34,87,130,0.1);
             --chip-border: rgba(var(--topic-rgb),0.25);
             --chip-bg: rgba(var(--topic-rgb),0.06);
             --topic-rail: rgba(var(--topic-rgb), 0.34);
@@ -114,12 +121,12 @@
             --sub-btn-color: var(--topic-accent);
             --sub-btn-border: rgba(var(--topic-rgb),0.3);
             --sub-btn-hover-bg: rgba(var(--topic-rgb),0.08);
-            --header-btn-bg: rgba(0,0,0,0.05);
-            --header-btn-border: rgba(0,0,0,0.09);
-            --header-btn-color: rgba(0,0,0,0.5);
-            --header-btn-hover-bg: rgba(0,0,0,0.09);
-            --border-soft: rgba(23,19,13,0.08);
-            --shadow-deep: rgba(49,39,24,0.12);
+            --header-btn-bg: rgba(255,255,255,0.58);
+            --header-btn-border: rgba(34,87,130,0.12);
+            --header-btn-color: rgba(19,35,53,0.58);
+            --header-btn-hover-bg: rgba(255,255,255,0.82);
+            --border-soft: rgba(34,87,130,0.12);
+            --shadow-deep: rgba(42,94,137,0.16);
         }
 
         html[data-active-topic="work"] {
@@ -176,6 +183,43 @@
             min-height: 100vh;
             overflow-x: hidden;
             transition: background var(--duration-medium) var(--ease-standard);
+        }
+
+        [data-theme="light"] body {
+            background:
+                radial-gradient(ellipse 58% 34% at 12% 8%, rgba(255,255,255,0.5) 0%, transparent 62%),
+                linear-gradient(180deg, var(--day-sky-top) 0%, var(--day-sky-mid) 48%, var(--day-sky-bottom) 100%);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: clamp(22px, 7vh, 76px);
+            right: clamp(18px, 8vw, 132px);
+            width: clamp(84px, 10vw, 132px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle, rgba(255,255,255,0.82) 0 14%, rgba(var(--sun-rgb),0.95) 15% 52%, rgba(var(--sun-rgb),0.28) 53% 71%, transparent 72%),
+                radial-gradient(circle, rgba(var(--sun-rgb),0.2) 0 68%, transparent 69%);
+            box-shadow: 0 0 64px rgba(var(--sun-rgb),0.24);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity var(--duration-long) var(--ease-standard);
+        }
+
+        [data-theme="light"] body::before {
+            opacity: 1;
+        }
+
+        @media (max-width: 700px) {
+            [data-theme="light"] body::before {
+                top: 132px;
+                right: -24px;
+                width: 104px;
+                opacity: 0.86;
+            }
         }
 
         /* Noise grain overlay */
@@ -1322,25 +1366,27 @@
             font-weight: 600;
         }
 
-        /* ---------- Light theme: warm paper dossier ---------- */
+        /* ---------- Light theme: open blue sky ---------- */
         [data-theme="light"] {
-            --bg: #f4ece0;
-            --surface: #fbf6ec;
-            --surface-2: #efe6d4;
-            --bubble-bg: #fbf6ec;
-            --bubble-border: #e8dcc6;
-            --text-primary: #1a1410;
-            --text-secondary: #6b5a42;
-            --header-bg: rgba(244,236,224,0.92);
-            --shadow-deep: rgba(60,42,18,0.08);
+            --bg: var(--day-sky-bottom);
+            --surface: rgba(255,255,255,0.9);
+            --surface-2: rgba(233,247,255,0.94);
+            --bubble-bg: rgba(255,255,255,0.86);
+            --bubble-border: rgba(34,87,130,0.14);
+            --text-primary: #132335;
+            --text-secondary: #496070;
+            --header-bg: rgba(239,249,255,0.78);
+            --shadow-deep: rgba(42,94,137,0.16);
         }
         [data-theme="light"] .bubble {
             border: 1px solid var(--bubble-border);
-            box-shadow: none;
+            box-shadow: 0 12px 32px -24px rgba(32,83,124,0.28);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
         }
         [data-theme="light"] body::after {
-            opacity: 0.035;
-            mix-blend-mode: multiply;
+            opacity: 0.012;
+            mix-blend-mode: soft-light;
         }
 
         /* ---------- Focus inside chat column ---------- */
@@ -1420,15 +1466,34 @@
             z-index: 1;
             filter: blur(60px);
             will-change: transform;
-            background: radial-gradient(ellipse, rgba(var(--sky-rgb), 0.13) 0%, transparent 70%);
-            transition: background 1.4s var(--ease-standard);
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(var(--sky-rgb), 0.16) 0%, rgba(var(--sky-rgb), 0.05) 44%, transparent 72%);
+            mix-blend-mode: screen;
+            transition: background 1.4s var(--ease-standard), filter 1.4s var(--ease-standard), opacity 1.4s var(--ease-standard);
         }
         #ab1 { width: 40vw; height: 34vw; top: -10%; left:  8%; }
         #ab2 { width: 34vw; height: 38vw; top: 28%;  right: -4%; }
         #ab3 { width: 32vw; height: 25vw; bottom: -10%; left: 30%; }
 
         [data-theme="light"] .aurora-blob {
-            background: radial-gradient(ellipse, rgba(var(--sky-rgb), 0.06) 0%, transparent 70%);
+            filter: blur(26px);
+            opacity: 0.78;
+            mix-blend-mode: normal;
+            background:
+                radial-gradient(circle at 18% 62%, rgba(var(--cloud-rgb),0.78) 0 18%, transparent 19%),
+                radial-gradient(circle at 38% 45%, rgba(var(--cloud-rgb),0.9) 0 26%, transparent 27%),
+                radial-gradient(circle at 62% 56%, rgba(var(--cloud-rgb),0.82) 0 24%, transparent 25%),
+                radial-gradient(circle at 82% 65%, rgba(var(--cloud-rgb),0.62) 0 16%, transparent 17%),
+                radial-gradient(ellipse at 50% 68%, rgba(var(--cloud-rgb),0.5) 0 48%, transparent 49%);
+        }
+        [data-theme="light"] #ab1 { width: min(58vw, 640px); height: min(20vw, 220px); top: 4%; left: -10%; }
+        [data-theme="light"] #ab2 { width: min(52vw, 560px); height: min(18vw, 210px); top: 22%; right: -16%; }
+        [data-theme="light"] #ab3 { width: min(46vw, 500px); height: min(16vw, 180px); bottom: 6%; left: 12%; opacity: 0.52; }
+
+        @media (max-width: 700px) {
+            [data-theme="light"] #ab1 { width: 92vw; height: 34vw; top: 6%; left: -34%; }
+            [data-theme="light"] #ab2 { width: 86vw; height: 32vw; top: 27%; right: -40%; }
+            [data-theme="light"] #ab3 { width: 74vw; height: 28vw; bottom: 8%; left: -12%; }
         }
 
         /* Constellation canvas */
@@ -1443,13 +1508,14 @@
             animation: fadeIn 2.4s ease 1.2s forwards;
         }
         [data-theme="light"] #stars-canvas {
-            opacity: 0.35 !important;
-            filter: sepia(0.3) brightness(0.6);
+            opacity: 0 !important;
+            filter: none;
         }
 
         @media (prefers-reduced-motion: reduce) {
             .aurora-blob { transition: none !important; animation: none !important; }
             #stars-canvas { animation: none !important; opacity: 0.4 !important; }
+            [data-theme="light"] #stars-canvas { opacity: 0 !important; }
         }
     </style>
 </head>
@@ -2587,9 +2653,12 @@
 
 <script>
     // ===== v2.4: Aurora Drift =====
-    gsap.to('#ab1', { x: '11vw',  y: '9vh',   duration: 46, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 0  });
-    gsap.to('#ab2', { x: '-9vw',  y: '-13vh',  duration: 39, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 9  });
-    gsap.to('#ab3', { x: '7vw',   y: '11vh',   duration: 53, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 18 });
+    const atmosphereReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!atmosphereReduceMotion) {
+        gsap.to('#ab1', { x: '11vw',  y: '9vh',   duration: 46, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 0  });
+        gsap.to('#ab2', { x: '-9vw',  y: '-13vh',  duration: 39, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 9  });
+        gsap.to('#ab3', { x: '7vw',   y: '11vh',   duration: 53, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 18 });
+    }
 
     // ===== v2.5: Constellation + Meteors =====
     (function initConstellation() {
@@ -2635,6 +2704,10 @@
 
         function getSkyRgb() {
             return getCssRgb('--sky-rgb', [124, 108, 240]);
+        }
+
+        function isLightTheme() {
+            return document.documentElement.dataset.theme === 'light';
         }
 
         function colorMode() {
@@ -2768,7 +2841,12 @@
         }
 
         function draw(now = performance.now()) {
+            skyRgb = getSkyRgb();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (isLightTheme()) {
+                if (!reduceMotion) requestAnimationFrame(draw);
+                return;
+            }
             stars.forEach(s => {
                 if (!reduceMotion) {
                     s.x = (s.x + s.vx + canvas.width)  % canvas.width;
@@ -2802,6 +2880,12 @@
             drawConstellationLines();
             drawMeteor(now);
             if (!reduceMotion) requestAnimationFrame(draw);
+        }
+        if (reduceMotion) {
+            new MutationObserver(() => draw(performance.now())).observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme', 'data-active-topic', 'data-chat-mode'],
+            });
         }
         draw();
 
