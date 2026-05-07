@@ -917,29 +917,6 @@
             background: var(--topic-proof-bg);
         }
 
-        /* Timeline */
-        .mini-timeline { margin-top: 8px; }
-        .mini-tl-item {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            padding: 8px 4px;
-            border-bottom: 1px solid var(--tl-border);
-            border-radius: 6px;
-            transition: opacity var(--duration-short) ease, background var(--duration-short) ease, padding var(--duration-short) ease;
-        }
-        .mini-tl-item:last-child { border-bottom: none; }
-        .mini-tl-year {
-            font-size: 11px;
-            color: var(--topic-accent);
-            font-weight: 700;
-            min-width: 36px;
-            padding-top: 2px;
-            font-family: var(--font-mono);
-        }
-        .mini-tl-text { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
-        .mini-tl-text span { color: var(--text-primary); font-weight: 600; }
-
         /* Typing indicator */
         .typing {
             gap: 4px;
@@ -1060,41 +1037,6 @@
             margin-top: 10px;
         }
 
-        /* ===== KPI toggle ===== */
-        .metrics-toggle {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 5px 12px;
-            margin-bottom: 10px;
-            background: transparent;
-            border: 1px solid rgba(var(--topic-rgb),0.28);
-            border-radius: 14px;
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--topic-accent);
-            cursor: pointer;
-            font-family: var(--font-sans);
-            transition: background var(--duration-short), border-color var(--duration-short);
-        }
-        .metrics-toggle:hover {
-            background: rgba(var(--topic-rgb),0.08);
-            border-color: rgba(var(--topic-rgb),0.5);
-        }
-        .metric {
-            transition: background var(--duration-medium), color var(--duration-medium), padding var(--duration-medium), border-radius var(--duration-medium);
-            white-space: nowrap;
-        }
-        .metrics-visible .metric,
-        .metrics-visible .tl-impact-metric {
-            background: var(--topic-proof-bg);
-            color: var(--topic-accent-hover);
-            padding: 1px 5px;
-            border-radius: 4px;
-            border: 1px solid var(--topic-proof-border);
-            font-weight: 600;
-        }
-
         /* ===== Timeline scrubber ===== */
         .tl-scrubber {
             margin-top: 12px;
@@ -1129,48 +1071,14 @@
             margin-top: 4px;
             font-family: var(--font-mono);
         }
-        .mini-tl-item.tl-active {
-            opacity: 1;
-            background: var(--topic-selection-bg);
-            padding: 8px 8px;
-        }
-        .mini-tl-item.tl-dim { opacity: 0.2; }
-
-        /* Impact-first timeline */
-        .tl-impact {
+        /* Shared section cards */
+        .section-stack {
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            flex: 1;
+            gap: 14px;
+            margin-top: 4px;
         }
-        .tl-impact-metric {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-primary);
-            line-height: 1.2;
-            letter-spacing: 0;
-            font-family: var(--font-mono);
-        }
-        .tl-impact-role {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-top: 2px;
-        }
-        .tl-impact-desc {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 2px;
-            line-height: 1.4;
-        }
-        .mini-tl-item.impact-first {
-            align-items: flex-start;
-            padding: 10px 4px;
-        }
-
-        /* Education cards */
-        .edu-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
-        .edu-card {
+        .section-card {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 14px;
@@ -1179,11 +1087,11 @@
             overflow: hidden;
             transition: border-color var(--duration-short), box-shadow var(--duration-short);
         }
-        .edu-card:hover {
+        .section-card:hover {
             border-color: rgba(var(--topic-rgb),0.25);
             box-shadow: 0 4px 20px rgba(var(--topic-rgb),0.08);
         }
-        .edu-card::before {
+        .section-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0;
@@ -1191,26 +1099,26 @@
             background: linear-gradient(180deg, var(--topic-accent), rgba(var(--topic-rgb),0.2));
             border-radius: 3px 0 0 3px;
         }
-        .edu-card-header {
+        .section-card-header {
             display: flex;
             align-items: flex-start;
             gap: 10px;
             margin-bottom: 10px;
         }
-        .edu-logo { font-size: 24px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
-        .edu-institution {
-            font-size: 15px;
-            font-weight: 700;
+        .section-icon { font-size: 24px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+        .section-card-title {
+            font-size: 17px;
+            font-weight: 800;
             color: var(--text-primary);
             line-height: 1.2;
             letter-spacing: 0;
         }
-        .edu-degree {
+        .section-card-meta {
             font-size: 12px;
             color: var(--text-secondary);
             margin-top: 2px;
         }
-        .edu-year-badge {
+        .section-badge {
             margin-left: auto;
             font-size: 11px;
             font-weight: 700;
@@ -1223,12 +1131,99 @@
             flex-shrink: 0;
             font-family: var(--font-mono);
         }
-        .edu-chips {
+        .support-chips {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
         }
-        .edu-chip {
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .proof-tile {
+            min-height: 52px;
+            padding: 9px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(var(--topic-rgb),0.34);
+            background:
+                linear-gradient(135deg, rgba(var(--topic-rgb),0.18), rgba(var(--topic-rgb),0.06)),
+                rgba(255,255,255,0.04);
+            box-shadow: 0 0 0 1px rgba(var(--topic-rgb),0.06), 0 12px 26px -20px rgba(var(--topic-rgb),0.74);
+        }
+        .proof-tile {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 15px;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: 0;
+        }
+        .proof-tile-value {
+            display: block;
+        }
+        .proof-tile-note {
+            display: block;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .proof-tile.primary {
+            border-color: rgba(var(--topic-rgb),0.48);
+            background:
+                linear-gradient(135deg, rgba(var(--topic-rgb),0.26), rgba(var(--topic-rgb),0.09)),
+                rgba(255,255,255,0.05);
+            box-shadow: 0 0 0 1px rgba(var(--topic-rgb),0.10), 0 16px 32px -20px rgba(var(--topic-rgb),0.82);
+        }
+        .proof-tile.primary {
+            color: var(--topic-accent-hover);
+            font-size: 17px;
+        }
+        .section-card-copy {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.45;
+            margin-top: 6px;
+        }
+        .section-ladder {
+            padding-top: 2px;
+        }
+        .section-ladder-row {
+            position: relative;
+            padding-left: 14px;
+        }
+        .section-ladder-row + .section-ladder-row {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+        .section-ladder-row::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 2px;
+            width: 2px;
+            border-radius: 2px;
+            background: linear-gradient(180deg, rgba(var(--topic-rgb),0.58), rgba(var(--topic-rgb),0.16));
+        }
+        .section-ladder-label {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+        .support-chip {
             font-size: 11px;
             font-weight: 600;
             padding: 4px 10px;
@@ -1237,15 +1232,52 @@
             color: var(--text-secondary);
             background: rgba(255,255,255,0.04);
         }
-        .edu-chip.gold {
-            color: var(--topic-accent-hover);
-            border-color: rgba(var(--topic-rgb),0.22);
-            background: rgba(var(--topic-rgb),0.07);
-        }
-        .edu-chip.red {
+        .support-chip a,
+        .section-card a {
             color: var(--topic-accent);
-            border-color: rgba(var(--topic-rgb),0.25);
-            background: rgba(var(--topic-rgb),0.07);
+            text-decoration: none;
+        }
+        .section-card.tl-active {
+            opacity: 1;
+            border-color: rgba(var(--topic-rgb),0.46);
+            background: var(--topic-selection-bg);
+            box-shadow: 0 0 0 1px rgba(var(--topic-rgb),0.10), 0 12px 26px -20px rgba(var(--topic-rgb),0.72);
+        }
+        .section-card.tl-dim { opacity: 0.26; }
+        .reply-block.open .proof-tile,
+        .sub-reply.open .section-card {
+            animation: section-tile-pop 520ms var(--ease-enter) both;
+        }
+        .reply-block.open .proof-tile:nth-child(2),
+        .sub-reply.open .section-card:nth-child(2) { animation-delay: 60ms; }
+        .reply-block.open .proof-tile:nth-child(3),
+        .sub-reply.open .section-card:nth-child(3) { animation-delay: 120ms; }
+
+        @keyframes section-tile-pop {
+            0% {
+                opacity: 0;
+                transform: translateY(8px) scale(0.96);
+            }
+            68% {
+                opacity: 1;
+                transform: translateY(-1px) scale(1.025);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .proof-grid {
+                grid-template-columns: repeat(auto-fit, minmax(116px, 1fr));
+            }
+            .proof-tile {
+                font-size: 14px;
+            }
+            .proof-tile.primary {
+                font-size: 16px;
+            }
         }
 
         /* Scrollbar */
@@ -1369,74 +1401,6 @@
             background: var(--topic-selection-bg);
         }
 
-        /* ==== Timeline (impact-first) hierarchy refinement ==== */
-        .mini-tl-item.impact-first {
-            padding: 14px 6px;
-            gap: 16px;
-            align-items: flex-start;
-            position: relative;
-            transition: opacity var(--duration-short) ease, background var(--duration-short) ease, padding var(--duration-short) ease;
-        }
-        .mini-tl-item.impact-first .mini-tl-year {
-            min-width: 56px;
-            color: var(--text-muted);
-            font-size: 11px;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            padding-top: 3px;
-            font-weight: 600;
-            transition: color var(--duration-short);
-        }
-        .mini-tl-item.impact-first .tl-impact-metric {
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            color: var(--text-primary);
-            line-height: 1.25;
-        }
-        .mini-tl-item.impact-first .tl-impact-role {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-top: 4px;
-        }
-        .mini-tl-item.impact-first .tl-impact-desc {
-            font-size: 12px;
-            color: var(--text-secondary);
-            line-height: 1.45;
-            margin-top: 4px;
-        }
-
-        /* Active row lift */
-        .mini-tl-item.impact-first.tl-active {
-            background: var(--topic-selection-bg);
-            padding-left: 14px;
-        }
-        .mini-tl-item.impact-first.tl-active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 10px;
-            bottom: 10px;
-            width: 3px;
-            background: var(--topic-accent);
-            border-radius: 0 2px 2px 0;
-        }
-        .mini-tl-item.impact-first.tl-active .mini-tl-year {
-            color: var(--topic-accent);
-        }
-
-        /* KPI metric pill on active row */
-        .metrics-visible .mini-tl-item.impact-first .tl-impact-metric {
-            background: var(--topic-proof-bg);
-            color: var(--topic-accent-hover);
-            padding: 2px 8px;
-            border-radius: 6px;
-            border: 1px solid var(--topic-proof-border);
-            font-weight: 700;
-            display: inline-block;
-        }
-
         /* ==== Custom slider chrome ==== */
         .tl-scrubber input[type="range"] {
             -webkit-appearance: none;
@@ -1525,7 +1489,7 @@
 
         @media (prefers-reduced-motion: reduce) {
             .msg, .bubble, .persona-bar, .typing,
-            .reply-block, .sub-reply, .gradient-name {
+            .reply-block, .sub-reply, .gradient-name, .proof-tile, .section-card {
                 transition: none !important;
                 animation: none !important;
                 transform: none !important;
@@ -1688,14 +1652,7 @@
         }
 
         /* ---------- Type contrast ---------- */
-        .tl-impact-metric,
-        .mini-tl-item.impact-first .tl-impact-metric {
-            font-size: 17px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            font-variant-numeric: tabular-nums;
-        }
-        .metric, .tl-yr-current {
+        .tl-yr-current {
             font-variant-numeric: tabular-nums;
         }
         .company-name {
@@ -1703,10 +1660,10 @@
             font-weight: 700;
             letter-spacing: -0.01em;
         }
-        .edu-institution {
+        .section-card-title {
             letter-spacing: -0.01em;
         }
-        .edu-degree {
+        .section-card-meta {
             font-variant-caps: all-small-caps;
             letter-spacing: 0.06em;
             font-weight: 600;
@@ -1965,8 +1922,8 @@
     <!-- Topic buttons -->
     <div class="topics" id="topics">
         <button class="topic-btn" data-topic="work" onclick="openTopic('work', event)"><span class="btn-glyph">01</span>Work</button>
-        <button class="topic-btn" data-topic="skills" onclick="openTopic('skills', event)"><span class="btn-glyph">02</span>Skills</button>
-        <button class="topic-btn" data-topic="education" onclick="openTopic('education', event)"><span class="btn-glyph">03</span>Education</button>
+        <button class="topic-btn" data-topic="education" onclick="openTopic('education', event)"><span class="btn-glyph">02</span>Education</button>
+        <button class="topic-btn" data-topic="skills" onclick="openTopic('skills', event)"><span class="btn-glyph">03</span>Skills</button>
         <button class="topic-btn" data-topic="about" onclick="openTopic('about', event)"><span class="btn-glyph">04</span>About me</button>
         <button class="topic-btn" data-topic="built" onclick="openTopic('built', event)"><span class="btn-glyph">05</span>Things I've Built</button>
         <button class="topic-btn" data-topic="contact" onclick="openTopic('contact', event)"><span class="btn-glyph">06</span>Let's connect</button>
@@ -1993,55 +1950,93 @@
             <div class="typing" id="typing-sub-work-timeline"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-work-timeline">
-                    <button class="metrics-toggle" id="metrics-toggle-btn" type="button" onclick="toggleMetrics()">✦ Show impact metrics</button>
-                    <div class="mini-timeline" id="tl-metrics-container">
-                        <div class="mini-tl-item impact-first" data-start="2025" data-end="2026">
-                            <div class="mini-tl-year">2025–26</div>
-                            <div class="tl-impact">
-                                <div class="tl-impact-metric">$2M MRR · 500K DAU</div>
-                                <div class="tl-impact-role">PocketFM — Strategy & Growth</div>
-                                <div class="tl-impact-desc">Scaled micro-drama vertical from zero in 5 months.</div>
+                    <div class="section-stack" id="tl-metrics-container">
+                        <div class="section-card timeline-card" data-start="2025" data-end="2026">
+                            <div class="section-card-header">
+                                <div class="section-icon">📈</div>
+                                <div>
+                                    <div class="section-card-title">PocketFM</div>
+                                    <div class="section-card-meta">Strategy &amp; Growth</div>
+                                </div>
+                                <div class="section-badge">2025–26</div>
                             </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">$2M MRR</span><span class="proof-tile-note">Micro-drama revenue scale</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">500K DAU</span><span class="proof-tile-note">Daily active users</span></div>
+                            </div>
+                            <div class="section-card-copy">Took a new vertical from launch to repeatable monetization.</div>
                         </div>
-                        <div class="mini-tl-item impact-first" data-start="2025" data-end="2026">
-                            <div class="mini-tl-year">2025–26</div>
-                            <div class="tl-impact">
-                                <div class="tl-impact-metric">0 → 20 team · Series A</div>
-                                <div class="tl-impact-role">Physical-AI Startup — Chief of Staff</div>
-                                <div class="tl-impact-desc">Built org from scratch while running fundraise simultaneously.</div>
+                        <div class="section-card timeline-card" data-start="2025" data-end="2026">
+                            <div class="section-card-header">
+                                <div class="section-icon">🚀</div>
+                                <div>
+                                    <div class="section-card-title">Physical-AI Startup</div>
+                                    <div class="section-card-meta">Chief of Staff</div>
+                                </div>
+                                <div class="section-badge">2025–26</div>
                             </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">0 → 20 team</span><span class="proof-tile-note">Org built from zero</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Series A</span><span class="proof-tile-note">Fundraise operating track</span></div>
+                            </div>
+                            <div class="section-card-copy">Hired, onboarded, and set operating cadence in parallel.</div>
                         </div>
-                        <div class="mini-tl-item impact-first" data-start="2023" data-end="2025">
-                            <div class="mini-tl-year">2023–25</div>
-                            <div class="tl-impact">
-                                <div class="tl-impact-metric">₹100+ Cr AGWP</div>
-                                <div class="tl-impact-role">InsuranceDekho — Sr. Assoc Director / CoS</div>
-                                <div class="tl-impact-desc">Built cross-sell P&amp;L from scratch. Zero to revenue vertical.</div>
+                        <div class="section-card timeline-card" data-start="2023" data-end="2025">
+                            <div class="section-card-header">
+                                <div class="section-icon">💰</div>
+                                <div>
+                                    <div class="section-card-title">InsuranceDekho</div>
+                                    <div class="section-card-meta">Sr. Assoc Director / CoS</div>
+                                </div>
+                                <div class="section-badge">2023–25</div>
                             </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">₹100+ Cr AGWP</span><span class="proof-tile-note">Cross-sell premium volume</span></div>
+                            </div>
+                            <div class="section-card-copy">Owned channel design, partner motion, incentives, and execution.</div>
                         </div>
-                        <div class="mini-tl-item impact-first" data-start="2021" data-end="2023">
-                            <div class="mini-tl-year">2021–23</div>
-                            <div class="tl-impact">
-                                <div class="tl-impact-metric">$20M Series A · 1.7M DAU</div>
-                                <div class="tl-impact-role">MPL / Mayhem Studios — Chief of Staff</div>
-                                <div class="tl-impact-desc">Closed Sequoia round. Scaled gaming platform to 1.7M daily users.</div>
+                        <div class="section-card timeline-card" data-start="2021" data-end="2023">
+                            <div class="section-card-header">
+                                <div class="section-icon">🤝</div>
+                                <div>
+                                    <div class="section-card-title">MPL / Mayhem Studios</div>
+                                    <div class="section-card-meta">Chief of Staff</div>
+                                </div>
+                                <div class="section-badge">2021–23</div>
                             </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">$20M Series A</span><span class="proof-tile-note">Sequoia fundraise closed</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">1.7M DAU</span><span class="proof-tile-note">Gaming platform scale</span></div>
+                            </div>
+                            <div class="section-card-copy">Coordinated founders, legal, finance, and product while shipping continued.</div>
                         </div>
-                        <div class="mini-tl-item impact-first" data-start="2020" data-end="2020">
-                            <div class="mini-tl-year">2020</div>
-                            <div class="tl-impact">
-                                <div class="tl-impact-metric">3,000+ execs influenced</div>
-                                <div class="tl-impact-role">BCG — Strategy Consulting</div>
-                                <div class="tl-impact-desc">2 NASSCOM conferences. Enterprise strategy for India's largest cos.</div>
+                        <div class="section-card timeline-card" data-start="2020" data-end="2020">
+                            <div class="section-card-header">
+                                <div class="section-icon">🏢</div>
+                                <div>
+                                    <div class="section-card-title">BCG</div>
+                                    <div class="section-card-meta">Strategy Consulting</div>
+                                </div>
+                                <div class="section-badge">2020</div>
                             </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">3,000+ execs influenced</span><span class="proof-tile-note">Enterprise leaders reached</span></div>
+                            </div>
+                            <div class="section-card-copy">Built conference narratives for India's largest companies.</div>
                         </div>
-                        <div class="mini-tl-item impact-first" data-start="2017" data-end="2019">
-                            <div class="mini-tl-year">2017–19</div>
-                            <div class="tl-impact">
-                                <div class="tl-impact-metric">$1B+ drug portfolio</div>
-                                <div class="tl-impact-role">Novartis — Data & Strategy Analyst</div>
-                                <div class="tl-impact-desc">Physician segmentation models. First taste of data-to-decision loops.</div>
+                        <div class="section-card timeline-card" data-start="2017" data-end="2019">
+                            <div class="section-card-header">
+                                <div class="section-icon">💊</div>
+                                <div>
+                                    <div class="section-card-title">Novartis</div>
+                                    <div class="section-card-meta">Data &amp; Strategy Analyst</div>
+                                </div>
+                                <div class="section-badge">2017–19</div>
                             </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">$1B+ drug portfolio</span><span class="proof-tile-note">Pharma portfolio analytics</span></div>
+                            </div>
+                            <div class="section-card-copy">Built segmentation models and decision loops from messy data.</div>
                         </div>
                     </div>
                     <div class="tl-scrubber">
@@ -2066,22 +2061,49 @@
             </div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-work-wins-2">
-                    <div class="mini-timeline">
-                        <div class="mini-tl-item">
-                            <div class="mini-tl-year">📈</div>
-                            <div class="mini-tl-text"><span>$2M MRR in 5 months</span> — Scaled PocketFM's micro-drama vertical from 0 to 500K DAU.</div>
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">📈</div>
+                                <div class="section-card-title">PocketFM Micro-drama</div>
+                            </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">$2M MRR</span><span class="proof-tile-note">Reached in 5 months</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">500K DAU</span><span class="proof-tile-note">Daily active users</span></div>
+                            </div>
+                            <div class="section-card-copy">Took the vertical from launch to repeatable monetization.</div>
                         </div>
-                        <div class="mini-tl-item">
-                            <div class="mini-tl-year">💰</div>
-                            <div class="mini-tl-text"><span>₹100+ Cr AGWP from scratch</span> — Built InsuranceDekho's cross-sell P&L end-to-end.</div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">💰</div>
+                                <div class="section-card-title">InsuranceDekho Cross-sell</div>
+                            </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">₹100+ Cr AGWP</span><span class="proof-tile-note">Built from scratch</span></div>
+                            </div>
+                            <div class="section-card-copy">Owned partner motion, targets, and commercial execution.</div>
                         </div>
-                        <div class="mini-tl-item">
-                            <div class="mini-tl-year">🤝</div>
-                            <div class="mini-tl-text"><span>$20M Series A with Sequoia</span> — Closed fundraise at MPL / Mayhem Studios. 1.7M+ DAU.</div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🤝</div>
+                                <div class="section-card-title">MPL / Mayhem Studios</div>
+                            </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">$20M Series A</span><span class="proof-tile-note">Sequoia round closed</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">1.7M+ DAU</span><span class="proof-tile-note">Gaming platform scale</span></div>
+                            </div>
+                            <div class="section-card-copy">Kept founders, finance, legal, and product aligned throughout.</div>
                         </div>
-                        <div class="mini-tl-item">
-                            <div class="mini-tl-year">🚀</div>
-                            <div class="mini-tl-text"><span>0→20 team in months</span> — Built org from scratch at a Physical-AI startup while running Series A fundraise.</div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🚀</div>
+                                <div class="section-card-title">Physical-AI Startup</div>
+                            </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">0 → 20 team</span><span class="proof-tile-note">Built in months</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Series A</span><span class="proof-tile-note">Fundraise operating track</span></div>
+                            </div>
+                            <div class="section-card-copy">Converted ambiguity into hiring plan, cadence, and execution rhythm.</div>
                         </div>
                     </div>
                 </div>
@@ -2098,22 +2120,118 @@
             </div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-work-ind-2">
-                    <div class="mini-timeline">
-                        <div class="mini-tl-item">
-                            <div class="mini-tl-year">📱</div>
-                            <div class="mini-tl-text"><span>Consumer Tech & Gaming</span> — PocketFM (micro-drama), MPL / Mayhem Studios (mobile gaming). Growth + GTM + CoS.</div>
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">📱</div>
+                                <div class="section-card-title">Consumer Tech &amp; Gaming</div>
+                            </div>
+                            <div class="section-card-copy">PocketFM plus MPL / Mayhem. Growth, GTM, and CoS across scaled platforms.</div>
                         </div>
-                        <div class="mini-tl-item">
-                            <div class="mini-tl-year">🛡️</div>
-                            <div class="mini-tl-text"><span>Insurance</span> — InsuranceDekho. Built revenue verticals from zero inside a fast-scaling insurtech.</div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🛡️</div>
+                                <div class="section-card-title">Insurance</div>
+                            </div>
+                            <div class="section-card-copy">InsuranceDekho. Built revenue verticals from zero inside a fast-scaling insurtech.</div>
                         </div>
-                        <div class="mini-tl-item">
-                            <div class="mini-tl-year">🏢</div>
-                            <div class="mini-tl-text"><span>Consulting</span> — BCG (strategy), Novartis (pharma data & analytics). Enterprise rigor before startup chaos.</div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🏢</div>
+                                <div class="section-card-title">Consulting</div>
+                            </div>
+                            <div class="section-card-copy">BCG (strategy), Novartis (pharma data &amp; analytics). Enterprise rigor before startup chaos.</div>
                         </div>
-                        <div class="mini-tl-item">
-                            <div class="mini-tl-year">🤖</div>
-                            <div class="mini-tl-text"><span>Deep Tech / AI</span> — Physical-AI startup. CoS through 0-to-1 build, fundraise, and team scaling.</div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🤖</div>
+                                <div class="section-card-title">Deep Tech / AI</div>
+                            </div>
+                            <div class="section-card-copy">Frontier hardware-software company. CoS through build, raise, and hiring.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education reply -->
+    <div class="reply-block" id="reply-education">
+        <div class="section-label"><span class="btn-glyph">§</span>Education</div>
+        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
+        <div class="msg" style="margin-top:16px">
+            <div class="bubble" data-id="msg-edu-intro">
+                The academic thread in one place:
+            </div>
+        </div>
+        <div class="msg">
+            <div class="bubble highlight" data-id="msg-education-cards">
+                <div class="section-stack">
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">🏛️</div>
+                            <div>
+                                <div class="section-card-title">IIM Calcutta</div>
+                                <div class="section-card-meta">MBA · Finance &amp; Strategy</div>
+                            </div>
+                            <div class="section-badge">2019–21</div>
+                        </div>
+                        <div class="proof-grid">
+                            <div class="proof-tile"><span class="proof-tile-value">Rank 20 / 480</span><span class="proof-tile-note">Batch standing</span></div>
+                            <div class="proof-tile"><span class="proof-tile-value">CAT 99.72%ile</span><span class="proof-tile-note">Entrance test percentile</span></div>
+                        </div>
+                        <div class="support-chips">
+                            <span class="support-chip">🏢 BCG Intern</span>
+                            <span class="support-chip">🥈 Accenture Challenge RU</span>
+                            <span class="support-chip">🎓 HEC Paris admit — chose India</span>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">⚙️</div>
+                            <div>
+                                <div class="section-card-title">NIT Karnataka, Surathkal</div>
+                                <div class="section-card-meta">B.Tech · Civil Engineering</div>
+                            </div>
+                            <div class="section-badge">2013–17</div>
+                        </div>
+                        <div class="proof-grid">
+                            <div class="proof-tile"><span class="proof-tile-value">Silver Medal · 2nd / 100</span><span class="proof-tile-note">Civil department rank</span></div>
+                            <div class="proof-tile"><span class="proof-tile-value">GPA 9.2 / 10</span><span class="proof-tile-note">Undergrad academic score</span></div>
+                        </div>
+                        <div class="support-chips">
+                            <span class="support-chip">🏅 Best Outgoing Student</span>
+                            <span class="support-chip">🇨🇦 MITACS Scholar · Canada</span>
+                            <span class="support-chip">🏀 Vice Captain &amp; Sports Convener</span>
+                        </div>
+                    </div>
+                    <div class="section-card section-ladder">
+                        <div class="section-card-header">
+                            <div class="section-icon">🎓</div>
+                            <div>
+                                <div class="section-card-title">Schooling</div>
+                                <div class="section-card-meta">Foundation before NITK + IIMC</div>
+                            </div>
+                        </div>
+                        <div class="section-ladder-row">
+                            <div class="section-ladder-label">12th Class</div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">93%</span><span class="proof-tile-note">Class 12 final score</span></div>
+                                <div class="proof-tile primary"><span class="proof-tile-value">JEE Advanced AIR 4K</span><span class="proof-tile-note">Advanced exam rank</span></div>
+                            </div>
+                            <div class="support-chips">
+                                <span class="support-chip">JEE Main AIR 6K</span>
+                            </div>
+                        </div>
+                        <div class="section-ladder-row">
+                            <div class="section-ladder-label">10th Class</div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">10 CGPA</span><span class="proof-tile-note">Class 10 final grade</span></div>
+                            </div>
+                            <div class="support-chips">
+                                <span class="support-chip">Olympiad Medalist</span>
+                                <span class="support-chip">House Head</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2157,18 +2275,34 @@
         <div class="sub-reply" id="sub-skills-strat-01">
             <div class="typing" id="typing-sub-skills-strat-01"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-strat-01-1">
-                    Launched InsuranceDekho's first B2B2C channel from zero — defined ICP, built the pitch, closed early partners, owned the P&amp;L from day 1.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble" data-id="msg-strat-01-2">
-                    At MPL, built growth loops for new game verticals before product-market fit was confirmed — rapid test-learn-kill cycles, not polished roadmaps.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble highlight" data-id="msg-strat-01-3">
-                    Also done this outside work — sold 1,000+ tees in college with ₹2.5L revenue, team of 3. First 0-to-1 was at 21. 👕
+                <div class="bubble highlight" data-id="msg-strat-01">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🚀</div>
+                                <div class="section-card-title">0-to-1 Channel Build</div>
+                            </div>
+                            <div class="section-card-copy">Launched InsuranceDekho's first B2B2C channel: defined ICP, built the pitch, closed early partners, owned P&amp;L day 1.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🎮</div>
+                                <div class="section-card-title">Pre-PMF Growth Loops</div>
+                            </div>
+                            <div class="section-card-copy">At MPL, tested new game verticals before market pull was obvious — rapid test-learn-kill cycles, not polished roadmaps.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">👕</div>
+                                <div class="section-card-title">College Venture</div>
+                            </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary">1,000+ tees</div>
+                                <div class="proof-tile">₹2.5L revenue</div>
+                            </div>
+                            <div class="section-card-copy">First operator experiment at 21 with a team of 3.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2177,13 +2311,28 @@
         <div class="sub-reply" id="sub-skills-strat-gtm">
             <div class="typing" id="typing-sub-skills-strat-gtm"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-strat-gtm-1">
-                    Segment → message → channel. I don't do spray-and-pray. Built GTM playbooks at InsuranceDekho for agent, digital, and B2B2C segments — each had different economics and retention curves.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble" data-id="msg-strat-gtm-2">
-                    Managed content marketing at scale — worked with creators, built funnels, tracked CAC/LTV back to channel.
+                <div class="bubble highlight" data-id="msg-strat-gtm">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">📣</div>
+                                <div class="section-card-title">Segment → Message → Channel</div>
+                            </div>
+                            <div class="support-chips">
+                                <span class="support-chip">Agent</span>
+                                <span class="support-chip">Digital</span>
+                                <span class="support-chip">B2B2C</span>
+                            </div>
+                            <div class="section-card-copy">Built GTM playbooks at InsuranceDekho for segments with different economics and retention curves.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🧲</div>
+                                <div class="section-card-title">Content Marketing at Scale</div>
+                            </div>
+                            <div class="section-card-copy">Worked with creators, built funnels, tracked CAC/LTV back to channel.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2192,13 +2341,28 @@
         <div class="sub-reply" id="sub-skills-strat-pl">
             <div class="typing" id="typing-sub-skills-strat-pl"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-strat-pl-1">
-                    Owned revenue targets, not just activity metrics. At InsuranceDekho, tracked premium, commission, and retention cohorts — and was accountable when numbers slipped.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble highlight" data-id="msg-strat-pl-2">
-                    P&amp;L ownership and 0-to-1 overlap heavily — when you launch a new channel, you're also setting the unit economics from scratch.
+                <div class="bubble highlight" data-id="msg-strat-pl">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">💰</div>
+                                <div class="section-card-title">Revenue Accountability</div>
+                            </div>
+                            <div class="support-chips">
+                                <span class="support-chip">Premium</span>
+                                <span class="support-chip">Commission</span>
+                                <span class="support-chip">Retention cohorts</span>
+                            </div>
+                            <div class="section-card-copy">Owned targets, not just activity metrics. Accountable when numbers slipped.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">📐</div>
+                                <div class="section-card-title">Unit Economics From Scratch</div>
+                            </div>
+                            <div class="section-card-copy">New channels force pricing, CAC, payback, and margin logic into the same conversation.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2207,13 +2371,23 @@
         <div class="sub-reply" id="sub-skills-strat-okr">
             <div class="typing" id="typing-sub-skills-strat-okr"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-strat-okr-1">
-                    Designed OKR frameworks for cross-functional teams — making sure individual KRs roll up to company-level outcomes, not just departmental activity.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble" data-id="msg-strat-okr-2">
-                    Also coached teams on the diff between lag and lead metrics. Most OKR failures are measurement failures, not ambition failures.
+                <div class="bubble highlight" data-id="msg-strat-okr">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🎯</div>
+                                <div class="section-card-title">Company-Level OKR Rollups</div>
+                            </div>
+                            <div class="section-card-copy">Designed frameworks where individual KRs laddered into shared outcomes.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">📊</div>
+                                <div class="section-card-title">Lead + Lag Metrics</div>
+                            </div>
+                            <div class="section-card-copy">Most OKR failures are measurement failures, not ambition failures.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2237,13 +2411,28 @@
         <div class="sub-reply" id="sub-skills-ops-cos">
             <div class="typing" id="typing-sub-skills-ops-cos"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-ops-cos-1">
-                    Ran CoS at MPL and a Physical-AI startup — managed board prep, investor comms, weekly exec rhythms, and priority-setting across 4+ functions simultaneously.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble" data-id="msg-ops-cos-2">
-                    At InsuranceDekho, operated as CoS while owning a revenue vertical — rare combo of strategic and commercial accountability.
+                <div class="bubble highlight" data-id="msg-ops-cos">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🧭</div>
+                                <div class="section-card-title">Founder Operating Rhythm</div>
+                            </div>
+                            <div class="support-chips">
+                                <span class="support-chip">Board prep</span>
+                                <span class="support-chip">Investor comms</span>
+                                <span class="support-chip">Weekly exec rhythm</span>
+                            </div>
+                            <div class="section-card-copy">Ran CoS at MPL and a Physical-AI startup across 4+ functions simultaneously.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">💼</div>
+                                <div class="section-card-title">CoS + Revenue Owner</div>
+                            </div>
+                            <div class="section-card-copy">At InsuranceDekho, paired founder leverage with commercial accountability.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2252,13 +2441,29 @@
         <div class="sub-reply" id="sub-skills-ops-xfn">
             <div class="typing" id="typing-sub-skills-ops-xfn"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-ops-xfn-1">
-                    Run sprints across product, growth, sales, and finance without owning any single one. The job is alignment, not control.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble highlight" data-id="msg-ops-xfn-2">
-                    At MPL: coordinated $20M fundraise across legal, finance, product, and founders while the team was still shipping features daily. No process paused.
+                <div class="bubble highlight" data-id="msg-ops-xfn">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🔗</div>
+                                <div class="section-card-title">Cross-Functional Sprints</div>
+                            </div>
+                            <div class="support-chips">
+                                <span class="support-chip">Product</span>
+                                <span class="support-chip">Growth</span>
+                                <span class="support-chip">Sales</span>
+                                <span class="support-chip">Finance</span>
+                            </div>
+                            <div class="section-card-copy">Run sprints without owning any single function. The job is alignment, not control.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🤝</div>
+                                <div class="section-card-title">$20M Fundraise Coordination</div>
+                            </div>
+                            <div class="section-card-copy">At MPL: coordinated legal, finance, product, and founders while the team kept shipping. No process paused.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2267,13 +2472,26 @@
         <div class="sub-reply" id="sub-skills-ops-team">
             <div class="typing" id="typing-sub-skills-ops-team"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-ops-team-1">
-                    Built a 0→20 team at a Physical-AI startup in months — defined roles, ran hiring, onboarded, and set culture before the org chart existed.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble" data-id="msg-ops-team-2">
-                    Strong believer: hire for ownership, not skills. Skills compound, entitlement doesn't.
+                <div class="bubble highlight" data-id="msg-ops-team">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">👥</div>
+                                <div class="section-card-title">Startup Hiring Sprint</div>
+                            </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary"><span class="proof-tile-value">0 → 20</span><span class="proof-tile-note">Headcount ramp</span></div>
+                            </div>
+                            <div class="section-card-copy">Defined roles, ran hiring, onboarded, and set culture before the org chart existed.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🧠</div>
+                                <div class="section-card-title">Hiring Philosophy</div>
+                            </div>
+                            <div class="section-card-copy">Hire for ownership, not skills. Skills compound, entitlement doesn't.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2296,13 +2514,31 @@
         <div class="sub-reply" id="sub-skills-data-analytics">
             <div class="typing" id="typing-sub-skills-data-analytics"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-data-analytics-1">
-                    Started career in pharma analytics at Novartis — built physician segmentation models for a $1B+ drug portfolio using SQL and Power BI.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble" data-id="msg-data-analytics-2">
-                    Stayed data-led across every role since — cohort analysis, funnel metrics, CAC/LTV, retention curves. I read dashboards before I read decks.
+                <div class="bubble highlight" data-id="msg-data-analytics">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">📊</div>
+                                <div class="section-card-title">Pharma Analytics</div>
+                            </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary">$1B+ drug portfolio</div>
+                            </div>
+                            <div class="section-card-copy">Built physician segmentation models at Novartis using SQL and Power BI.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">📈</div>
+                                <div class="section-card-title">Operator Dashboards</div>
+                            </div>
+                            <div class="support-chips">
+                                <span class="support-chip">Cohorts</span>
+                                <span class="support-chip">CAC/LTV</span>
+                                <span class="support-chip">Retention curves</span>
+                            </div>
+                            <div class="section-card-copy">Stayed data-led across every role. I read dashboards before I read decks.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2311,62 +2547,26 @@
         <div class="sub-reply" id="sub-skills-data-ai">
             <div class="typing" id="typing-sub-skills-data-ai"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-data-ai-1">
-                    Build side projects entirely with Claude — this portfolio, Dopamine (macOS widget), ReplyGenius (Chrome extension). No CS degree. Just fast iteration.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble highlight" data-id="msg-data-ai-2">
-                    AI isn't a tool I use. It's how I operate. Every workflow, every doc, every decision loop has AI in it now.
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Education reply -->
-    <div class="reply-block" id="reply-education">
-        <div class="section-label"><span class="btn-glyph">§</span>Education</div>
-        <div class="typing" style="margin-top:16px"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
-        <div class="msg" style="margin-top:16px">
-            <div class="bubble" data-id="msg-edu-intro">
-                Top 0.3% CAT. Silver Medal engineer. Here's the full picture:
-            </div>
-        </div>
-        <div class="msg">
-            <div class="bubble highlight" data-id="msg-edu-cards">
-                <div class="edu-cards">
-                    <div class="edu-card">
-                        <div class="edu-card-header">
-                            <div class="edu-logo">🏛️</div>
-                            <div>
-                                <div class="edu-institution">IIM Calcutta</div>
-                                <div class="edu-degree">MBA · Finance &amp; Strategy</div>
+                <div class="bubble highlight" data-id="msg-data-ai">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🤖</div>
+                                <div class="section-card-title">AI-Native Builder</div>
                             </div>
-                            <div class="edu-year-badge">2019–21</div>
-                        </div>
-                        <div class="edu-chips">
-                            <span class="edu-chip gold">🏆 Rank 20 / 480</span>
-                            <span class="edu-chip red">CAT 99.72%ile</span>
-                            <span class="edu-chip">🏢 BCG Intern</span>
-                            <span class="edu-chip">🥈 Accenture Challenge RU</span>
-                            <span class="edu-chip">🎓 HEC Paris admit — chose India</span>
-                        </div>
-                    </div>
-                    <div class="edu-card">
-                        <div class="edu-card-header">
-                            <div class="edu-logo">⚙️</div>
-                            <div>
-                                <div class="edu-institution">NIT Karnataka, Surathkal</div>
-                                <div class="edu-degree">B.Tech · Civil Engineering</div>
+                            <div class="support-chips">
+                                <span class="support-chip">This portfolio</span>
+                                <span class="support-chip">Dopamine</span>
+                                <span class="support-chip">ReplyGenius</span>
                             </div>
-                            <div class="edu-year-badge">2013–17</div>
+                            <div class="section-card-copy">Build side projects entirely with Claude. No CS degree. Just fast iteration.</div>
                         </div>
-                        <div class="edu-chips">
-                            <span class="edu-chip gold">🥈 Silver Medal · 2nd / 100</span>
-                            <span class="edu-chip red">📈 GPA 9.2 / 10</span>
-                            <span class="edu-chip">🏅 Best Outgoing Student</span>
-                            <span class="edu-chip">🇨🇦 MITACS Scholar · Canada</span>
-                            <span class="edu-chip">🏀 Vice Captain &amp; Sports Convener</span>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">⚙️</div>
+                                <div class="section-card-title">AI as Operating System</div>
+                            </div>
+                            <div class="section-card-copy">AI isn't a tool I use. It's how I operate. Every workflow, doc, and decision loop has AI in it now.</div>
                         </div>
                     </div>
                 </div>
@@ -2422,7 +2622,20 @@
             </div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-about-grow-3">
-                    Best chapter: Manali. 2008–2011. Mountains, snow, basketball, DPS. That's where a lot of who I am got shaped. 🏔️
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">🏔️</div>
+                            <div class="section-card-title">Manali Chapter</div>
+                            <div class="section-badge">2008–11</div>
+                        </div>
+                        <div class="support-chips">
+                            <span class="support-chip">Mountains</span>
+                            <span class="support-chip">Snow</span>
+                            <span class="support-chip">Basketball</span>
+                            <span class="support-chip">DPS</span>
+                        </div>
+                        <div class="section-card-copy">That's where a lot of who I am got shaped.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2431,18 +2644,47 @@
         <div class="sub-reply" id="sub-about-education">
             <div class="typing" id="typing-sub-about-education"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
-                <div class="bubble" data-id="msg-about-edu-1">
-                    Prepared for IIT JEE in Chandigarh. Got a solid ~4K rank — IIT-eligible. But missed counselling day because Grandpa was unwell. Decided to go to the best non-IIT engineering college instead.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble" data-id="msg-about-edu-2">
-                    <strong>NIT Karnataka, Surathkal (2013–2017)</strong> — Civil Engineering, following my father's footsteps. Graduated 2nd out of 100. MITACS research internship in Canada in 2016. Vice Captain + Sports Convener.
-                </div>
-            </div>
-            <div class="msg">
-                <div class="bubble highlight" data-id="msg-about-edu-3">
-                    <strong>IIM Calcutta (2019–2021)</strong> — MBA, top 10%. BCG internship. Got admits to HEC Paris too — chose India. 🇮🇳
+                <div class="bubble highlight" data-id="msg-about-education">
+                    <div class="section-stack">
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🧪</div>
+                                <div class="section-card-title">IIT JEE Prep</div>
+                                <div class="section-badge">2013</div>
+                            </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary">AIR ~4K</div>
+                            </div>
+                            <div class="section-card-copy">IIT-eligible, but missed counselling day because Grandpa was unwell. Chose the best non-IIT engineering college instead.</div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">⚙️</div>
+                                <div class="section-card-title">NIT Karnataka, Surathkal</div>
+                                <div class="section-badge">2013–17</div>
+                            </div>
+                            <div class="proof-grid">
+                                <div class="proof-tile primary">2nd / 100</div>
+                            </div>
+                            <div class="support-chips">
+                                <span class="support-chip">Civil Engineering</span>
+                                <span class="support-chip">MITACS Canada</span>
+                                <span class="support-chip">Vice Captain</span>
+                            </div>
+                        </div>
+                        <div class="section-card">
+                            <div class="section-card-header">
+                                <div class="section-icon">🏛️</div>
+                                <div class="section-card-title">IIM Calcutta</div>
+                                <div class="section-badge">2019–21</div>
+                            </div>
+                            <div class="support-chips">
+                                <span class="support-chip">MBA</span>
+                                <span class="support-chip">BCG internship</span>
+                                <span class="support-chip">HEC Paris admit</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2457,16 +2699,16 @@
             </div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-about-countries-2">
-                    <div class="mini-timeline">
-                        <div class="mini-tl-item"><div class="mini-tl-year">🇨🇦 2016</div><div class="mini-tl-text">Canada — MITACS internship. Montreal, Toronto, Niagara Falls, Quebec City.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🇹🇭 2021</div><div class="mini-tl-text">Thailand — 10-day New Year's trip with 5 IIMC friends.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🇹🇷 2022</div><div class="mini-tl-text">Turkey — 12 days: Antalya, Istanbul, Oludeniz, Cappadocia.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🇳🇵 2023</div><div class="mini-tl-text">Nepal — 18-day Everest Base Camp trek. Gokyo-Ri + two 6000m peaks.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🇪🇬 2024</div><div class="mini-tl-text">Egypt — 10 days: Giza, Luxor, Hurghada.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🇮🇩 2024</div><div class="mini-tl-text">Indonesia — New Year's: Bali, Gili Islands, Ubud, Uluwatu.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🇱🇰 2025</div><div class="mini-tl-text">Sri Lanka — 3 days.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🇲🇾 2025</div><div class="mini-tl-text">Malaysia — 3 days.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🇵🇭 2025</div><div class="mini-tl-text">Philippines — New Year's: Cebu, Moalboal, Bohol, Boracay.</div></div>
+                    <div class="section-stack">
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🇨🇦</div><div class="section-card-title">Canada</div><div class="section-badge">2016</div></div><div class="section-card-copy">MITACS internship. Montreal, Toronto, Niagara Falls, Quebec City.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🇹🇭</div><div class="section-card-title">Thailand</div><div class="section-badge">2021</div></div><div class="section-card-copy">10-day New Year's trip with 5 IIMC friends.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🇹🇷</div><div class="section-card-title">Turkey</div><div class="section-badge">2022</div></div><div class="section-card-copy">12 days: Antalya, Istanbul, Oludeniz, Cappadocia.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🇳🇵</div><div class="section-card-title">Nepal</div><div class="section-badge">2023</div></div><div class="section-card-copy">18-day Everest Base Camp trek. Gokyo-Ri + two 6000m peaks.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🇪🇬</div><div class="section-card-title">Egypt</div><div class="section-badge">2024</div></div><div class="section-card-copy">10 days: Giza, Luxor, Hurghada.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🇮🇩</div><div class="section-card-title">Indonesia</div><div class="section-badge">2024</div></div><div class="section-card-copy">New Year's: Bali, Gili Islands, Ubud, Uluwatu.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🇱🇰</div><div class="section-card-title">Sri Lanka</div><div class="section-badge">2025</div></div><div class="section-card-copy">3 days.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🇲🇾</div><div class="section-card-title">Malaysia</div><div class="section-badge">2025</div></div><div class="section-card-copy">3 days.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🇵🇭</div><div class="section-card-title">Philippines</div><div class="section-badge">2025</div></div><div class="section-card-copy">New Year's: Cebu, Moalboal, Bohol, Boracay.</div></div>
                     </div>
                 </div>
             </div>
@@ -2482,7 +2724,17 @@
             </div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-about-adv-2">
-                    <strong>Trekking</strong> — 18-day Gokyo-Ri + Everest Base Camp loop. Scaled two 6000m peaks: Chola Pass &amp; Kaala-Pathar. Plus Hampta Pass and 5 other Manali-area trails.
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">🏔️</div>
+                            <div class="section-card-title">Trekking</div>
+                        </div>
+                        <div class="proof-grid">
+                            <div class="proof-tile primary">18-day EBC loop</div>
+                            <div class="proof-tile">Two 6000m peaks</div>
+                        </div>
+                        <div class="section-card-copy">Gokyo-Ri, Chola Pass, Kaala-Pathar, Hampta Pass, and 5 other Manali-area trails.</div>
+                    </div>
                 </div>
             </div>
             <div class="msg">
@@ -2507,11 +2759,11 @@
             </div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-about-sports-2">
-                    <div class="mini-timeline">
-                        <div class="mini-tl-item"><div class="mini-tl-year">2009</div><div class="mini-tl-text">U-14 State representation + Inter-DPS North.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">2014</div><div class="mini-tl-text">NITK — National Inter-NIT Runners Up (24 teams).</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">2017</div><div class="mini-tl-text">NITK — National Inter-NIT Runners Up again. Vice Captain. Sports Convener (₹5L prize pool).</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">2020</div><div class="mini-tl-text">IIM Calcutta — Captain. 1st Runner Up at IIML Sports Fest. <strong>Gold at Inter-IIM Sangharsh.</strong></div></div>
+                    <div class="section-stack">
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🏀</div><div class="section-card-title">U-14 State Representation</div><div class="section-badge">2009</div></div><div class="section-card-copy">Inter-DPS North.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🥈</div><div class="section-card-title">National Inter-NIT Runners Up</div><div class="section-badge">2014</div></div><div class="section-card-copy">NITK, field of 24 teams.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🧭</div><div class="section-card-title">Vice Captain + Sports Convener</div><div class="section-badge">2017</div></div><div class="proof-grid"><div class="proof-tile">₹5L prize pool</div></div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🏆</div><div class="section-card-title">Gold at Inter-IIM Sangharsh</div><div class="section-badge">2020</div></div><div class="section-card-copy">IIM Calcutta captain. 1st Runner Up at IIML Sports Fest.</div></div>
                     </div>
                 </div>
             </div>
@@ -2527,12 +2779,12 @@
             </div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-about-gaming-2">
-                    <div class="mini-timeline">
-                        <div class="mini-tl-item"><div class="mini-tl-year">⚔️</div><div class="mini-tl-text"><strong>Dota 2</strong> — 3,000 hrs. The real one.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🔫</div><div class="mini-tl-text"><strong>CS:GO</strong> — 1,500 hrs.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">💥</div><div class="mini-tl-text"><strong>Call of Duty: Warzone</strong> — 500 hrs.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">📱</div><div class="mini-tl-text"><strong>COD Mobile + PUBG Mobile</strong> — 700 hrs combined.</div></div>
-                        <div class="mini-tl-item"><div class="mini-tl-year">🦸</div><div class="mini-tl-text"><strong>Overwatch</strong> — 100 hrs.</div></div>
+                    <div class="section-stack">
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">⚔️</div><div class="section-card-title">Dota 2</div></div><div class="proof-grid"><div class="proof-tile primary">3,000 hrs</div></div><div class="section-card-copy">The real one.</div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🔫</div><div class="section-card-title">CS:GO</div></div><div class="proof-grid"><div class="proof-tile">1,500 hrs</div></div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">💥</div><div class="section-card-title">Call of Duty: Warzone</div></div><div class="proof-grid"><div class="proof-tile">500 hrs</div></div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">📱</div><div class="section-card-title">COD Mobile + PUBG Mobile</div></div><div class="proof-grid"><div class="proof-tile">700 hrs combined</div></div></div>
+                        <div class="section-card"><div class="section-card-header"><div class="section-icon">🦸</div><div class="section-card-title">Overwatch</div></div><div class="proof-grid"><div class="proof-tile">100 hrs</div></div></div>
                     </div>
                 </div>
             </div>
@@ -2543,7 +2795,18 @@
             <div class="typing" id="typing-sub-about-now"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-about-now">
-                    Currently: looking for <strong>Chief of Staff</strong>, <strong>Strategy</strong>, and <strong>0-to-1</strong> roles at ambitious startups. Available now. 🟢
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">🟢</div>
+                            <div class="section-card-title">Available Now</div>
+                        </div>
+                        <div class="support-chips">
+                            <span class="support-chip">Chief of Staff</span>
+                            <span class="support-chip">Strategy</span>
+                            <span class="support-chip">0-to-1</span>
+                        </div>
+                        <div class="section-card-copy">Looking for roles at ambitious startups.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2560,18 +2823,39 @@
         </div>
         <div class="msg">
             <div class="bubble highlight" data-id="msg-built-2">
-                <div class="mini-timeline">
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">🖥️</div>
-                        <div class="mini-tl-text"><span>Dopamine</span> — macOS widget for ADHDers. Pomodoro + tasks + energy-aware streaks. No accounts, no cloud. Built with Electron + vanilla JS. <a href="https://github.com/Oxymarun/dopamine" target="_blank" rel="noopener noreferrer" style="color:var(--topic-accent);text-decoration:none">GitHub →</a></div>
+                <div class="section-stack">
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">🖥️</div>
+                            <div class="section-card-title">Dopamine</div>
+                            <div class="section-badge"><a href="https://github.com/Oxymarun/dopamine" target="_blank" rel="noopener noreferrer">GitHub →</a></div>
+                        </div>
+                        <div class="support-chips">
+                            <span class="support-chip">Electron</span>
+                            <span class="support-chip">Vanilla JS</span>
+                            <span class="support-chip">No accounts</span>
+                        </div>
+                        <div class="section-card-copy">macOS widget for ADHDers. Pomodoro + tasks + energy-aware streaks. No cloud.</div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">💬</div>
-                        <div class="mini-tl-text"><span>This portfolio</span> — Chat-style personal site. Single HTML file, no framework. <a href="https://github.com/Oxymarun/arun-chatui" target="_blank" rel="noopener noreferrer" style="color:var(--topic-accent);text-decoration:none">GitHub →</a></div>
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">💬</div>
+                            <div class="section-card-title">This portfolio</div>
+                            <div class="section-badge"><a href="https://github.com/Oxymarun/arun-chatui" target="_blank" rel="noopener noreferrer">GitHub →</a></div>
+                        </div>
+                        <div class="support-chips">
+                            <span class="support-chip">Single HTML</span>
+                            <span class="support-chip">No framework</span>
+                        </div>
+                        <div class="section-card-copy">Chat-style personal site built around an operator-thread metaphor.</div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">📄</div>
-                        <div class="mini-tl-text"><span>CV Website</span> — Full work history as a live website. <a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer" style="color:var(--topic-accent);text-decoration:none">Live →</a></div>
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">📄</div>
+                            <div class="section-card-title">CV Website</div>
+                            <div class="section-badge"><a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer">Live →</a></div>
+                        </div>
+                        <div class="section-card-copy">Full work history as a live website.</div>
                     </div>
                 </div>
             </div>
@@ -2589,26 +2873,36 @@
         </div>
         <div class="msg">
             <div class="bubble highlight" data-id="msg-contact-2">
-                <div class="mini-timeline">
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">📧</div>
-                        <div class="mini-tl-text"><a href="mailto:aruns2021@email.iimcal.ac.in" style="color:var(--topic-accent);text-decoration:none">aruns2021@email.iimcal.ac.in</a></div>
+                <div class="section-stack">
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">📧</div>
+                            <div class="section-card-title"><a href="mailto:aruns2021@email.iimcal.ac.in">aruns2021@email.iimcal.ac.in</a></div>
+                        </div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">📱</div>
-                        <div class="mini-tl-text"><a href="tel:+919663338493" style="color:var(--topic-accent);text-decoration:none">+91-9663338493</a></div>
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">📱</div>
+                            <div class="section-card-title"><a href="tel:+919663338493">+91-9663338493</a></div>
+                        </div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">💼</div>
-                        <div class="mini-tl-text"><a href="https://www.linkedin.com/in/arun-sharma-a9a229103/" target="_blank" rel="noopener noreferrer" style="color:var(--topic-accent);text-decoration:none">LinkedIn → Arun Sharma</a></div>
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">💼</div>
+                            <div class="section-card-title"><a href="https://www.linkedin.com/in/arun-sharma-a9a229103/" target="_blank" rel="noopener noreferrer">LinkedIn → Arun Sharma</a></div>
+                        </div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">𝕏</div>
-                        <div class="mini-tl-text"><a href="https://x.com/Oxymarun_" target="_blank" rel="noopener noreferrer" style="color:var(--topic-accent);text-decoration:none">X → @Oxymarun_</a></div>
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">𝕏</div>
+                            <div class="section-card-title"><a href="https://x.com/Oxymarun_" target="_blank" rel="noopener noreferrer">X → @Oxymarun_</a></div>
+                        </div>
                     </div>
-                    <div class="mini-tl-item">
-                        <div class="mini-tl-year">📄</div>
-                        <div class="mini-tl-text"><a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer" style="color:var(--topic-accent);text-decoration:none">Full CV website →</a></div>
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">📄</div>
+                            <div class="section-card-title"><a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer">Full CV website →</a></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3146,6 +3440,10 @@
         if (!subReply) return;
         subReply.classList.add('open');
         updateViewStatus(topic, sub);
+        if (topic === 'work' && sub === 'timeline') {
+            const slider = document.getElementById('tl-slider');
+            if (slider) scrubTimeline(+slider.value);
+        }
 
         const typing = document.getElementById('typing-sub-' + topic + '-' + sub);
         if (typing) {
@@ -3272,20 +3570,6 @@
         if (p && PERSONAS[p]) setTimeout(() => selectPersona(p), 3200);
     });
 
-    // ===== KPI toggle =====
-    let metricsOn = false;
-
-    function toggleMetrics() {
-        metricsOn = !metricsOn;
-        const container = document.getElementById('tl-metrics-container');
-        if (container) container.classList.toggle('metrics-visible', metricsOn);
-        const btn = document.getElementById('metrics-toggle-btn');
-        if (btn) {
-            btn.textContent = metricsOn ? '✦ Hide impact metrics' : '✦ Show impact metrics';
-            tickControl(btn);
-        }
-    }
-
     // ===== Timeline scrubber =====
     function scrubTimeline(year) {
         const display = document.getElementById('tl-yr');
@@ -3299,7 +3583,7 @@
             slider.style.setProperty('--fill', pct + '%');
         }
 
-        document.querySelectorAll('.mini-tl-item[data-start]').forEach(item => {
+        document.querySelectorAll('#tl-metrics-container [data-start]').forEach(item => {
             const active = year >= +item.dataset.start && year <= +item.dataset.end;
             item.classList.toggle('tl-active', active);
             item.classList.toggle('tl-dim', !active);
