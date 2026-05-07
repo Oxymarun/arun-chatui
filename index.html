@@ -96,6 +96,8 @@
 
         [data-theme="light"] {
             --sky-rgb: var(--day-sky-rgb);
+            --intro-accent: #6958dd;
+            --intro-accent-hover: #4f3eb8;
             --bg: var(--day-sky-bottom);
             --surface: rgba(255,255,255,0.9);
             --surface-2: rgba(233,247,255,0.94);
@@ -160,6 +162,35 @@
             --topic-accent-hover: #8ec1e9;
         }
         html[data-chat-mode="intro"] {
+            --topic-rgb: var(--intro-rgb);
+            --topic-accent: var(--intro-accent);
+            --topic-accent-hover: var(--intro-accent-hover);
+        }
+        html[data-theme="light"][data-active-topic="work"] {
+            --topic-accent: #8f641d;
+            --topic-accent-hover: #6f4b12;
+        }
+        html[data-theme="light"][data-active-topic="skills"] {
+            --topic-accent: #426f98;
+            --topic-accent-hover: #315a7d;
+        }
+        html[data-theme="light"][data-active-topic="education"] {
+            --topic-accent: #5f7e4f;
+            --topic-accent-hover: #466236;
+        }
+        html[data-theme="light"][data-active-topic="about"] {
+            --topic-accent: #895238;
+            --topic-accent-hover: #663b26;
+        }
+        html[data-theme="light"][data-active-topic="built"] {
+            --topic-accent: #357a4f;
+            --topic-accent-hover: #255f3a;
+        }
+        html[data-theme="light"][data-active-topic="contact"] {
+            --topic-accent: #3d79a5;
+            --topic-accent-hover: #2c5f84;
+        }
+        html[data-theme="light"][data-chat-mode="intro"] {
             --topic-rgb: var(--intro-rgb);
             --topic-accent: var(--intro-accent);
             --topic-accent-hover: var(--intro-accent-hover);
