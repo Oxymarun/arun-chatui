@@ -184,7 +184,7 @@
         /* Layout */
         .chat-wrap {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             max-width: 640px;
             margin: 0 auto;
             padding: var(--space-3xl) 20px 120px;
@@ -1350,7 +1350,7 @@
             padding: 6px 10px;
             border: 1px solid var(--border-soft);
             border-radius: 999px;
-            z-index: 10;
+            z-index: 20;
             opacity: 0;
             animation: fadeIn 0.6s ease 3.6s forwards;
             font-variant-numeric: tabular-nums;
@@ -1378,9 +1378,58 @@
             color: var(--topic-accent);
             font-style: normal;
         }
+
+        /* ============================================================
+           v2.4 — Aurora Drift + Constellation
+           ============================================================ */
+
+        /* Aurora blobs */
+        .aurora-blob {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(72px);
+            will-change: transform;
+            background: radial-gradient(ellipse, rgba(var(--topic-rgb), 0.22) 0%, transparent 70%);
+            transition: background 1.4s var(--ease-standard);
+        }
+        #ab1 { width: 60vw; height: 50vw; top: -12%; left:  4%; }
+        #ab2 { width: 50vw; height: 56vw; top: 25%;  right: -8%; }
+        #ab3 { width: 48vw; height: 38vw; bottom: -14%; left: 24%; }
+
+        [data-theme="light"] .aurora-blob {
+            background: radial-gradient(ellipse, rgba(var(--topic-rgb), 0.10) 0%, transparent 70%);
+        }
+
+        /* Constellation canvas */
+        #stars-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeIn 2.4s ease 1.2s forwards;
+        }
+        [data-theme="light"] #stars-canvas {
+            opacity: 0.35 !important;
+            filter: sepia(0.3) brightness(0.6);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .aurora-blob { transition: none !important; animation: none !important; }
+            #stars-canvas { animation: none !important; opacity: 0.4 !important; }
+        }
     </style>
 </head>
 <body>
+
+<canvas id="stars-canvas" aria-hidden="true"></canvas>
+<div class="aurora-blob" id="ab1" aria-hidden="true"></div>
+<div class="aurora-blob" id="ab2" aria-hidden="true"></div>
+<div class="aurora-blob" id="ab3" aria-hidden="true"></div>
 
 <div class="depth-counter" id="depth-counter" aria-live="polite"><span id="depth-current">00</span> / 06 explored</div>
 
@@ -2501,6 +2550,76 @@
             n.style.filter = 'hue-rotate(' + deg + 'deg)';
         });
     }
+</script>
+
+<script>
+    // ===== v2.4: Aurora Drift =====
+    gsap.to('#ab1', { x: '11vw',  y: '9vh',   duration: 46, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 0  });
+    gsap.to('#ab2', { x: '-9vw',  y: '-13vh',  duration: 39, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 9  });
+    gsap.to('#ab3', { x: '7vw',   y: '11vh',   duration: 53, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 18 });
+
+    // ===== v2.4: Constellation =====
+    (function initConstellation() {
+        const canvas = document.getElementById('stars-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const STAR_COUNT = 88;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let stars = [];
+        let topicRgb = [217, 154, 43];
+
+        function resize() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function getTopicRgb() {
+            const raw = getComputedStyle(document.documentElement)
+                .getPropertyValue('--topic-rgb').trim();
+            const parts = raw.split(',').map(Number);
+            return parts.length === 3 ? parts : [217, 154, 43];
+        }
+        topicRgb = getTopicRgb();
+
+        stars = Array.from({ length: STAR_COUNT }, () => ({
+            x:  Math.random() * canvas.width,
+            y:  Math.random() * canvas.height,
+            r:  Math.random() * 1.4 + 0.6,
+            opacity: Math.random() * 0.45 + 0.18,
+            vx: (Math.random() - 0.5) * 0.016,
+            vy: (Math.random() - 0.5) * 0.016,
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.003 + Math.random() * 0.005,
+        }));
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const [r, g, b] = topicRgb;
+            stars.forEach(s => {
+                if (!reduceMotion) {
+                    s.x = (s.x + s.vx + canvas.width)  % canvas.width;
+                    s.y = (s.y + s.vy + canvas.height) % canvas.height;
+                }
+                s.phase += s.speed;
+                const twinkle = 0.78 + 0.22 * Math.sin(s.phase);
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${r},${g},${b},${(s.opacity * twinkle).toFixed(3)})`;
+                ctx.fill();
+            });
+            if (!reduceMotion) requestAnimationFrame(draw);
+        }
+        draw();
+
+        // Hook into openTopic to update star color after topic switch
+        const _orig = window.openTopic;
+        window.openTopic = function(topic, event) {
+            _orig(topic, event);
+            setTimeout(() => { topicRgb = getTopicRgb(); }, 60);
+        };
+    })();
 </script>
 
 </body>
