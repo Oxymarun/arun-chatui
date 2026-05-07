@@ -96,6 +96,8 @@
 
         [data-theme="light"] {
             --sky-rgb: var(--day-sky-rgb);
+            --intro-accent: #6958dd;
+            --intro-accent-hover: #4f3eb8;
             --bg: var(--day-sky-bottom);
             --surface: rgba(255,255,255,0.9);
             --surface-2: rgba(233,247,255,0.94);
@@ -164,6 +166,35 @@
             --topic-accent: var(--intro-accent);
             --topic-accent-hover: var(--intro-accent-hover);
         }
+        html[data-theme="light"][data-active-topic="work"] {
+            --topic-accent: #8f641d;
+            --topic-accent-hover: #6f4b12;
+        }
+        html[data-theme="light"][data-active-topic="skills"] {
+            --topic-accent: #426f98;
+            --topic-accent-hover: #315a7d;
+        }
+        html[data-theme="light"][data-active-topic="education"] {
+            --topic-accent: #5f7e4f;
+            --topic-accent-hover: #466236;
+        }
+        html[data-theme="light"][data-active-topic="about"] {
+            --topic-accent: #895238;
+            --topic-accent-hover: #663b26;
+        }
+        html[data-theme="light"][data-active-topic="built"] {
+            --topic-accent: #357a4f;
+            --topic-accent-hover: #255f3a;
+        }
+        html[data-theme="light"][data-active-topic="contact"] {
+            --topic-accent: #3d79a5;
+            --topic-accent-hover: #2c5f84;
+        }
+        html[data-theme="light"][data-chat-mode="intro"] {
+            --topic-rgb: var(--intro-rgb);
+            --topic-accent: var(--intro-accent);
+            --topic-accent-hover: var(--intro-accent-hover);
+        }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -216,9 +247,13 @@
         @media (max-width: 700px) {
             [data-theme="light"] body::before {
                 top: 132px;
-                right: -24px;
-                width: 104px;
-                opacity: 0.86;
+                right: -58px;
+                width: 102px;
+                opacity: 0.52;
+            }
+            html[data-theme="light"][data-chat-mode="topic"] body::before {
+                right: -76px;
+                opacity: 0.24;
             }
         }
 
@@ -365,6 +400,8 @@
 
         .header-action-btn {
             height: 36px;
+            min-height: 44px;
+            min-width: 44px;
             padding: 0 12px;
             border-radius: 10px;
             background: var(--header-btn-bg);
@@ -486,6 +523,7 @@
 
         .topic-btn {
             padding: 10px 18px;
+            min-height: 44px;
             background: rgba(var(--topic-rgb),0.07);
             color: var(--topic-accent-hover);
             border: 1px solid rgba(var(--topic-rgb),0.28);
@@ -496,6 +534,9 @@
             transition: background var(--duration-short), transform var(--duration-short) var(--ease-enter), box-shadow var(--duration-short), border-color var(--duration-short), color var(--duration-short);
             font-family: var(--font-sans);
             letter-spacing: 0.01em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             position: relative;
@@ -537,6 +578,7 @@
         }
         .sub-btn {
             padding: 6px 13px;
+            min-height: 44px;
             background: transparent;
             color: var(--sub-btn-color);
             border: 1px solid var(--sub-btn-border);
@@ -547,6 +589,9 @@
             transition: background var(--duration-short), border-color var(--duration-short), color var(--duration-short), transform var(--duration-short), box-shadow var(--duration-short);
             font-family: var(--font-sans);
             letter-spacing: 0.01em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
         }
         .sub-btn:hover {
@@ -715,7 +760,7 @@
         }
         .persona-chip {
             padding: 0 14px;
-            min-height: 38px;
+            min-height: 44px;
             background: transparent;
             color: var(--text-secondary);
             border: 1px solid rgba(255,255,255,0.12);
@@ -1254,7 +1299,7 @@
                 min-width: 0;
             }
             .header-actions { min-width: 0; }
-            .header-action-btn { height: 36px; min-width: 40px; padding: 0 9px; font-size: 12px; }
+            .header-action-btn { height: 44px; min-width: 44px; padding: 0 9px; font-size: 12px; }
             .header-action-btn .btn-icon { font-size: 11px; }
             .header-action-btn .btn-label { display: none; }
             #theme-toggle { display: none; }
