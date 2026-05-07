@@ -323,6 +323,8 @@
             margin-bottom: 12px;
             opacity: 0;
             transform: translateY(12px);
+            --rail-scale: 0;
+            --rail-opacity: 0;
         }
 
         .bubble {
@@ -341,6 +343,29 @@
             box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
             position: relative;
             transition: background var(--duration-medium), border-color var(--duration-medium), color var(--duration-medium), box-shadow var(--duration-medium);
+        }
+
+        .bubble::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            border-radius: var(--radius-pill);
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(var(--topic-rgb),0.62) 18%,
+                rgba(var(--topic-rgb),0.28) 78%,
+                transparent 100%
+            );
+            box-shadow: 0 0 12px rgba(var(--topic-rgb),0.16);
+            opacity: var(--rail-opacity);
+            transform: scaleY(var(--rail-scale));
+            transform-origin: top;
+            transition: opacity var(--duration-medium) var(--ease-enter), transform var(--duration-long) var(--ease-enter);
+            pointer-events: none;
         }
 
         [data-theme="light"] .bubble {
@@ -1063,6 +1088,10 @@
                 animation: none !important;
                 transform: none !important;
                 opacity: 1 !important;
+            }
+            .msg {
+                --rail-scale: 1 !important;
+                --rail-opacity: 1 !important;
             }
             body { transition: none !important; }
         }
@@ -1826,10 +1855,10 @@
     // Initial reveal — GSAP
     gsap.set('#topics .topic-btn', { opacity: 0, y: 8 });
     gsap.timeline()
-        .to('#m1', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3)
-        .to('#m2', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.9)
-        .to('#m3', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 1.6)
-        .to('#m4', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 2.4)
+        .to('#m1', { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, duration: 0.5, ease: 'power2.out' }, 0.3)
+        .to('#m2', { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, duration: 0.5, ease: 'power2.out' }, 0.9)
+        .to('#m3', { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, duration: 0.5, ease: 'power2.out' }, 1.6)
+        .to('#m4', { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, duration: 0.5, ease: 'power2.out' }, 2.4)
         .to('#persona-bar', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 2.75)
         .to('#topics', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 3.0)
         .to('#topics .topic-btn', { opacity: 1, y: 0, stagger: 0.08, duration: 0.4, ease: 'back.out(1.4)' }, 3.05);
@@ -1851,10 +1880,10 @@
             reply.classList.remove('open');
             btn.classList.remove('active');
             document.documentElement.dataset.activeTopic = 'work';
-            reply.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
+            reply.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12, '--rail-scale': 0, '--rail-opacity': 0 }));
             reply.querySelectorAll('.sub-reply').forEach(s => {
                 s.classList.remove('open');
-                s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
+                s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12, '--rail-scale': 0, '--rail-opacity': 0 }));
             });
             reply.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
             reply.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
@@ -1869,10 +1898,10 @@
             const r = document.getElementById('reply-' + t);
             if (r && r.classList.contains('open')) {
                 r.classList.remove('open');
-                r.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
+                r.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12, '--rail-scale': 0, '--rail-opacity': 0 }));
                 r.querySelectorAll('.sub-reply').forEach(s => {
                     s.classList.remove('open');
-                    s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
+                    s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12, '--rail-scale': 0, '--rail-opacity': 0 }));
                 });
                 r.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
                 r.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
@@ -1894,7 +1923,7 @@
                     gsap.to(typing, { opacity: 0, duration: 0.2 });
                     const submenu = document.getElementById('submenu-' + topic);
                     if (submenu) {
-                        gsap.to(submenu, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out', delay: 0.1 });
+                        gsap.to(submenu, { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, duration: 0.45, ease: 'power2.out', delay: 0.1 });
                     }
                 }, 400);
             }
@@ -1905,7 +1934,7 @@
                 setTimeout(() => {
                     gsap.to(typing, { opacity: 0, duration: 0.2 });
                     const msgs = reply.querySelectorAll('.msg');
-                    gsap.to(msgs, { opacity: 1, y: 0, stagger: 0.15, duration: 0.45, ease: 'power2.out', delay: 0.15 });
+                    gsap.to(msgs, { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, stagger: 0.15, duration: 0.45, ease: 'power2.out', delay: 0.15 });
                     const lastDelay = (msgs.length - 1) * 150 + 450;
                     setTimeout(() => {
                         if (!reply.querySelector('.receipt')) {
@@ -1936,7 +1965,7 @@
 
         reply.querySelectorAll('.sub-reply').forEach(s => {
             s.classList.remove('open');
-            s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
+            s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12, '--rail-scale': 0, '--rail-opacity': 0 }));
             s.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
         });
 
@@ -1953,7 +1982,7 @@
             setTimeout(() => {
                 gsap.to(typing, { opacity: 0, duration: 0.2 });
                 const msgs = subReply.querySelectorAll('.msg');
-                gsap.to(msgs, { opacity: 1, y: 0, stagger: 0.15, duration: 0.45, ease: 'power2.out', delay: 0.15 });
+                gsap.to(msgs, { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, stagger: 0.15, duration: 0.45, ease: 'power2.out', delay: 0.15 });
                 const lastDelay = (msgs.length - 1) * 150 + 450;
                 setTimeout(() => {
                     if (!reply.querySelector('.receipt')) {
@@ -1966,7 +1995,7 @@
             }, 700);
         } else {
             const msgs = subReply.querySelectorAll('.msg');
-            gsap.to(msgs, { opacity: 1, y: 0, stagger: 0.15, duration: 0.45, ease: 'power2.out' });
+            gsap.to(msgs, { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, stagger: 0.15, duration: 0.45, ease: 'power2.out' });
         }
 
         setTimeout(() => {
