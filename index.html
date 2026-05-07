@@ -365,6 +365,8 @@
 
         .header-action-btn {
             height: 36px;
+            min-height: 44px;
+            min-width: 44px;
             padding: 0 12px;
             border-radius: 10px;
             background: var(--header-btn-bg);
@@ -486,6 +488,7 @@
 
         .topic-btn {
             padding: 10px 18px;
+            min-height: 44px;
             background: rgba(var(--topic-rgb),0.07);
             color: var(--topic-accent-hover);
             border: 1px solid rgba(var(--topic-rgb),0.28);
@@ -496,6 +499,9 @@
             transition: background var(--duration-short), transform var(--duration-short) var(--ease-enter), box-shadow var(--duration-short), border-color var(--duration-short), color var(--duration-short);
             font-family: var(--font-sans);
             letter-spacing: 0.01em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             position: relative;
@@ -537,6 +543,7 @@
         }
         .sub-btn {
             padding: 6px 13px;
+            min-height: 44px;
             background: transparent;
             color: var(--sub-btn-color);
             border: 1px solid var(--sub-btn-border);
@@ -547,6 +554,9 @@
             transition: background var(--duration-short), border-color var(--duration-short), color var(--duration-short), transform var(--duration-short), box-shadow var(--duration-short);
             font-family: var(--font-sans);
             letter-spacing: 0.01em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
         }
         .sub-btn:hover {
@@ -715,7 +725,7 @@
         }
         .persona-chip {
             padding: 0 14px;
-            min-height: 38px;
+            min-height: 44px;
             background: transparent;
             color: var(--text-secondary);
             border: 1px solid rgba(255,255,255,0.12);
@@ -1254,7 +1264,7 @@
                 min-width: 0;
             }
             .header-actions { min-width: 0; }
-            .header-action-btn { height: 36px; min-width: 40px; padding: 0 9px; font-size: 12px; }
+            .header-action-btn { height: 44px; min-width: 44px; padding: 0 9px; font-size: 12px; }
             .header-action-btn .btn-icon { font-size: 11px; }
             .header-action-btn .btn-label { display: none; }
             #theme-toggle { display: none; }
