@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-active-topic="work">
+<html lang="en" data-theme="dark" data-active-topic="work" data-chat-mode="intro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,6 +37,11 @@
             --duration-long: 420ms;
             --tick-shadow: 0 0 0 3px rgba(var(--topic-rgb),0.16);
 
+            --baseline-rgb: 124, 108, 240;
+            --sky-rgb: var(--baseline-rgb);
+            --intro-rgb: 124, 108, 240;
+            --intro-accent: #7c6cf0;
+            --intro-accent-hover: #a59cff;
             --topic-rgb: 217, 154, 43;
             --topic-accent: #d99a2b;
             --topic-accent-hover: #e6af52;
@@ -147,6 +152,11 @@
             --topic-accent: #6ca8d8;
             --topic-accent-hover: #8ec1e9;
         }
+        html[data-chat-mode="intro"] {
+            --topic-rgb: var(--intro-rgb);
+            --topic-accent: var(--intro-accent);
+            --topic-accent-hover: var(--intro-accent-hover);
+        }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -159,8 +169,8 @@
         body {
             background: var(--bg);
             background-image:
-                radial-gradient(ellipse 80% 50% at 20% -10%, rgba(var(--topic-rgb),0.028) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 85% 90%, rgba(var(--topic-rgb),0.018) 0%, transparent 55%);
+                radial-gradient(ellipse 80% 50% at 20% -10%, rgba(var(--sky-rgb),0.028) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 85% 90%, rgba(var(--sky-rgb),0.018) 0%, transparent 55%);
             font-family: var(--font-sans);
             font-feature-settings: "cv02","cv03","cv04","ss01";
             min-height: 100vh;
@@ -1180,11 +1190,30 @@
 
         @media (max-width: 480px) {
             .topic-btn { font-size: 13px; padding: 8px 15px; }
-            .bubble { font-size: 15px; }
-            .chat-wrap { padding: 32px 16px 100px; }
+            .bubble {
+                font-size: 15px;
+                max-width: calc(100vw - 32px);
+                overflow-wrap: break-word;
+            }
+            .chat-wrap {
+                width: 100%;
+                max-width: 100%;
+                padding: 32px 16px 100px;
+                overflow: hidden;
+            }
             .sub-btn { font-size: 12px; padding: 5px 11px; }
-            .header-action-btn { height: 36px; padding: 0 10px; font-size: 12px; }
+            .chat-header {
+                max-width: calc(100vw - 32px);
+                min-width: 0;
+            }
+            .chat-header > div:not(.avatar):not(.header-actions) {
+                min-width: 0;
+            }
+            .header-actions { min-width: 0; }
+            .header-action-btn { height: 36px; min-width: 40px; padding: 0 9px; font-size: 12px; }
+            .header-action-btn .btn-icon { font-size: 11px; }
             .header-action-btn .btn-label { display: none; }
+            #theme-toggle { display: none; }
             .chat-wrap::after { display: none; }
             .topics { padding: 12px 10px 8px; }
             .view-status { margin-left: 0; }
@@ -1389,17 +1418,17 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 1;
-            filter: blur(72px);
+            filter: blur(60px);
             will-change: transform;
-            background: radial-gradient(ellipse, rgba(var(--topic-rgb), 0.22) 0%, transparent 70%);
+            background: radial-gradient(ellipse, rgba(var(--sky-rgb), 0.13) 0%, transparent 70%);
             transition: background 1.4s var(--ease-standard);
         }
-        #ab1 { width: 60vw; height: 50vw; top: -12%; left:  4%; }
-        #ab2 { width: 50vw; height: 56vw; top: 25%;  right: -8%; }
-        #ab3 { width: 48vw; height: 38vw; bottom: -14%; left: 24%; }
+        #ab1 { width: 40vw; height: 34vw; top: -10%; left:  8%; }
+        #ab2 { width: 34vw; height: 38vw; top: 28%;  right: -4%; }
+        #ab3 { width: 32vw; height: 25vw; bottom: -10%; left: 30%; }
 
         [data-theme="light"] .aurora-blob {
-            background: radial-gradient(ellipse, rgba(var(--topic-rgb), 0.10) 0%, transparent 70%);
+            background: radial-gradient(ellipse, rgba(var(--sky-rgb), 0.06) 0%, transparent 70%);
         }
 
         /* Constellation canvas */
@@ -2279,12 +2308,17 @@
         const btn = event.currentTarget;
         const reply = document.getElementById('reply-' + topic);
         if (!reply) return;
+        if (!reply.classList.contains('open')) {
+            document.documentElement.dataset.activeTopic = topic;
+            document.documentElement.dataset.chatMode = 'topic';
+        }
         tickControl(btn);
 
         if (reply.classList.contains('open')) {
             reply.classList.remove('open');
             btn.classList.remove('active');
             document.documentElement.dataset.activeTopic = 'work';
+            document.documentElement.dataset.chatMode = 'intro';
             reply.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12, '--rail-scale': 0, '--rail-opacity': 0 }));
             reply.querySelectorAll('.sub-reply').forEach(s => {
                 s.classList.remove('open');
@@ -2317,7 +2351,6 @@
         });
         document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
 
-        document.documentElement.dataset.activeTopic = topic;
         reply.classList.add('open');
         btn.classList.add('active');
         bumpExplored(topic);
@@ -2558,15 +2591,25 @@
     gsap.to('#ab2', { x: '-9vw',  y: '-13vh',  duration: 39, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 9  });
     gsap.to('#ab3', { x: '7vw',   y: '11vh',   duration: 53, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 18 });
 
-    // ===== v2.4: Constellation =====
+    // ===== v2.5: Constellation + Meteors =====
     (function initConstellation() {
         const canvas = document.getElementById('stars-canvas');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
         const STAR_COUNT = 88;
+        const LAYERS = [
+            { count: 40, size: [0.45, 1.1], opacity: [0.12, 0.34], drift: 0.010, parallax: 5 },
+            { count: 32, size: [0.75, 1.75], opacity: [0.18, 0.48], drift: 0.018, parallax: 12 },
+            { count: 16, size: [1.2, 2.35], opacity: [0.24, 0.62], drift: 0.030, parallax: 22 },
+        ];
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const canParallax = !reduceMotion && window.matchMedia('(pointer: fine)').matches;
         let stars = [];
-        let topicRgb = [217, 154, 43];
+        let skyRgb = [124, 108, 240];
+        let mouseX = 0;
+        let mouseY = 0;
+        let meteor = null;
+        let nextMeteorAt = performance.now() + randomMeteorDelay();
 
         function resize() {
             canvas.width  = window.innerWidth;
@@ -2575,50 +2618,193 @@
         resize();
         window.addEventListener('resize', resize);
 
-        function getTopicRgb() {
-            const raw = getComputedStyle(document.documentElement)
-                .getPropertyValue('--topic-rgb').trim();
-            const parts = raw.split(',').map(Number);
-            return parts.length === 3 ? parts : [217, 154, 43];
+        function randomBetween(min, max) {
+            return min + Math.random() * (max - min);
         }
-        topicRgb = getTopicRgb();
 
-        stars = Array.from({ length: STAR_COUNT }, () => ({
-            x:  Math.random() * canvas.width,
-            y:  Math.random() * canvas.height,
-            r:  Math.random() * 1.4 + 0.6,
-            opacity: Math.random() * 0.45 + 0.18,
-            vx: (Math.random() - 0.5) * 0.016,
-            vy: (Math.random() - 0.5) * 0.016,
-            phase: Math.random() * Math.PI * 2,
-            speed: 0.003 + Math.random() * 0.005,
-        }));
+        function randomMeteorDelay() {
+            return randomBetween(7000, 10000);
+        }
 
-        function draw() {
+        function getCssRgb(name, fallback) {
+            const raw = getComputedStyle(document.documentElement)
+                .getPropertyValue(name).trim();
+            const parts = raw.split(',').map(Number);
+            return parts.length === 3 && parts.every(Number.isFinite) ? parts : fallback;
+        }
+
+        function getSkyRgb() {
+            return getCssRgb('--sky-rgb', [124, 108, 240]);
+        }
+
+        function colorMode() {
+            const roll = Math.random();
+            if (roll < 0.7) return 'white';
+            if (roll < 0.9) return 'accent';
+            return 'warm';
+        }
+
+        skyRgb = getSkyRgb();
+
+        LAYERS.forEach((layer, layerIndex) => {
+            for (let i = 0; i < layer.count; i++) {
+                const hero = stars.length < 12;
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: hero ? randomBetween(2.4, 3.2) : randomBetween(layer.size[0], layer.size[1]),
+                    opacity: randomBetween(layer.opacity[0], layer.opacity[1]),
+                    vx: (Math.random() - 0.5) * layer.drift,
+                    vy: (Math.random() - 0.5) * layer.drift,
+                    phase: Math.random() * Math.PI * 2,
+                    speed: 0.0028 + Math.random() * 0.006,
+                    layer: layerIndex,
+                    parallax: layer.parallax,
+                    hero,
+                    colorMode: colorMode(),
+                    drawX: 0,
+                    drawY: 0,
+                    brightness: 0,
+                    twinkle: 0,
+                });
+            }
+        });
+
+        function getStarColor(star, alpha) {
+            if (star.colorMode === 'accent') {
+                const [r, g, b] = skyRgb;
+                return `rgba(${r},${g},${b},${alpha.toFixed(3)})`;
+            }
+            if (star.colorMode === 'warm') return `rgba(255,200,160,${alpha.toFixed(3)})`;
+            return `rgba(247,241,232,${alpha.toFixed(3)})`;
+        }
+
+        function drawConstellationLines() {
+            ctx.save();
+            ctx.globalCompositeOperation = 'lighter';
+            for (let i = 0; i < stars.length; i++) {
+                const a = stars[i];
+                if (a.twinkle < 0.78) continue;
+                for (let j = i + 1; j < stars.length; j++) {
+                    const b = stars[j];
+                    if (b.twinkle < 0.78) continue;
+                    const dx = a.drawX - b.drawX;
+                    const dy = a.drawY - b.drawY;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist > 140) continue;
+                    const opacity = (1 - dist / 140) * Math.min(a.brightness, b.brightness) * 0.24;
+                    ctx.strokeStyle = `rgba(${skyRgb[0]},${skyRgb[1]},${skyRgb[2]},${opacity.toFixed(3)})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(a.drawX, a.drawY);
+                    ctx.lineTo(b.drawX, b.drawY);
+                    ctx.stroke();
+                }
+            }
+            ctx.restore();
+        }
+
+        function spawnMeteor(now) {
+            const fromTop = Math.random() > 0.35;
+            const x = fromTop ? randomBetween(canvas.width * 0.05, canvas.width * 0.85) : -80;
+            const y = fromTop ? -40 : randomBetween(canvas.height * 0.05, canvas.height * 0.5);
+            meteor = {
+                x,
+                y,
+                length: randomBetween(60, 120),
+                vx: randomBetween(520, 780),
+                vy: randomBetween(300, 470),
+                born: now,
+                duration: randomBetween(620, 820),
+            };
+        }
+
+        function drawMeteor(now) {
+            if (reduceMotion) return;
+            if (!meteor && now >= nextMeteorAt) spawnMeteor(now);
+            if (!meteor) return;
+
+            const age = now - meteor.born;
+            const progress = age / meteor.duration;
+            if (progress >= 1) {
+                meteor = null;
+                nextMeteorAt = now + randomMeteorDelay();
+                return;
+            }
+
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const x = meteor.x + meteor.vx * ease;
+            const y = meteor.y + meteor.vy * ease;
+            const angle = Math.atan2(meteor.vy, meteor.vx);
+            const tailX = x - Math.cos(angle) * meteor.length;
+            const tailY = y - Math.sin(angle) * meteor.length;
+            const fade = Math.sin(progress * Math.PI);
+            const gradient = ctx.createLinearGradient(tailX, tailY, x, y);
+            gradient.addColorStop(0, `rgba(${skyRgb[0]},${skyRgb[1]},${skyRgb[2]},0)`);
+            gradient.addColorStop(0.72, `rgba(${skyRgb[0]},${skyRgb[1]},${skyRgb[2]},${(0.34 * fade).toFixed(3)})`);
+            gradient.addColorStop(1, `rgba(247,241,232,${(0.95 * fade).toFixed(3)})`);
+
+            ctx.save();
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 2.2;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(tailX, tailY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(x, y, 2.3, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(247,241,232,${fade.toFixed(3)})`;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        if (canParallax) {
+            window.addEventListener('mousemove', event => {
+                mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
+                mouseY = (event.clientY / window.innerHeight - 0.5) * 2;
+            }, { passive: true });
+        }
+
+        function draw(now = performance.now()) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            const [r, g, b] = topicRgb;
             stars.forEach(s => {
                 if (!reduceMotion) {
                     s.x = (s.x + s.vx + canvas.width)  % canvas.width;
                     s.y = (s.y + s.vy + canvas.height) % canvas.height;
                 }
                 s.phase += s.speed;
-                const twinkle = 0.78 + 0.22 * Math.sin(s.phase);
+                const minTwinkle = reduceMotion ? 0.84 : (s.hero ? 0.4 : 0.68);
+                const twinkle = minTwinkle + (1 - minTwinkle) * ((Math.sin(s.phase) + 1) / 2);
+                const offsetX = canParallax ? mouseX * s.parallax : 0;
+                const offsetY = canParallax ? mouseY * s.parallax : 0;
+                s.drawX = (s.x + offsetX + canvas.width) % canvas.width;
+                s.drawY = (s.y + offsetY + canvas.height) % canvas.height;
+                s.brightness = s.opacity * twinkle;
+                s.twinkle = twinkle;
                 ctx.beginPath();
-                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${r},${g},${b},${(s.opacity * twinkle).toFixed(3)})`;
+                ctx.arc(s.drawX, s.drawY, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = getStarColor(s, s.brightness);
                 ctx.fill();
+                if (s.hero && twinkle > 0.88 && !reduceMotion) {
+                    const flare = (twinkle - 0.88) / 0.12 * 0.32;
+                    ctx.strokeStyle = getStarColor(s, flare);
+                    ctx.lineWidth = 0.7;
+                    ctx.beginPath();
+                    ctx.moveTo(s.drawX - s.r * 3.3, s.drawY);
+                    ctx.lineTo(s.drawX + s.r * 3.3, s.drawY);
+                    ctx.moveTo(s.drawX, s.drawY - s.r * 3.3);
+                    ctx.lineTo(s.drawX, s.drawY + s.r * 3.3);
+                    ctx.stroke();
+                }
             });
+            drawConstellationLines();
+            drawMeteor(now);
             if (!reduceMotion) requestAnimationFrame(draw);
         }
         draw();
 
-        // Hook into openTopic to update star color after topic switch
-        const _orig = window.openTopic;
-        window.openTopic = function(topic, event) {
-            _orig(topic, event);
-            setTimeout(() => { topicRgb = getTopicRgb(); }, 60);
-        };
     })();
 </script>
 
