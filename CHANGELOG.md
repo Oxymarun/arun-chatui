@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.3.0] - 2026-05-07
+
+### Added
+- Aurora drift: 3 large blurred blobs (topic-rgb colored) drift in slow 38–53s orbital paths across the background. Color updates automatically with each topic switch via CSS vars.
+- Constellation: ~88 faint stars on a fixed canvas with gentle drift and subtle twinkle. Star color tracks active topic accent with a 60ms CSS var read after each topic open.
+- Reduced motion support: aurora animations stop, stars freeze to static on `prefers-reduced-motion`.
+- Light mode treatment: aurora at 0.10 opacity, stars at 0.35 with sepia+brightness filter for warm paper feel.
+
+### Changed
+- `z-index` hierarchy updated: aurora/canvas at z=1, chat-wrap at z=2, depth counter at z=20.
+- Aurora opacity increased to 0.22 for dark mode visibility on near-black background.
+
 ## [0.0.2.0] - 2026-05-07
 
 ### Added
