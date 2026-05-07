@@ -591,6 +591,10 @@
             color: var(--topic-accent-hover);
             font-weight: 600;
         }
+        .persona-route {
+            display: none;
+            margin-top: 10px;
+        }
 
         /* ===== KPI toggle ===== */
         .metrics-toggle {
@@ -1130,6 +1134,10 @@
         <button class="persona-chip" data-persona="recruiter" onclick="selectPersona('recruiter')">👔 Recruiter</button>
         <button class="persona-chip" data-persona="founder" onclick="selectPersona('founder')">🚀 Founder</button>
         <button class="persona-chip" data-persona="peer" onclick="selectPersona('peer')">👋 Curious peer</button>
+    </div>
+
+    <div class="msg persona-route" id="persona-route">
+        <div class="bubble highlight" id="persona-route-copy"></div>
     </div>
 
     <!-- Topic buttons -->
@@ -1926,19 +1934,21 @@
         }, 100);
     }
 
-    function openSubTopic(topic, sub, event) {
+    function openSubTopic(topic, sub, event, options = {}) {
         const btn = event.currentTarget;
         const reply = document.getElementById('reply-' + topic);
 
         const btnGroup = btn.closest('.sub-buttons');
-        if (btnGroup) btnGroup.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+        if (btnGroup && !options.keepExisting) btnGroup.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        reply.querySelectorAll('.sub-reply').forEach(s => {
-            s.classList.remove('open');
-            s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
-            s.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
-        });
+        if (!options.keepExisting) {
+            reply.querySelectorAll('.sub-reply').forEach(s => {
+                s.classList.remove('open');
+                s.querySelectorAll('.msg').forEach(m => gsap.set(m, { opacity: 0, y: 12 }));
+                s.querySelectorAll('.typing').forEach(t => gsap.set(t, { opacity: 0 }));
+            });
+        }
 
         const oldReceipt = reply.querySelector('.receipt');
         if (oldReceipt) oldReceipt.remove();
@@ -1976,17 +1986,78 @@
 
     // ===== Persona chips =====
     const PERSONAS = {
-        recruiter: { primary: 'work'  },
-        founder:   { primary: 'built' },
-        peer:      { primary: 'about' }
+        recruiter: {
+            primary: 'work',
+            route: "For recruiters, I'd start with Work → Timeline → Key wins.",
+            steps: [
+                { topic: 'work' },
+                { topic: 'work', sub: 'timeline' },
+                { topic: 'work', sub: 'wins' }
+            ]
+        },
+        founder: {
+            primary: 'skills',
+            route: "For founders, I'd start with Skills → Strategy & Growth → Operations.",
+            steps: [
+                { topic: 'skills' },
+                { topic: 'skills', sub: 'strategy' },
+                { topic: 'skills', sub: 'ops' }
+            ]
+        },
+        peer: {
+            primary: 'about',
+            route: "For curious peers, I'd start with About me → Background → Adventures.",
+            steps: [
+                { topic: 'about' },
+                { topic: 'about', sub: 'background' },
+                { topic: 'about', sub: 'adventures' }
+            ]
+        }
     };
 
     let activePersona = null;
+    let personaRouteTimers = [];
+
+    function clearPersonaRouteTimers() {
+        personaRouteTimers.forEach(timer => clearTimeout(timer));
+        personaRouteTimers = [];
+    }
+
+    function queuePersonaRoute(fn, delay) {
+        const timer = setTimeout(fn, delay);
+        personaRouteTimers.push(timer);
+    }
+
+    function showPersonaRoute(copy) {
+        const route = document.getElementById('persona-route');
+        const routeCopy = document.getElementById('persona-route-copy');
+        if (!route || !routeCopy) return;
+
+        routeCopy.textContent = copy;
+        gsap.set(route, { display: 'block', opacity: 0, y: 12 });
+        gsap.to(route, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' });
+    }
+
+    function openRouteStep(step, keepExisting) {
+        const topicBtn = document.querySelector('[data-topic="' + step.topic + '"]');
+        if (!topicBtn) return;
+
+        const reply = document.getElementById('reply-' + step.topic);
+        if (!reply || !reply.classList.contains('open')) {
+            openTopic(step.topic, { currentTarget: topicBtn });
+        }
+
+        if (!step.sub) return;
+
+        const subBtn = reply.querySelector(`[onclick*="openSubTopic('${step.topic}','${step.sub}'"]`);
+        if (subBtn) openSubTopic(step.topic, step.sub, { currentTarget: subBtn }, { keepExisting });
+    }
 
     function selectPersona(name) {
         if (!PERSONAS[name]) return;
         if (activePersona === name) return;
         activePersona = name;
+        clearPersonaRouteTimers();
 
         document.querySelectorAll('.persona-chip').forEach(c => c.classList.remove('active'));
         const chip = document.querySelector('[data-persona="' + name + '"]');
@@ -1996,8 +2067,11 @@
         url.searchParams.set('persona', name);
         history.replaceState(null, '', url);
 
-        const btn = document.querySelector('[data-topic="' + PERSONAS[name].primary + '"]');
-        if (btn) openTopic(PERSONAS[name].primary, { currentTarget: btn });
+        const persona = PERSONAS[name];
+        showPersonaRoute(persona.route);
+        persona.steps.forEach((step, index) => {
+            queuePersonaRoute(() => openRouteStep(step, index > 1), 650 + index * 1300);
+        });
     }
 
     window.addEventListener('load', () => {
