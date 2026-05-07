@@ -1040,39 +1040,32 @@
             margin-top: 10px;
         }
 
-        /* ===== Timeline scrubber ===== */
-        .tl-scrubber {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid var(--tl-border);
-        }
-        .tl-scrubber-header {
+        /* ===== Timeline year nav ===== */
+        .tl-year-nav {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 6px;
-            font-size: 11px;
-            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 2px 0 12px;
         }
-        .tl-yr-current {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--topic-accent);
-            font-family: var(--font-mono);
-        }
-        .tl-scrubber input[type="range"] {
-            width: 100%;
-            accent-color: var(--topic-accent);
+        .tl-year-pill {
+            border: 1px solid var(--sub-btn-border);
+            background: rgba(255,255,255,0.04);
+            color: var(--text-secondary);
+            border-radius: 999px;
+            padding: 6px 10px;
             cursor: pointer;
-            display: block;
-        }
-        .tl-yr-ends {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 4px;
             font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0;
+            transition: color var(--duration-short), border-color var(--duration-short), background var(--duration-short);
+        }
+        .tl-year-pill:hover,
+        .tl-year-pill.active {
+            color: var(--topic-accent-hover);
+            border-color: var(--topic-rail);
+            background: var(--topic-selection-bg);
         }
         /* Shared section cards */
         .section-stack {
@@ -1120,6 +1113,8 @@
             font-size: 12px;
             color: var(--text-secondary);
             margin-top: 2px;
+            line-height: 1.3;
+            overflow-wrap: anywhere;
         }
         .section-badge {
             margin-left: auto;
@@ -1144,6 +1139,9 @@
             grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
             gap: 8px;
             margin-bottom: 10px;
+        }
+        #reply-work .proof-grid.work-grid-2x2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
         .proof-tile {
             min-height: 52px;
@@ -1272,6 +1270,14 @@
         }
 
         @media (max-width: 520px) {
+            .tl-year-nav {
+                gap: 5px;
+            }
+            .tl-year-pill {
+                min-height: 32px;
+                padding: 5px 8px;
+                font-size: 9px;
+            }
             .proof-grid {
                 grid-template-columns: repeat(auto-fit, minmax(116px, 1fr));
             }
@@ -1402,92 +1408,6 @@
         }
         [data-theme="light"] .topic-btn.active {
             background: var(--topic-selection-bg);
-        }
-
-        /* ==== Custom slider chrome ==== */
-        .tl-scrubber input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            background: transparent;
-            height: 28px;
-            margin: 4px 0 0;
-            padding: 0;
-        }
-        .tl-scrubber input[type="range"]::-webkit-slider-runnable-track {
-            height: 4px;
-            border-radius: 2px;
-            background: linear-gradient(
-                90deg,
-                var(--topic-accent) 0%,
-                var(--topic-accent) var(--fill, 100%),
-                rgba(255,255,255,0.08) var(--fill, 100%),
-                rgba(255,255,255,0.08) 100%
-            );
-        }
-        .tl-scrubber input[type="range"]::-moz-range-track {
-            height: 4px;
-            border-radius: 2px;
-            background: rgba(255,255,255,0.08);
-        }
-        .tl-scrubber input[type="range"]::-moz-range-progress {
-            height: 4px;
-            border-radius: 2px;
-            background: var(--topic-accent);
-        }
-        [data-theme="light"] .tl-scrubber input[type="range"]::-webkit-slider-runnable-track {
-            background: linear-gradient(
-                90deg,
-                var(--topic-accent) 0%,
-                var(--topic-accent) var(--fill, 100%),
-                rgba(0,0,0,0.08) var(--fill, 100%),
-                rgba(0,0,0,0.08) 100%
-            );
-        }
-        [data-theme="light"] .tl-scrubber input[type="range"]::-moz-range-track {
-            background: rgba(0,0,0,0.08);
-        }
-        .tl-scrubber input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--topic-accent);
-            border: 2px solid var(--bg);
-            box-shadow: 0 2px 8px rgba(var(--topic-rgb),0.4);
-            margin-top: -6px;
-            cursor: pointer;
-            transition: transform var(--duration-short), box-shadow var(--duration-short);
-        }
-        .tl-scrubber input[type="range"]::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--topic-accent);
-            border: 2px solid var(--bg);
-            box-shadow: 0 2px 8px rgba(var(--topic-rgb),0.4);
-            cursor: pointer;
-            transition: transform var(--duration-short), box-shadow var(--duration-short);
-        }
-        .tl-scrubber input[type="range"]:hover::-webkit-slider-thumb {
-            transform: scale(1.12);
-            box-shadow: 0 4px 14px rgba(var(--topic-rgb),0.55);
-        }
-        .tl-scrubber input[type="range"]:hover::-moz-range-thumb {
-            transform: scale(1.12);
-            box-shadow: 0 4px 14px rgba(var(--topic-rgb),0.55);
-        }
-        .tl-scrubber input[type="range"]:active::-webkit-slider-thumb {
-            transform: scale(0.95);
-        }
-        .tl-scrubber input[type="range"]:active::-moz-range-thumb {
-            transform: scale(0.95);
-        }
-        .tl-scrubber input[type="range"]:focus-visible::-webkit-slider-thumb {
-            box-shadow: 0 0 0 4px rgba(var(--topic-rgb),0.25), 0 2px 8px rgba(var(--topic-rgb),0.4);
-        }
-        .tl-yr-current {
-            font-size: 15px;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1662,7 +1582,7 @@
         }
 
         /* ---------- Type contrast ---------- */
-        .tl-yr-current {
+        .tl-year-pill {
             font-variant-numeric: tabular-nums;
         }
         .company-name {
@@ -1907,7 +1827,7 @@
     <!-- Message 3 -->
     <div class="msg" id="m3">
         <div class="bubble highlight proof" data-id="msg-intro-3">
-            Last few years: scaled micro-drama at <span class="company-name">PocketFM</span> to <strong>$2M MRR</strong>, built a cross-sell P&L from zero at <span class="company-name">InsuranceDekho</span>, and closed a <strong>$20M Series A</strong> at MPL with Sequoia. <strong>IIMC &amp; NITK - Top Tier Academics.</strong>
+            My pattern: take ambiguous 0-to-1 bets and turn them into operating verticals. That has meant <strong>$2M MRR</strong> at <span class="company-name">PocketFM</span>, <strong>₹100+ Cr AGWP</strong> at <span class="company-name">InsuranceDekho</span>, <strong>$20M Series A</strong> at MPL, and <strong>$15M+ closed</strong> in Physical AI.
         </div>
     </div>
 
@@ -1961,6 +1881,14 @@
             <div class="typing" id="typing-sub-work-timeline"><span class="typing-label">Arun is typing</span><span></span><span></span><span></span></div>
             <div class="msg">
                 <div class="bubble highlight" data-id="msg-work-timeline">
+                    <div class="tl-year-nav" aria-label="Jump to a career period">
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2026)">Now</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2025)">2025</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2023)">2023</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2021)">2021</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2020)">2020</button>
+                        <button class="tl-year-pill" type="button" onclick="scrubTimeline(2017)">2017</button>
+                    </div>
                     <div class="section-stack" id="tl-metrics-container">
                         <div class="section-card timeline-card" data-start="2025" data-end="2026">
                             <div class="section-card-header">
@@ -1971,9 +1899,11 @@
                                 </div>
                                 <div class="section-badge">2025–26</div>
                             </div>
-                            <div class="proof-grid">
+                            <div class="proof-grid work-grid-2x2">
                                 <div class="proof-tile primary"><span class="proof-tile-value">$2M MRR</span><span class="proof-tile-note">Micro-drama revenue scale</span></div>
                                 <div class="proof-tile"><span class="proof-tile-value">500K DAU</span><span class="proof-tile-note">Daily active users</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Content marketing</span><span class="proof-tile-note">Led organic GTM channels</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Commissioning</span><span class="proof-tile-note">Owned show supply pipeline</span></div>
                             </div>
                             <div class="section-card-copy">Took a new vertical from launch to repeatable monetization.</div>
                         </div>
@@ -1982,13 +1912,13 @@
                                 <div class="section-icon">🚀</div>
                                 <div>
                                     <div class="section-card-title">Physical-AI Startup</div>
-                                    <div class="section-card-meta">Chief of Staff</div>
+                                    <div class="section-card-meta">Consultant -&gt; Chief of Staff</div>
                                 </div>
                                 <div class="section-badge">2025–26</div>
                             </div>
-                            <div class="proof-grid">
+                            <div class="proof-grid work-grid-2x2">
                                 <div class="proof-tile primary"><span class="proof-tile-value">0 → 20 team</span><span class="proof-tile-note">Org built from zero</span></div>
-                                <div class="proof-tile"><span class="proof-tile-value">Series A</span><span class="proof-tile-note">Fundraise operating track</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">$15M+ Closed</span><span class="proof-tile-note">End-to-end ownership</span></div>
                             </div>
                             <div class="section-card-copy">Hired, onboarded, and set operating cadence in parallel.</div>
                         </div>
@@ -2001,8 +1931,11 @@
                                 </div>
                                 <div class="section-badge">2023–25</div>
                             </div>
-                            <div class="proof-grid">
+                            <div class="proof-grid work-grid-2x2">
                                 <div class="proof-tile primary"><span class="proof-tile-value">₹100+ Cr AGWP</span><span class="proof-tile-note">Cross-sell premium volume</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Supply acquisition</span><span class="proof-tile-note">Channel strategy</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Financial services</span><span class="proof-tile-note">0-to-1 vertical build</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">M&amp;A</span><span class="proof-tile-note">Strategic projects</span></div>
                             </div>
                             <div class="section-card-copy">Owned channel design, partner motion, incentives, and execution.</div>
                         </div>
@@ -2011,13 +1944,15 @@
                                 <div class="section-icon">🤝</div>
                                 <div>
                                     <div class="section-card-title">MPL / Mayhem Studios</div>
-                                    <div class="section-card-meta">Chief of Staff</div>
+                                    <div class="section-card-meta">Strategy Manager -&gt; Lead Corp Dev / Founder&apos;s Office</div>
                                 </div>
                                 <div class="section-badge">2021–23</div>
                             </div>
-                            <div class="proof-grid">
+                            <div class="proof-grid work-grid-2x2">
                                 <div class="proof-tile primary"><span class="proof-tile-value">$20M Series A</span><span class="proof-tile-note">Sequoia fundraise closed</span></div>
                                 <div class="proof-tile"><span class="proof-tile-value">1.7M DAU</span><span class="proof-tile-note">Gaming platform scale</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Truecaller GTM</span><span class="proof-tile-note">Distribution partnership</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">10+ studios</span><span class="proof-tile-note">Developer partnerships</span></div>
                             </div>
                             <div class="section-card-copy">Coordinated founders, legal, finance, and product while shipping continued.</div>
                         </div>
@@ -2040,23 +1975,16 @@
                                 <div class="section-icon">💊</div>
                                 <div>
                                     <div class="section-card-title">Novartis</div>
-                                    <div class="section-card-meta">Data &amp; Strategy Analyst</div>
+                                    <div class="section-card-meta">Business Analyst -&gt; Advanced Business Analyst</div>
                                 </div>
                                 <div class="section-badge">2017–19</div>
                             </div>
                             <div class="proof-grid">
                                 <div class="proof-tile primary"><span class="proof-tile-value">$1B+ drug portfolio</span><span class="proof-tile-note">Pharma portfolio analytics</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">40% hours saved</span><span class="proof-tile-note">Data lake transformation</span></div>
                             </div>
                             <div class="section-card-copy">Built segmentation models and decision loops from messy data.</div>
                         </div>
-                    </div>
-                    <div class="tl-scrubber">
-                        <div class="tl-scrubber-header">
-                            <span>Time-travel: <span class="tl-yr-current" id="tl-yr">—</span></span>
-                            <span>slide to explore</span>
-                        </div>
-                        <input type="range" min="2017" max="2026" value="2026" id="tl-slider" oninput="scrubTimeline(+this.value)">
-                        <div class="tl-yr-ends"><span>2017</span><span>2026</span></div>
                     </div>
                 </div>
             </div>
@@ -2078,9 +2006,11 @@
                                 <div class="section-icon">📈</div>
                                 <div class="section-card-title">PocketFM Micro-drama</div>
                             </div>
-                            <div class="proof-grid">
+                            <div class="proof-grid work-grid-2x2">
                                 <div class="proof-tile primary"><span class="proof-tile-value">$2M MRR</span><span class="proof-tile-note">Reached in 5 months</span></div>
                                 <div class="proof-tile"><span class="proof-tile-value">500K DAU</span><span class="proof-tile-note">Daily active users</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Content marketing</span><span class="proof-tile-note">Led organic GTM channels</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Commissioning</span><span class="proof-tile-note">Owned show supply pipeline</span></div>
                             </div>
                             <div class="section-card-copy">Took the vertical from launch to repeatable monetization.</div>
                         </div>
@@ -2089,8 +2019,11 @@
                                 <div class="section-icon">💰</div>
                                 <div class="section-card-title">InsuranceDekho Cross-sell</div>
                             </div>
-                            <div class="proof-grid">
+                            <div class="proof-grid work-grid-2x2">
                                 <div class="proof-tile primary"><span class="proof-tile-value">₹100+ Cr AGWP</span><span class="proof-tile-note">Built from scratch</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Supply acquisition</span><span class="proof-tile-note">Channel strategy</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Financial services</span><span class="proof-tile-note">0-to-1 vertical build</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">M&amp;A</span><span class="proof-tile-note">Strategic projects</span></div>
                             </div>
                             <div class="section-card-copy">Owned partner motion, targets, and commercial execution.</div>
                         </div>
@@ -2099,9 +2032,11 @@
                                 <div class="section-icon">🤝</div>
                                 <div class="section-card-title">MPL / Mayhem Studios</div>
                             </div>
-                            <div class="proof-grid">
+                            <div class="proof-grid work-grid-2x2">
                                 <div class="proof-tile primary"><span class="proof-tile-value">$20M Series A</span><span class="proof-tile-note">Sequoia round closed</span></div>
                                 <div class="proof-tile"><span class="proof-tile-value">1.7M+ DAU</span><span class="proof-tile-note">Gaming platform scale</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">Truecaller GTM</span><span class="proof-tile-note">Distribution partnership</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">10+ studios</span><span class="proof-tile-note">Developer partnerships</span></div>
                             </div>
                             <div class="section-card-copy">Kept founders, finance, legal, and product aligned throughout.</div>
                         </div>
@@ -2112,7 +2047,7 @@
                             </div>
                             <div class="proof-grid">
                                 <div class="proof-tile primary"><span class="proof-tile-value">0 → 20 team</span><span class="proof-tile-note">Built in months</span></div>
-                                <div class="proof-tile"><span class="proof-tile-value">Series A</span><span class="proof-tile-note">Fundraise operating track</span></div>
+                                <div class="proof-tile"><span class="proof-tile-value">$15M+ Closed</span><span class="proof-tile-note">End-to-end ownership</span></div>
                             </div>
                             <div class="section-card-copy">Converted ambiguity into hiring plan, cadence, and execution rhythm.</div>
                         </div>
@@ -2188,7 +2123,7 @@
                             <div class="section-badge">2019–21</div>
                         </div>
                         <div class="proof-grid">
-                            <div class="proof-tile"><span class="proof-tile-value">Rank 20 / 480</span><span class="proof-tile-note">Batch standing</span></div>
+                            <div class="proof-tile"><span class="proof-tile-value">Rank 20 / 480</span><span class="proof-tile-note">Term 4 SGPA 8/9</span></div>
                             <div class="proof-tile"><span class="proof-tile-value">CAT 99.72%ile</span><span class="proof-tile-note">Entrance test percentile</span></div>
                         </div>
                         <div class="support-chips">
@@ -2915,6 +2850,12 @@
                             <div class="section-card-title"><a href="https://oxymarun.github.io/arun-cv/" target="_blank" rel="noopener noreferrer">Full CV website →</a></div>
                         </div>
                     </div>
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="section-icon">📄</div>
+                            <div class="section-card-title"><a href="assets/Arun_IIMC.pdf" target="_blank" rel="noopener noreferrer">CV PDF →</a></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3339,8 +3280,7 @@
         if (sub) {
             parts.push((SUBTOPIC_LABELS[topic] && SUBTOPIC_LABELS[topic][sub]) || labelFromId(sub));
             if (topic === 'work' && sub === 'timeline') {
-                const slider = document.getElementById('tl-slider');
-                parts.push(String(year || (slider ? slider.value : '2025')));
+                parts.push(String(year || '2026'));
             }
         }
         setViewStatus(parts);
@@ -3461,8 +3401,7 @@
         subReply.classList.add('open');
         updateViewStatus(topic, sub);
         if (topic === 'work' && sub === 'timeline') {
-            const slider = document.getElementById('tl-slider');
-            if (slider) scrubTimeline(+slider.value);
+            scrubTimeline(2026);
         }
 
         const typing = document.getElementById('typing-sub-' + topic + '-' + sub);
@@ -3590,18 +3529,16 @@
         if (p && PERSONAS[p]) setTimeout(() => selectPersona(p), 3200);
     });
 
-    // ===== Timeline scrubber =====
+    // ===== Timeline year nav =====
     function scrubTimeline(year) {
-        const display = document.getElementById('tl-yr');
-        if (display) display.textContent = year;
         const timeline = document.getElementById('sub-work-timeline');
         if (timeline && timeline.classList.contains('open')) updateViewStatus('work', 'timeline', year);
 
-        const slider = document.getElementById('tl-slider');
-        if (slider) {
-            const pct = ((year - 2017) / (2026 - 2017)) * 100;
-            slider.style.setProperty('--fill', pct + '%');
-        }
+        document.querySelectorAll('.tl-year-pill').forEach(btn => {
+            const label = btn.textContent.trim();
+            const btnYear = label === 'Now' ? 2026 : Number(label);
+            btn.classList.toggle('active', btnYear === year);
+        });
 
         document.querySelectorAll('#tl-metrics-container [data-start]').forEach(item => {
             const active = year >= +item.dataset.start && year <= +item.dataset.end;
