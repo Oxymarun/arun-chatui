@@ -35,6 +35,8 @@
             --duration-short: 160ms;
             --duration-medium: 260ms;
             --duration-long: 420ms;
+            --theme-shift-duration: 1.6s;
+            --theme-shift-ease: cubic-bezier(0.22, 1, 0.36, 1);
             --tick-shadow: 0 0 0 3px rgba(var(--topic-rgb),0.16);
 
             --baseline-rgb: 124, 108, 240;
@@ -213,7 +215,7 @@
             font-feature-settings: "cv02","cv03","cv04","ss01";
             min-height: 100vh;
             overflow-x: hidden;
-            transition: background var(--duration-medium) var(--ease-standard);
+            transition: background var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         [data-theme="light"] body {
@@ -222,38 +224,131 @@
                 linear-gradient(180deg, var(--day-sky-top) 0%, var(--day-sky-mid) 48%, var(--day-sky-bottom) 100%);
         }
 
-        body::before {
-            content: '';
+        .sky-scene {
             position: fixed;
-            top: clamp(22px, 7vh, 76px);
-            right: clamp(18px, 8vw, 132px);
-            width: clamp(84px, 10vw, 132px);
-            aspect-ratio: 1;
-            border-radius: 50%;
-            background:
-                radial-gradient(circle, rgba(255,255,255,0.82) 0 14%, rgba(var(--sun-rgb),0.95) 15% 52%, rgba(var(--sun-rgb),0.28) 53% 71%, transparent 72%),
-                radial-gradient(circle, rgba(var(--sun-rgb),0.2) 0 68%, transparent 69%);
-            box-shadow: 0 0 64px rgba(var(--sun-rgb),0.24);
-            opacity: 0;
+            inset: 0;
+            overflow: hidden;
             pointer-events: none;
             z-index: 1;
-            transition: opacity var(--duration-long) var(--ease-standard);
         }
 
-        [data-theme="light"] body::before {
-            opacity: 1;
+        .sky-sun,
+        .sky-moon,
+        .sky-plane {
+            position: absolute;
+            will-change: transform, opacity;
+        }
+
+        .sky-sun,
+        .sky-moon {
+            border-radius: 50%;
+            transition:
+                opacity var(--theme-shift-duration) var(--theme-shift-ease),
+                transform var(--theme-shift-duration) var(--theme-shift-ease),
+                box-shadow var(--theme-shift-duration) var(--theme-shift-ease),
+                background var(--theme-shift-duration) var(--theme-shift-ease);
+        }
+
+        .sky-sun {
+            top: clamp(20px, 7vh, 76px);
+            right: clamp(18px, 8vw, 132px);
+            width: clamp(86px, 10vw, 132px);
+            aspect-ratio: 1;
+            opacity: 0;
+            transform: translate3d(18px, 150px, 0) scale(0.82);
+            background:
+                radial-gradient(circle at 34% 28%, rgba(255,240,196,0.48) 0 11%, rgba(255,214,118,0.94) 33%, rgba(255,186,78,0.94) 58%, rgba(255,154,58,0.36) 74%, transparent 100%),
+                radial-gradient(circle at 62% 68%, rgba(255,206,112,0.28) 0 28%, transparent 58%);
+            box-shadow:
+                0 0 68px rgba(255,189,86,0.22),
+                0 0 132px rgba(255,219,130,0.10);
+        }
+
+        .sky-moon {
+            top: clamp(28px, 8vh, 92px);
+            left: clamp(16px, 8vw, 110px);
+            width: clamp(72px, 8vw, 104px);
+            aspect-ratio: 1;
+            opacity: 0;
+            transform: translate3d(-16px, 126px, 0) scale(0.8);
+            background:
+                radial-gradient(circle at 34% 34%, rgba(255,255,255,0.86) 0 18%, rgba(227,236,255,0.94) 36%, rgba(171,189,231,0.88) 62%, rgba(92,111,160,0.28) 78%, transparent 100%);
+            box-shadow:
+                0 0 42px rgba(174,198,255,0.12),
+                0 0 88px rgba(106,130,190,0.08);
+        }
+
+        .sky-moon::after {
+            content: '';
+            position: absolute;
+            inset: 12% 10% 10% 42%;
+            border-radius: 50%;
+            background: rgba(9,8,6,0.92);
+            filter: blur(1px);
+        }
+
+        .sky-plane {
+            top: clamp(92px, 14vh, 154px);
+            left: -18vw;
+            width: 42px;
+            height: 22px;
+            opacity: 0;
+            transition: opacity var(--theme-shift-duration) var(--theme-shift-ease);
+        }
+
+        .sky-plane-mark {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 32'%3E%3Cpath fill='%233f668a' d='M2 17.4l16.5-1.8L35.8 3.8h5.8l-8.6 11.1 17.5 1.2c2.4.2 4.2 2.2 4.2 4.6 0 1.3-1 2.3-2.2 2.3l-19.6-.5-5.7 6.1h-4l2.5-6.3-10.7-.3c-3.4-.1-6.8-1-9.8-2.5L2 17.4z'/%3E%3C/svg%3E");
+            filter: drop-shadow(0 1px 3px rgba(40,69,104,0.10));
+        }
+
+        html[data-theme="light"] .sky-sun {
+            opacity: 0.98;
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        html[data-theme="dark"] .sky-moon {
+            opacity: 0.92;
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        html[data-theme="light"] .sky-plane {
+            opacity: 0.78;
+        }
+
+        html[data-theme-transition="to-light"] .sky-plane {
+            opacity: 0.44;
+        }
+
+        html[data-theme-transition="to-dark"] .sky-plane {
+            opacity: 0;
         }
 
         @media (max-width: 700px) {
-            [data-theme="light"] body::before {
-                top: 132px;
-                right: -58px;
-                width: 102px;
-                opacity: 0.52;
+            .sky-sun {
+                top: 94px;
+                right: -40px;
+                width: 88px;
             }
-            html[data-theme="light"][data-chat-mode="topic"] body::before {
-                right: -76px;
-                opacity: 0.24;
+            .sky-moon {
+                top: 98px;
+                left: -30px;
+                width: 72px;
+            }
+            .sky-plane {
+                top: 104px;
+                width: 30px;
+                height: 16px;
+            }
+            html[data-theme="light"][data-chat-mode="topic"] .sky-sun {
+                right: -50px;
+                opacity: 0.42;
+            }
+            html[data-theme="dark"][data-chat-mode="topic"] .sky-moon {
+                left: -38px;
+                opacity: 0.44;
             }
         }
 
@@ -266,6 +361,7 @@
             opacity: 0.025;
             pointer-events: none;
             z-index: 0;
+            transition: opacity var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         [data-theme="light"] body::after { opacity: 0.015; }
@@ -294,6 +390,7 @@
             padding: var(--space-md) 14px;
             border: 1px solid var(--border-soft);
             box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 32px var(--shadow-deep);
+            transition: background var(--theme-shift-duration) var(--theme-shift-ease), border-color var(--theme-shift-duration) var(--theme-shift-ease), box-shadow var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         .view-status {
@@ -306,14 +403,17 @@
             color: var(--text-muted);
             opacity: 0;
             animation: fadeIn 0.45s ease 0.34s forwards;
+            transition: color var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         .view-status-label {
             color: rgba(var(--topic-rgb),0.62);
+            transition: color var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         .view-status-path {
             color: var(--text-secondary);
+            transition: color var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         [data-theme="light"] .chat-header {
@@ -373,6 +473,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: color var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         .online-dot {
@@ -383,6 +484,7 @@
             flex-shrink: 0;
             box-shadow: 0 0 0 2px rgba(var(--topic-rgb),0.16);
             animation: pulse-dot 2.5s ease-in-out infinite;
+            transition: background var(--theme-shift-duration) var(--theme-shift-ease), box-shadow var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         @keyframes pulse-dot {
@@ -415,7 +517,7 @@
             font-size: 12px;
             font-weight: 500;
             font-family: var(--font-sans);
-            transition: background var(--duration-short), transform var(--duration-short), box-shadow var(--duration-short);
+            transition: background var(--duration-short), border-color var(--duration-short), color var(--duration-short), transform var(--duration-short), box-shadow var(--duration-short);
             text-decoration: none;
             flex-shrink: 0;
             white-space: nowrap;
@@ -435,6 +537,12 @@
         .header-action-btn.call-btn:hover {
             background: rgba(34,197,94,0.18);
             box-shadow: 0 4px 12px rgba(34,197,94,0.15);
+        }
+        .header-action-btn:disabled {
+            opacity: 0.56;
+            cursor: default;
+            box-shadow: none;
+            transform: none;
         }
 
         /* Messages */
@@ -461,7 +569,7 @@
             -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
             position: relative;
-            transition: background var(--duration-medium), border-color var(--duration-medium), color var(--duration-medium), box-shadow var(--duration-medium);
+            transition: background var(--theme-shift-duration) var(--theme-shift-ease), border-color var(--theme-shift-duration) var(--theme-shift-ease), color var(--theme-shift-duration) var(--theme-shift-ease), box-shadow var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         .bubble::before {
@@ -541,6 +649,7 @@
             -webkit-backdrop-filter: blur(8px);
             position: relative;
             overflow: hidden;
+            transition-duration: var(--duration-short);
         }
         .topic-btn:hover {
             background: rgba(var(--topic-rgb),0.14);
@@ -1287,25 +1396,51 @@
             .chat-wrap {
                 width: 100%;
                 max-width: 100%;
-                padding: 32px 16px 100px;
+                padding: 16px 6px 100px;
                 overflow: hidden;
             }
             .sub-btn { font-size: 12px; padding: 5px 11px; }
             .chat-header {
-                max-width: calc(100vw - 32px);
+                gap: 6px;
+                max-width: calc(100vw - 12px);
                 min-width: 0;
+                padding: 7px 8px;
+            }
+            .avatar { width: 34px; height: 34px; }
+            .header-name { font-size: 11px; }
+            .header-sub {
+                font-size: 8px;
+                max-width: 76px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .chat-header > div:not(.avatar):not(.header-actions) {
+                flex: 1 1 auto;
                 min-width: 0;
             }
-            .header-actions { min-width: 0; }
-            .header-action-btn { height: 44px; min-width: 44px; padding: 0 9px; font-size: 12px; }
-            .header-action-btn .btn-icon { font-size: 11px; }
+            .header-actions {
+                min-width: 0;
+                gap: 2px;
+            }
+            .header-action-btn { height: 34px; min-width: 34px; padding: 0 6px; font-size: 9px; }
+            .header-action-btn .btn-icon { font-size: 9px; }
             .header-action-btn .btn-label { display: none; }
-            #theme-toggle { display: none; }
+            #theme-toggle {
+                display: inline-flex;
+                width: 34px;
+                padding: 0;
+            }
+            #theme-toggle .btn-icon {
+                font-size: 13px;
+                letter-spacing: 0;
+            }
+            .view-status {
+                margin: 4px 0 18px 40px;
+                font-size: 9px;
+            }
             .chat-wrap::after { display: none; }
             .topics { padding: 12px 10px 8px; }
-            .view-status { margin-left: 0; }
             .depth-counter { display: none; }
         }
 
@@ -1337,11 +1472,15 @@
 
         /* Theme toggle as text label */
         #theme-toggle .btn-icon {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0;
             opacity: 0.85;
+            line-height: 1;
+        }
+        #theme-toggle .btn-label {
+            text-transform: lowercase;
         }
 
         /* ---------- Rarify glow ---------- */
@@ -1476,6 +1615,7 @@
             animation: fadeIn 0.6s ease 3.6s forwards;
             font-variant-numeric: tabular-nums;
             text-transform: uppercase;
+            transition: color var(--theme-shift-duration) var(--theme-shift-ease), background var(--theme-shift-duration) var(--theme-shift-ease), border-color var(--theme-shift-duration) var(--theme-shift-ease);
         }
         .depth-counter.complete { color: var(--topic-accent); border-color: var(--topic-accent-border); }
 
@@ -1509,13 +1649,13 @@
             position: fixed;
             border-radius: 50%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 0;
             filter: blur(60px);
             will-change: transform;
             background:
                 radial-gradient(ellipse at 50% 50%, rgba(var(--sky-rgb), 0.16) 0%, rgba(var(--sky-rgb), 0.05) 44%, transparent 72%);
             mix-blend-mode: screen;
-            transition: background 1.4s var(--ease-standard), filter 1.4s var(--ease-standard), opacity 1.4s var(--ease-standard);
+            transition: background var(--theme-shift-duration) var(--theme-shift-ease), filter var(--theme-shift-duration) var(--theme-shift-ease), opacity var(--theme-shift-duration) var(--theme-shift-ease);
         }
         #ab1 { width: 40vw; height: 34vw; top: -10%; left:  8%; }
         #ab2 { width: 34vw; height: 38vw; top: 28%;  right: -4%; }
@@ -1549,25 +1689,48 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
-            opacity: 0;
-            animation: fadeIn 2.4s ease 1.2s forwards;
+            z-index: 0;
+            opacity: 1;
+            transition: opacity var(--theme-shift-duration) var(--theme-shift-ease);
         }
         [data-theme="light"] #stars-canvas {
-            opacity: 0 !important;
+            opacity: 0;
             filter: none;
+        }
+        html[data-theme-transition="to-light"] #stars-canvas { opacity: 0.16; }
+        html[data-theme-transition="to-dark"] #stars-canvas { opacity: 0.34; }
+
+        html[data-theme-transition] .chat-header,
+        html[data-theme-transition] .bubble,
+        html[data-theme-transition] .bubble.highlight,
+        html[data-theme-transition] .bubble.proof,
+        html[data-theme-transition] .view-status,
+        html[data-theme-transition] .header-sub,
+        html[data-theme-transition] .header-action-btn,
+        html[data-theme-transition] .topic-btn,
+        html[data-theme-transition] .depth-counter {
+            transition-duration: var(--theme-shift-duration) !important;
+            transition-timing-function: var(--theme-shift-ease) !important;
         }
 
         @media (prefers-reduced-motion: reduce) {
             .aurora-blob { transition: none !important; animation: none !important; }
             #stars-canvas { animation: none !important; opacity: 0.4 !important; }
             [data-theme="light"] #stars-canvas { opacity: 0 !important; }
+            .sky-sun,
+            .sky-moon { transition: none !important; }
+            .sky-plane { opacity: 0 !important; transition: none !important; }
         }
     </style>
 </head>
 <body>
 
 <canvas id="stars-canvas" aria-hidden="true"></canvas>
+<div class="sky-scene" aria-hidden="true">
+    <div class="sky-moon" id="sky-moon"></div>
+    <div class="sky-sun" id="sky-sun"></div>
+    <div class="sky-plane" id="sky-plane"><div class="sky-plane-mark"></div></div>
+</div>
 <div class="aurora-blob" id="ab1" aria-hidden="true"></div>
 <div class="aurora-blob" id="ab2" aria-hidden="true"></div>
 <div class="aurora-blob" id="ab3" aria-hidden="true"></div>
@@ -1585,7 +1748,7 @@
         </div>
         <div class="header-actions">
             <a href="tel:+919663338493" class="header-action-btn call-btn" title="Call Arun" aria-label="Call Arun"><span class="btn-icon">📞</span><span class="btn-label">Call</span></a>
-            <button class="header-action-btn" id="theme-toggle" title="Toggle light/dark mode" aria-label="Toggle theme" onclick="toggleTheme()"><span class="btn-icon">DARK</span><span class="btn-label">mode</span></button>
+            <button class="header-action-btn" id="theme-toggle" title="Switch to light mode" aria-label="Switch to light mode" onclick="toggleTheme()"><span class="btn-icon">☀</span><span class="btn-label">light</span></button>
         </div>
     </div>
     <div class="view-status" id="view-status" aria-live="polite">
@@ -2293,26 +2456,87 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
     // Theme toggle
+    const THEME_SHIFT_SECONDS = 1.6;
+    let isThemeTransitioning = false;
+    let themeTransitionTimeline = null;
+    let planeLoop = null;
+
     function setThemeBtn(theme) {
         const btn = document.getElementById('theme-toggle');
+        if (!btn) return;
         const icon = btn.querySelector('.btn-icon');
         const label = btn.querySelector('.btn-label');
-        if (theme === 'light') {
-            icon.textContent = 'DARK';
-            label.textContent = 'mode';
-        } else {
-            icon.textContent = 'LIGHT';
-            label.textContent = 'mode';
-        }
+        const nextTheme = theme === 'light' ? 'dark' : 'light';
+        icon.textContent = nextTheme === 'dark' ? '☾' : '☀';
+        label.textContent = nextTheme;
+        btn.title = `Switch to ${nextTheme} mode`;
+        btn.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
+    }
+
+    function persistTheme(theme) {
+        try { localStorage.setItem('chatui_theme', theme); } catch (e) {}
+    }
+
+    function clearThemeTransitionState() {
+        const html = document.documentElement;
+        delete html.dataset.themeTransition;
+        isThemeTransitioning = false;
+        const btn = document.getElementById('theme-toggle');
+        if (btn) btn.disabled = false;
+        gsap.set(['#sky-sun', '#sky-moon'], { clearProps: 'x,y,scale,opacity' });
     }
 
     function toggleTheme() {
-        tickControl(document.getElementById('theme-toggle'));
+        const btn = document.getElementById('theme-toggle');
+        if (isThemeTransitioning) return;
+        tickControl(btn);
         const html = document.documentElement;
-        const isDark = html.dataset.theme === 'dark';
-        html.dataset.theme = isDark ? 'light' : 'dark';
-        setThemeBtn(html.dataset.theme);
-        try { localStorage.setItem('chatui_theme', html.dataset.theme); } catch(e) {}
+        const targetTheme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+
+        if (reduceMotion) {
+            html.dataset.theme = targetTheme;
+            delete html.dataset.themeTransition;
+            setThemeBtn(targetTheme);
+            persistTheme(targetTheme);
+            return;
+        }
+
+        const sun = document.getElementById('sky-sun');
+        const moon = document.getElementById('sky-moon');
+        if (!sun || !moon) {
+            html.dataset.theme = targetTheme;
+            setThemeBtn(targetTheme);
+            persistTheme(targetTheme);
+            return;
+        }
+
+        isThemeTransitioning = true;
+        if (btn) btn.disabled = true;
+
+        html.dataset.theme = targetTheme;
+        html.dataset.themeTransition = targetTheme === 'light' ? 'to-light' : 'to-dark';
+        setThemeBtn(targetTheme);
+        persistTheme(targetTheme);
+
+        if (themeTransitionTimeline) themeTransitionTimeline.kill();
+        gsap.killTweensOf([sun, moon]);
+
+        if (targetTheme === 'light') {
+            gsap.set(sun, { x: 18, y: 150, scale: 0.82, opacity: 0 });
+            gsap.set(moon, { x: 0, y: 0, scale: 1, opacity: 0.92 });
+            themeTransitionTimeline = gsap.timeline({ onComplete: clearThemeTransitionState });
+            themeTransitionTimeline
+                .to(moon, { y: -148, scale: 0.82, opacity: 0, duration: 1.06, ease: 'power2.in' }, 0)
+                .to(sun, { x: 0, y: 0, scale: 1, opacity: 0.98, duration: THEME_SHIFT_SECONDS, ease: 'power3.out' }, 0.14);
+            return;
+        }
+
+        gsap.set(sun, { x: 0, y: 0, scale: 1, opacity: 0.98 });
+        gsap.set(moon, { x: -16, y: 126, scale: 0.8, opacity: 0 });
+        themeTransitionTimeline = gsap.timeline({ onComplete: clearThemeTransitionState });
+        themeTransitionTimeline
+            .to(sun, { x: 22, y: 164, scale: 0.82, opacity: 0, duration: 1.02, ease: 'power2.in' }, 0)
+            .to(moon, { x: 0, y: 0, scale: 1, opacity: 0.92, duration: THEME_SHIFT_SECONDS, ease: 'power3.out' }, 0.12);
     }
 
     try {
@@ -2366,6 +2590,36 @@
     }
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function initPlaneLoop() {
+        const plane = document.getElementById('sky-plane');
+        const planeMark = plane && plane.querySelector('.sky-plane-mark');
+        if (!plane || !planeMark || reduceMotion) return;
+
+        planeLoop = gsap.timeline({ repeat: -1, repeatRefresh: true, delay: 1.2 });
+        planeLoop
+            .set(plane, {
+                x: () => -Math.max(window.innerWidth * 0.22, 180),
+                y: 0,
+                rotation: -5,
+                transformOrigin: '50% 50%'
+            })
+            .set(planeMark, { opacity: 0 })
+            .to(plane, {
+                x: () => window.innerWidth + Math.max(window.innerWidth * 0.18, 160),
+                y: () => window.innerWidth < 700 ? -8 : -18,
+                rotation: -4,
+                duration: () => window.innerWidth < 700 ? 5.8 : 6.5,
+                ease: 'none'
+            }, 0)
+            .to(planeMark, { opacity: 0.94, duration: 0.72, ease: 'sine.out' }, 0.16)
+            .to(planeMark, { opacity: 0, duration: 0.72, ease: 'sine.in' }, '>-0.72');
+    }
+
+    initPlaneLoop();
+    window.addEventListener('resize', () => {
+        if (planeLoop) planeLoop.invalidate();
+    });
 
     function tickControl(el) {
         if (!el || reduceMotion) return;
@@ -2753,7 +3007,8 @@
         }
 
         function isLightTheme() {
-            return document.documentElement.dataset.theme === 'light';
+            const html = document.documentElement;
+            return html.dataset.theme === 'light' && html.dataset.themeTransition !== 'to-light';
         }
 
         function colorMode() {
@@ -2930,7 +3185,7 @@
         if (reduceMotion) {
             new MutationObserver(() => draw(performance.now())).observe(document.documentElement, {
                 attributes: true,
-                attributeFilter: ['data-theme', 'data-active-topic', 'data-chat-mode'],
+                attributeFilter: ['data-theme', 'data-theme-transition', 'data-active-topic', 'data-chat-mode'],
             });
         }
         draw();
