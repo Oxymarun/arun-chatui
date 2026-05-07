@@ -293,13 +293,15 @@
             width: 42px;
             height: 22px;
             opacity: 0;
+            pointer-events: none;
+            cursor: default;
             transition: opacity var(--theme-shift-duration) var(--theme-shift-ease);
         }
 
         .sky-plane-mark {
             width: 100%;
             height: 100%;
-            opacity: 0;
+            opacity: 1;
             background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 32'%3E%3Cpath fill='%233f668a' d='M2 17.4l16.5-1.8L35.8 3.8h5.8l-8.6 11.1 17.5 1.2c2.4.2 4.2 2.2 4.2 4.6 0 1.3-1 2.3-2.2 2.3l-19.6-.5-5.7 6.1h-4l2.5-6.3-10.7-.3c-3.4-.1-6.8-1-9.8-2.5L2 17.4z'/%3E%3C/svg%3E");
             filter: drop-shadow(0 1px 3px rgba(40,69,104,0.10));
         }
@@ -316,6 +318,8 @@
 
         html[data-theme="light"] .sky-plane {
             opacity: 0.78;
+            pointer-events: auto;
+            cursor: crosshair;
         }
 
         html[data-theme-transition="to-light"] .sky-plane {
@@ -2460,6 +2464,8 @@
     let isThemeTransitioning = false;
     let themeTransitionTimeline = null;
     let planeLoop = null;
+    let planeRespawnTimer = null;
+    let planeCrashed = false;
 
     function setThemeBtn(theme) {
         const btn = document.getElementById('theme-toggle');
@@ -2591,34 +2597,116 @@
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    function isPlaneVisibleTheme() {
+        return document.documentElement.dataset.theme === 'light';
+    }
+
+    function clearPlaneRespawnTimer() {
+        if (!planeRespawnTimer) return;
+        clearTimeout(planeRespawnTimer);
+        planeRespawnTimer = null;
+    }
+
+    function stopPlaneLoop() {
+        if (planeLoop) {
+            planeLoop.kill();
+            planeLoop = null;
+        }
+    }
+
+    function getPlaneBounds(side) {
+        const margin = Math.max(window.innerWidth * 0.18, 160);
+        const fromLeft = side === 'left';
+        return {
+            startX: fromLeft ? -margin : window.innerWidth + margin,
+            endX: fromLeft ? window.innerWidth + margin : -margin,
+            startY: Math.round(window.innerHeight * (0.14 + Math.random() * 0.16)),
+            endY: Math.round(window.innerHeight * (0.12 + Math.random() * 0.18)),
+            direction: fromLeft ? 1 : -1
+        };
+    }
+
     function initPlaneLoop() {
         const plane = document.getElementById('sky-plane');
         const planeMark = plane && plane.querySelector('.sky-plane-mark');
         if (!plane || !planeMark || reduceMotion) return;
 
-        planeLoop = gsap.timeline({ repeat: -1, repeatRefresh: true, delay: 1.2 });
-        planeLoop
-            .set(plane, {
-                x: () => -Math.max(window.innerWidth * 0.22, 180),
-                y: 0,
-                rotation: -5,
-                transformOrigin: '50% 50%'
-            })
-            .set(planeMark, { opacity: 0 })
-            .to(plane, {
-                x: () => window.innerWidth + Math.max(window.innerWidth * 0.18, 160),
-                y: () => window.innerWidth < 700 ? -8 : -18,
-                rotation: -4,
-                duration: () => window.innerWidth < 700 ? 5.8 : 6.5,
-                ease: 'none'
-            }, 0)
-            .to(planeMark, { opacity: 0.94, duration: 0.72, ease: 'sine.out' }, 0.16)
-            .to(planeMark, { opacity: 0, duration: 0.72, ease: 'sine.in' }, '>-0.72');
+        function startPlanePass(side = Math.random() > 0.5 ? 'left' : 'right') {
+            if (planeCrashed || !isPlaneVisibleTheme()) return;
+
+            stopPlaneLoop();
+            const bounds = getPlaneBounds(side);
+            gsap.set(plane, {
+                x: bounds.startX,
+                y: bounds.startY,
+                rotation: bounds.direction === 1 ? -4 : 4,
+                scaleX: bounds.direction,
+                transformOrigin: '50% 50%',
+                autoAlpha: 1
+            });
+            gsap.set(planeMark, { opacity: 1 });
+
+            planeLoop = gsap.to(plane, {
+                x: bounds.endX,
+                y: bounds.endY,
+                rotation: bounds.direction === 1 ? -2 : 2,
+                duration: window.innerWidth < 700 ? 14 : 18,
+                ease: 'none',
+                onComplete: () => startPlanePass(Math.random() > 0.5 ? 'left' : 'right')
+            });
+        }
+
+        function crashPlane() {
+            if (planeCrashed || !isPlaneVisibleTheme()) return;
+
+            planeCrashed = true;
+            clearPlaneRespawnTimer();
+            stopPlaneLoop();
+            gsap.killTweensOf(plane);
+
+            const direction = gsap.getProperty(plane, 'scaleX') === -1 ? -1 : 1;
+            gsap.to(plane, {
+                y: `+=${Math.max(window.innerHeight * 0.42, 260)}`,
+                x: `+=${direction * 90}`,
+                rotation: direction * 92,
+                autoAlpha: 0,
+                duration: 1.15,
+                ease: 'power2.in',
+                onComplete: () => {
+                    planeRespawnTimer = setTimeout(() => {
+                        planeRespawnTimer = null;
+                        planeCrashed = false;
+                        startPlanePass(Math.random() > 0.5 ? 'left' : 'right');
+                    }, 5000);
+                }
+            });
+        }
+
+        if (!plane.dataset.crashBound) {
+            plane.addEventListener('dblclick', crashPlane);
+            plane.dataset.crashBound = 'true';
+        }
+        startPlanePass();
     }
 
     initPlaneLoop();
     window.addEventListener('resize', () => {
-        if (planeLoop) planeLoop.invalidate();
+        if (reduceMotion || planeCrashed || !isPlaneVisibleTheme()) return;
+        initPlaneLoop();
+    });
+    new MutationObserver(() => {
+        if (reduceMotion) return;
+        if (isPlaneVisibleTheme()) {
+            if (!planeLoop && !planeCrashed) initPlaneLoop();
+            return;
+        }
+        clearPlaneRespawnTimer();
+        planeCrashed = false;
+        stopPlaneLoop();
+        gsap.set('#sky-plane', { clearProps: 'autoAlpha' });
+    }).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
     });
 
     function tickControl(el) {
