@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.4.1] - 2026-05-08
+
+### Changed
+- Propeller plane in the light-mode sky now uses a clean Cessna-like side profile: cream fuselage, blue and red accent stripes, high wing with strut, vertical tail fin, horizontal stabilizer, and cabin windows. Crash fragments updated to match.
+
 ## [0.0.4.0] - 2026-05-08
 
 ### Added
