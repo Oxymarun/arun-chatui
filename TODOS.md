@@ -32,7 +32,7 @@
 
 ---
 
-## P3 — Remove Orphaned `data-time` Attributes
+## ~~P3 — Remove Orphaned `data-time` Attributes~~ DONE (2026-05-07)
 
 **What:** Remove `data-time="just now"` attributes from all `.bubble` elements in index.html.
 
@@ -49,6 +49,8 @@
 **Priority:** P3
 
 **Depends on:** None.
+
+**Completed:** v0.0.1.0 (2026-05-07)
 
 ---
 

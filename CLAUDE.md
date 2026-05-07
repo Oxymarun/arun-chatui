@@ -1,27 +1,28 @@
 # Arun ChatUI
 
-Chat-style personal portfolio. Dark starfield bg, red accents, glassmorphism bubbles, messages appear on load, topic buttons expand inline. v2 shipped 2026-04-18. v2.1 shipped 2026-04-19 (persona chips, KPI toggle, time-travel slider).
+Chat-style personal portfolio. Dark operator-channel UI, contextual topic accents, glassmorphism bubbles, messages appear on load, topic buttons expand inline. v2 shipped 2026-04-18. v2.1 shipped 2026-04-19 (persona chips, KPI toggle, time-travel slider). v2.2 applies the `DESIGN.md` system.
 
 ## Stack
 - Single `index.html` — no build step, no framework
 - Vanilla JS + CSS
-- Google Fonts (Inter) via CDN
-- Canvas starfield (inline JS)
+- Google Fonts (Geist / Geist Mono) via CDN
+- Static radial-gradient background with subtle grain
 
 ## Design
 | Token | Value |
 |---|---|
-| Background | `#0d1117` |
-| Accent | `#c0392b` (default), `#e74c3c` (hover/highlight) |
-| Bubble bg | `rgba(255,255,255,0.06)` |
-| Highlight bubble | `rgba(192,57,43,0.12)` |
-| Text | `#e8eaf0` (primary), `#c8ccd4` (secondary) |
-| Font | Inter |
+| Source of truth | `DESIGN.md` |
+| Background | `#090806` dark shell, `#faf7f0` light shell |
+| Accent | Contextual `--topic-*` tokens driven by `data-active-topic` |
+| Bubble bg | `rgba(18,16,12,0.88)` dark, `rgba(255,255,255,0.92)` light |
+| Text | `#f7f1e8` dark primary, `#17130d` light primary |
+| Font | Geist / Geist Mono |
 
 ## Structure
 ```
 index.html   # Entire site
 CLAUDE.md    # This file
+DESIGN.md    # Design system source of truth
 STATE.md     # Current state & todos
 ```
 
@@ -32,28 +33,21 @@ STATE.md     # Current state & todos
 4. **About me** — personal facts, availability
 5. **Things I've Built** — GitHub projects (Dopamine, ChatUI, CV website)
 6. **Let's connect** — email, phone, LinkedIn, CV link
-7. **Thoughts** — scaffolded, awaiting real copy (3-4 sharp opinions)
 
-## Design (v2 tokens)
-| Token | Value |
-|---|---|
-| Accent RGB var | `--accent-rgb: 192, 57, 43` — single source, use `rgba(var(--accent-rgb), α)` |
-| Bubble bg | `rgba(255,255,255,0.06)` + `backdrop-filter: blur(12px)` |
-| Bubble shadow | `0 2px 12px rgba(0,0,0,0.3)` |
-| Header | frosted glass (`backdrop-filter: blur(16px)`) |
-| Nebula blobs | decorative `position:fixed` radial gradients, pointer-events none |
+## Design System
+Always read `DESIGN.md` before making any visual or UI decisions.
+All font choices, colors, spacing, and aesthetic direction are defined there.
+Do not deviate without explicit user approval.
+In QA mode, flag any code that does not match `DESIGN.md`.
 
 ## JS Patterns
-- Messages stagger in on load via `setTimeout` + `.show` class
-- Topics array data-driven — topic config in JS object, not hardcoded per button
+- Messages stagger in on load via GSAP
 - Topic buttons toggle `.open` on `.reply-block` divs; accordion closes others; `scrollIntoView({block:'start'})`
-- Reply block messages stagger in at 150ms each via `querySelectorAll('.msg')` + `setTimeout`
-- Starfield: canvas, `requestAnimationFrame`, twinkle via `Math.sin` phase drift; paused on `visibilitychange`; null-guarded
-- Canvas resizes on `window.resize` — `initStars()` only on resize, not expand
-- Emoji reactions: click to toggle, persist to `localStorage`, key = `reaction-{topic}-{emoji}`
+- `openTopic(topic, event)` updates `document.documentElement.dataset.activeTopic` for contextual color accents
+- Reply block messages stagger in via `querySelectorAll('.msg')` + GSAP
 - ✓✓ Seen receipts: `.seen` class added after last message stagger completes
 - Persona chips: `.persona-bar` shows at 2750ms; `selectPersona(name)` calls `openTopic()` with synthetic event `{currentTarget: btn}`; idempotency guard; `history.replaceState` sets `?persona=`; URL param auto-fires at 3200ms on load
-- KPI toggle: `toggleMetrics()` toggles `.metrics-visible` on `#tl-metrics-container`; `.metric` spans highlight red via CSS; button text flips
+- KPI toggle: `toggleMetrics()` toggles `.metrics-visible` on `#tl-metrics-container`; `.metric` spans highlight via topic accent CSS; button text flips
 - Time-travel slider: `scrubTimeline(year)` matches `.mini-tl-item[data-start][data-end]`; adds `.tl-active`/`.tl-dim`; hue-rotates `.nebula` via JS `style.filter` (not CSS var — avoids permanent rotation at load)
 
 ## Running
