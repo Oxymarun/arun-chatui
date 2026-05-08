@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.0.5.0] - 2026-05-08
+
+### Added
+- Dawn intro animation: first-time visitors see the page start in dark (night) mode, then watch the sun rise and sky shift to day as the opening messages load — a 2.8-second sunrise sequence. Return visits restore the saved theme instantly.
+- Typing indicator wow stream: "Arun is typing..." appears in the header and an animated dots bubble shows before the first message, establishing a real-chat feel from the first second.
+- Blue seen receipt (✓✓ Seen) fades in on the last intro message, rendered in the contextual topic accent color.
+
+### Fixed
+- Sun and moon now visible and interactive on mobile — were previously pushed off-screen (`right: -40px`, `left: -52px`). Both now sit at `8px` from their respective edges, fully within the viewport.
+- Sky elements in topic mode on mobile now stay visible (dimmed to `opacity: 0.3`) instead of disappearing off-screen.
+
 ## [0.0.4.1] - 2026-05-08
 
 ### Changed
