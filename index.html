@@ -499,12 +499,12 @@
         @media (max-width: 700px) {
             .sky-sun {
                 top: 94px;
-                right: -40px;
+                right: 8px;
                 width: 88px;
             }
             .sky-moon {
                 top: 88px;
-                left: -52px;
+                left: 8px;
                 width: 68px;
             }
             .sky-plane {
@@ -534,12 +534,12 @@
                 top: 20px;
             }
             html[data-theme="light"][data-chat-mode="topic"] .sky-sun {
-                right: -50px;
-                opacity: 0.42;
+                right: 8px;
+                opacity: 0.3;
             }
             html[data-theme="dark"][data-chat-mode="topic"] .sky-moon {
-                left: -56px;
-                opacity: 0.44;
+                left: 8px;
+                opacity: 0.3;
             }
         }
 
@@ -1227,6 +1227,9 @@
             opacity: 0;
             animation: fadeIn 0.3s ease 0.3s forwards;
             font-family: var(--font-mono);
+        }
+        .receipt-intro .receipt-tick {
+            color: rgb(var(--topic-rgb));
         }
 
         /* ===== Persona chips ===== */
@@ -3574,7 +3577,11 @@
             document.documentElement.dataset.theme = saved;
             setThemeBtn(saved);
         } else {
-            setThemeBtn(document.documentElement.dataset.theme);
+            // First visit: dawn sequence — start dark, rise to light as messages load
+            setThemeBtn('dark');
+            gsap.delayedCall(1.2, () => {
+                if (!isThemeTransitioning) toggleTheme();
+            });
         }
     } catch(e) {
         setThemeBtn(document.documentElement.dataset.theme);
@@ -3582,12 +3589,41 @@
 
     // Initial reveal — GSAP
     gsap.set('#topics .topic-btn', { opacity: 0, y: 8 });
+
+    // Wow stream: inject typing bubble before m1, show "Arun is typing..." in header
+    const headerSub = document.querySelector('.header-sub');
+    const headerSubOriginal = headerSub ? headerSub.innerHTML : '';
+    const tiIntro = document.createElement('div');
+    tiIntro.className = 'typing';
+    tiIntro.id = 'ti-intro';
+    tiIntro.innerHTML = '<span class="typing-label">Arun is typing</span><span></span><span></span><span></span>';
+    tiIntro.style.cssText = 'opacity:0;margin-bottom:12px;';
+    const m1el = document.getElementById('m1');
+    if (m1el && m1el.parentNode) m1el.parentNode.insertBefore(tiIntro, m1el);
+
     gsap.timeline()
+        .call(() => {
+            if (headerSub) headerSub.innerHTML = '<span class="online-dot"></span>Arun is typing...';
+        }, [], 0)
+        .set('#ti-intro', { autoAlpha: 1 }, 0)
         .to('#music-player', { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.18)
+        .to('#ti-intro', { autoAlpha: 0, y: -4, duration: 0.18, ease: 'power2.in' }, 0.12)
         .to('#m1', { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, duration: 0.5, ease: 'power2.out' }, 0.3)
         .to('#m2', { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, duration: 0.5, ease: 'power2.out' }, 0.9)
         .to('#m3', { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, duration: 0.5, ease: 'power2.out' }, 1.6)
         .to('#m4', { opacity: 1, y: 0, '--rail-scale': 1, '--rail-opacity': 1, duration: 0.5, ease: 'power2.out' }, 2.4)
+        .call(() => {
+            if (headerSub) headerSub.innerHTML = headerSubOriginal;
+        }, [], 2.65)
+        .call(() => {
+            const m4bubble = document.querySelector('#m4 .bubble');
+            if (m4bubble && !m4bubble.querySelector('.receipt')) {
+                const receipt = document.createElement('div');
+                receipt.className = 'receipt receipt-intro';
+                receipt.innerHTML = '<span class="receipt-tick">✓✓</span> Seen';
+                m4bubble.appendChild(receipt);
+            }
+        }, [], 2.9)
         .to('#persona-bar', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 2.75)
         .to('#topics', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 3.0)
         .to('#topics .topic-btn', { opacity: 1, y: 0, stagger: 0.08, duration: 0.4, ease: 'back.out(1.4)' }, 3.05);
