@@ -1,0 +1,16 @@
+{
+  "name": "belgrade-v1",
+  "version": "1.0.0",
+  "description": "A personal portfolio that looks and feels like a messaging app. Dark operator-channel UI, glassmorphism bubbles, contextual topic accents, and interactive features that make it quick to explore.",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}
