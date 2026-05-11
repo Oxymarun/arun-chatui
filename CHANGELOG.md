@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.0.6.0] - 2026-05-11
+
+### Added
+- Richer dark mode atmosphere: deep-space navy tint at the top of the viewport gives the background a night-sky depth that was previously flat
+- Vignette layer via `body::before` — edges darken softly toward the periphery, drawing focus to the chat column
+- Third topic-reactive aurora bloom (top-right) filling the dark canvas more evenly
+- E2E test suite (Playwright) with 5 smoke tests covering page load, theme defaults, header, topic buttons, and aurora DOM elements
+
+### Changed
+- Aurora blobs softer and more diffuse: blur increased `60px → 80px`, opacity `0.16 → 0.22`, coverage slightly larger
+- Grain texture more tactile: opacity nudged `0.025 → 0.038`
+- Star field denser with higher brightness range per layer
+
 ## [0.0.5.0] - 2026-05-08
 
 ### Added
