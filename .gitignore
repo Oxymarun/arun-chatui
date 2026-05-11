@@ -2,3 +2,7 @@ Arun_IIMC_Strategy.pdf
 .gstack/
 .DS_Store
 .playwright-mcp/
+node_modules/
+package-lock.json
+test-results/
+playwright-report/
