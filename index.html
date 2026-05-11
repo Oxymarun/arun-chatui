@@ -25,6 +25,8 @@
             --radius-xs: 4px;
             --radius-sm: 8px;
             --radius-md: 12px;
+            --radius-tile: 10px;
+            --radius-card: 14px;
             --radius-lg: 16px;
             --radius-chat: 4px 18px 18px 18px;
             --radius-pill: 999px;
@@ -1101,7 +1103,7 @@
             background: transparent;
             color: var(--sub-btn-color);
             border: 1px solid var(--sub-btn-border);
-            border-radius: 14px;
+            border-radius: var(--radius-card);
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
@@ -1330,7 +1332,7 @@
         .section-card {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px;
+            border-radius: var(--radius-card);
             padding: 14px 16px;
             position: relative;
             overflow: hidden;
@@ -1401,7 +1403,7 @@
         .proof-tile {
             min-height: 52px;
             padding: 9px 10px;
-            border-radius: 10px;
+            border-radius: var(--radius-tile);
             border: 1px solid rgba(var(--topic-rgb),0.34);
             background:
                 linear-gradient(135deg, rgba(var(--topic-rgb),0.18), rgba(var(--topic-rgb),0.06)),
@@ -1717,7 +1719,7 @@
             .chat-wrap {
                 width: 100%;
                 max-width: 100%;
-                padding: 16px 6px 100px;
+                padding: 16px 16px 100px;
                 overflow: hidden;
             }
             .sub-btn { font-size: 12px; padding: 5px 11px; }
